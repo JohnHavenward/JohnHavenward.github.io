@@ -3,32 +3,180 @@
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>MENU FLEX</title>
+      <title>Match-Emoji</title>
       
-      <link rel="stylesheet" href="menu_flex.css">
+      <link rel="stylesheet" href="matching-game.css">
 </head>
 <body>
-      <div class="slots-wrapper">
-            <div class="slot-tab slot-A">
-                  <img src="logos/Artstation.png" alt="">
+      
+      <div class="header">
+            <div class="header-button mute">
+                  <p>AUDIO: OFF</p>
             </div>
-            <div class="slot-tab slot-B">
-                  <img src="logos/Discord.png" alt="">
+            <div class="header-button menu">
+                  <p>MENU</p>
             </div>
-            <div class="slot-tab slot-C">
-                  <img src="logos/Twitter.png" alt="">  
+            <div class="header-button">
+                  <div>
+                        <p id="Minutes">00</p>
+                        <p id="Seconds">:00s</p>
+                  </div>
             </div>
-            <div class="slot-tab slot-D">
-                  <img src="logos/Youtube.png" alt="">
+            <div class="header-button reset">
+                  <p>RESET</p>
             </div>
-            <div class="slot-tab slot-E">
-                  <img src="logos/Instagram.png" alt="">
+            <div class="header-button fullscreen">
+                  <p>ENTER FULLSCREEN</p>
             </div>
-            
+      </div>
+      
+      <div class="cards-wrapper">
             
       </div>
       
       
+      <div class="win-banner hidden">
+            <p>WELL DONE!</p>
+      </div>
+      
+      
+      <div class="menu-wrapper">
+            <div class="menu-title">
+                  <div class="menu-title-emojis">
+                        <p>🙈 🙉 🙊</p>
+                  </div>
+                  <div class="menu-title-text">
+                        <h1>MATCH-EMOJI</h1>
+                  </div>
+            </div>
+            <div class="menu-options-wrapper">
+                  <h2>
+                        CARDS
+                  </h2>
+                  <div class="menu-options-cards">
+                        <div class="option-cards" data-cards="8">
+                              <p>8</p>
+                        </div>
+                        <div class="option-cards" data-cards="12">
+                              <p>12</p>
+                        </div>
+                        <div class="option-cards" data-cards="16">
+                              <p>16</p>
+                        </div>
+                        <div class="option-cards" data-cards="20">
+                              <p>20</p>
+                        </div>
+                        <div class="option-cards" data-cards="24">
+                              <p>24</p>
+                        </div>
+                        <div class="option-cards" data-cards="28">
+                              <p>28</p>
+                        </div>
+                  </div>
+                  <h2>
+                        THEME
+                  </h2>
+                  <div class="menu-options-theme">
+                        <div class="option-theme" data-theme="smileys">
+                              <p class="main">😀</p>
+                              <p>😀</p><p>😀</p><p>😀</p>
+                              <p>😀</p><p>😀</p><p>😀</p>
+                        </div>
+                        <div class="option-theme" data-theme="food">
+                              <p class="main">🍆</p>
+                              <p>🍆</p><p>🍆</p><p>🍆</p>
+                              <p>🍆</p><p>🍆</p><p>🍆</p>
+                        </div>
+                        <div class="option-theme" data-theme="international-dishes">
+                              <p class="main">🍳</p>
+                              <p>🍳</p><p>🍳</p><p>🍳</p>
+                              <p>🍳</p><p>🍳</p><p>🍳</p>
+                        </div>
+                        <div class="option-theme" data-theme="desserts">
+                              <p class="main">🥐</p>
+                              <p>🥐</p><p>🥐</p><p>🥐</p>
+                              <p>🥐</p><p>🥐</p><p>🥐</p>
+                        </div>
+                        <div class="option-theme" data-theme="objects">
+                              <p class="main">⌚️</p>
+                              <p>⌚️</p><p>⌚️</p><p>⌚️</p>
+                              <p>⌚️</p><p>⌚️</p><p>⌚️</p>
+                        </div>
+                        <div class="option-theme" data-theme="animal-faces">
+                              <p class="main">🐶</p>
+                              <p>🐶</p><p>🐶</p><p>🐶</p>
+                              <p>🐶</p><p>🐶</p><p>🐶</p>
+                        </div>
+                        <div class="option-theme" data-theme="jobs">
+                              <p class="main">👮🏻‍♂️</p>
+                              <p>👮🏻‍♂️</p><p>👮🏻‍♂️</p><p>👮🏻‍♂️</p>
+                              <p>👮🏻‍♂️</p><p>👮🏻‍♂️</p><p>👮🏻‍♂️</p>
+                        </div>
+                        <div class="option-theme" data-theme="medical">
+                              <p class="main">💀</p>
+                              <p>💀</p><p>💀</p><p>💀</p>
+                              <p>💀</p><p>💀</p><p>💀</p>
+                        </div>
+                        <div class="option-theme" data-theme="nature">
+                              <p class="main">🏔️</p>
+                              <p>🏔️</p><p>🏔️</p><p>🏔️</p>
+                              <p>🏔️</p><p>🏔️</p><p>🏔️</p>
+                        </div>
+                        <div class="option-theme" data-theme="faces">
+                              <p class="main">👧🏻</p>
+                              <p>👧🏻</p><p>👧🏻</p><p>👧🏻</p>
+                              <p>👧🏻</p><p>👧🏻</p><p>👧🏻</p>
+                        </div>
+                        <div class="option-theme" data-theme="hands">
+                              <p class="main">👍🏻</p>
+                              <p>👍🏻</p><p>👍🏻</p><p>👍🏻</p>
+                              <p>👍🏻</p><p>👍🏻</p><p>👍🏻</p>
+                        </div>
+                        <div class="option-theme" data-theme="architecture">
+                              <p class="main">🏠</p>
+                              <p>🏠</p><p>🏠</p><p>🏠</p>
+                              <p>🏠</p><p>🏠</p><p>🏠</p>
+                        </div>
+                        <div class="option-theme" data-theme="animals">
+                              <p class="main">🦆</p>
+                              <p>🦆</p><p>🦆</p><p>🦆</p>
+                              <p>🦆</p><p>🦆</p><p>🦆</p>
+                        </div>
+                        <div class="option-theme" data-theme="vehicles">
+                              <p class="main">🚗</p>
+                              <p>🚗</p><p>🚗</p><p>🚗</p>
+                              <p>🚗</p><p>🚗</p><p>🚗</p>
+                        </div>
+                        <div class="option-theme" data-theme="activities">
+                              <p class="main">⚽️</p>
+                              <p>⚽️</p><p>⚽️</p><p>⚽️</p>
+                              <p>⚽️</p><p>⚽️</p><p>⚽️</p>
+                        </div>
+                        <div class="option-theme" data-theme="families">
+                              <p class="main">👨‍👩‍👦</p>
+                              <p>👨‍👩‍👦</p><p>👨‍👩‍👦</p><p>👨‍👩‍👦</p>
+                              <p>👨‍👩‍👦</p><p>👨‍👩‍👦</p><p>👨‍👩‍👦</p>
+                        </div>
+                        <div class="option-theme" data-theme="time">
+                              <p class="main">🕓</p>
+                              <p>🕓</p><p>🕓</p><p>🕓</p>
+                              <p>🕓</p><p>🕓</p><p>🕓</p>
+                        </div>
+                        <div class="option-theme" data-theme="flags">
+                              <p class="main">🇺🇳</p>
+                              <p>🇺🇳</p><p>🇺🇳</p><p>🇺🇳</p>
+                              <p>🇺🇳</p><p>🇺🇳</p><p>🇺🇳</p>
+                        </div>
+                  </div>
+            </div>
+            <div class="start">
+                  <p>START</p>
+            </div>
+      </div> 
+      
+
+      
+      <script src="matching-game.js"></script>
       
 </body>
 </html>
