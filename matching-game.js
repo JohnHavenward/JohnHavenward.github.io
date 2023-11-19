@@ -9,12 +9,16 @@ audio_wrong.muted = true;
 
 const mute_button = document.querySelector('.mute');
 const menu_button = document.querySelector('.menu');
+const win_banner_menu_button = document.querySelector('.menu-button');
 const reset_button = document.querySelector('.reset');
+const win_banner_restart_button = document.querySelector('.restart-button');
 const fullscreen_button = document.querySelector('.fullscreen');
 
 mute_button.addEventListener('click', ToggleMuted);
 menu_button.addEventListener('click', ShowMenu);
+win_banner_menu_button.addEventListener('click', ShowMenu);
 reset_button.addEventListener('click', CreateGame);
+win_banner_restart_button.addEventListener('click', CreateGame);
 fullscreen_button.addEventListener('click', ToggleFullscreen);
 
 let firstCardTemp;
@@ -22,7 +26,7 @@ let secondCardTemp;
 
 const menu_wrapper = document.querySelector('.menu-wrapper');
 const cards_wrapper = document.querySelector('.cards-wrapper');
-const win_banner = document.querySelector('.win-banner');
+const win_banner = document.querySelector('.win-banner-wrapper');
 var documentElement = document.documentElement;
 
 let total_cards;
