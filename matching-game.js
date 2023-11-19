@@ -15,6 +15,7 @@ const win_banner_restart_button = document.querySelector('.restart-button');
 const fullscreen_button = document.querySelector('.fullscreen');
 
 mute_button.addEventListener('click', ToggleMuted);
+menu_button.addEventListener('touchstart', ShowMenu);
 menu_button.addEventListener('click', ShowMenu);
 win_banner_menu_button.addEventListener('click', ShowMenu);
 reset_button.addEventListener('click', CreateGame);
@@ -276,7 +277,8 @@ function CreateCards() {
       cards.forEach(card => card.addEventListener('click', flipCard));
 }
 
-function ShowMenu() {
+function ShowMenu(event) {
+      event.preventDefault();
       TimerStop();
       menu_wrapper.classList.remove('hidden');
 }
