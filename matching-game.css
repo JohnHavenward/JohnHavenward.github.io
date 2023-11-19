@@ -23,6 +23,7 @@ body {
       inset: -500px;
       bottom: 96vh;
       background-color: black;
+      transform: translateZ(-40vmax);
 }
 
 .background-color {
@@ -30,6 +31,7 @@ body {
       inset: -500px;
       top: 4vh;
       background-color: seashell;
+      transform: translateZ(-40vmax);
 }
 
 .cards-wrapper {
@@ -476,7 +478,7 @@ body {
 
 
 
-.card.selectable:hover .card-shadow,
+.hasHover .card.selectable:hover .card-shadow,
 .card.red .card-shadow,
 .cards-wrapper.starting .card-shadow,
 .card.card.selectable.flip .card-shadow,
@@ -501,12 +503,14 @@ body {
       background-color: rgb(215, 50, 50);
 }
 
-.cards-wrapper.selectable .card.selectable:hover,
+.hasHover .cards-wrapper.selectable .card.selectable:hover,
 .card.red,
 .cards-wrapper.starting .card,
 .card.selectable.flip {
       scale: 110%;
 }
+
+
 
 
 .cards-wrapper.selectable .card.selectable {
@@ -515,7 +519,7 @@ body {
 
 .card,
 .cards-wrapper.selectable .card.selectable.flip,
-.cards-wrapper.starting .card:hover {
+.hasHover .cards-wrapper.starting .card:hover {
       cursor: default;
 }
 
@@ -527,7 +531,14 @@ body {
       position: absolute;
       backface-visibility: hidden;
       background-color: slategrey;
+}
 
+.hasHover .cards-wrapper.selectable .card.selectable:active .card-front {
+      background-color: #8a96a2;
+}
+
+.cards-wrapper.selectable .card.selectable:active .card-front {
+      background-color: #0080ff;
 }
 
 .card-back {
@@ -546,6 +557,7 @@ body {
 img {
       width: 60%;
       filter: opacity(30%);
+      pointer-events: none;
 }
 
 
@@ -595,7 +607,7 @@ img {
 
 }
 
-.header-button:hover {
+.hasHover .header-button:hover {
       scale: 120%;
 }
 
@@ -701,9 +713,16 @@ img {
       cursor: pointer;
 }
 
-.start:hover {
+.hasHover .start:hover {
       scale: 120%;
+}
 
+.hasHover .start:active {
+      scale: 100%;
+}
+
+.start:active {
+      scale: 80%;
 }
 
 
@@ -879,26 +898,22 @@ img {
             cursor: pointer;
       }
 
-      & .menu-button:hover,
-      .restart-button:hover {
+      & .hasHover .menu-button:hover,
+      .hasHover .restart-button:hover {
             scale: 120%;
+      }
+      
+      & .hasHover .menu-button:active,
+      .hasHover .restart-button:active {
+            scale: 100%;
+      }
+      
+      & .menu-button:active,
+      .restart-button:active {
+            scale: 80%;
       }
 }
 
-
-/* @media (max-aspect-ratio: 1) {
-      .win-banner {
-            display: grid;
-            place-items: center;
-            height: calc(30vh);
-      
-            inset: 40 30vw 30vh 30vw;
-            background-color: violet;
-            position: fixed;
-            transform: translateZ(10000px);
-            transition: 1s;
-      }
-} */
 
 
 
