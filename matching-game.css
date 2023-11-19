@@ -9,6 +9,10 @@
       box-sizing: border-box;
 }
 
+html {
+      background-color: seashell;
+}
+
 body {
       display: grid;
       place-items: center;
@@ -598,8 +602,8 @@ img {
       border-radius: 30px;
       background-color: gainsboro;
       box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-      position: fixed;
-      transform: translateZ(500px);
+      position: absolute;
+      transform: translateZ(100vmin);
       inset: 4vh;
       transition: 0.8s cubic-bezier(0.23, 1, 0.320, 1);
 }
@@ -738,7 +742,7 @@ img {
 
 @media (max-aspect-ratio: 0.6) {
 
-      @media (max-width: 800px) {
+      @media (max-width: 1000px) {
 
             .menu-options-cards,
             .menu-options-theme {
@@ -822,7 +826,7 @@ img {
       border-radius: 2vmax;
       background-color: whitesmoke;
       box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px;
-      transform: translateZ(1000px);
+      transform: translateZ(40vmin);
 
 
       & .greeting-emojis {
