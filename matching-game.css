@@ -9,9 +9,6 @@
       box-sizing: border-box;
 }
 
-html {
-      background-color: seashell;
-}
 
 body {
       display: grid;
@@ -19,6 +16,19 @@ body {
       width: 100vw;
       height: 100vh;
       overflow: hidden;
+}
+
+.background-black {
+      position: fixed;
+      inset: -500px;
+      bottom: 96vh;
+      background-color: black;
+}
+
+.background-color {
+      position: fixed;
+      inset: -500px;
+      top: 4vh;
       background-color: seashell;
 }
 
@@ -744,6 +754,11 @@ img {
 
       @media (max-width: 1000px) {
 
+            
+            .menu-options-wrapper h2 {
+                  font-weight: 300;
+            }
+            
             .menu-options-cards,
             .menu-options-theme {
                   display: grid;
