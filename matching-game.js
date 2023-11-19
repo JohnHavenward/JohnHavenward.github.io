@@ -14,13 +14,14 @@ const reset_button = document.querySelector('.reset');
 const win_banner_restart_button = document.querySelector('.restart-button');
 const fullscreen_button = document.querySelector('.fullscreen');
 
-mute_button.addEventListener('click', ToggleMuted);
-menu_button.addEventListener('touchstart', ShowMenu);
-menu_button.addEventListener('click', ShowMenu);
-win_banner_menu_button.addEventListener('click', ShowMenu);
-reset_button.addEventListener('click', CreateGame);
-win_banner_restart_button.addEventListener('click', CreateGame);
-fullscreen_button.addEventListener('click', ToggleFullscreen);
+mute_button.addEventListener('click', ToggleMuted, false);
+menu_button.addEventListener('touchstart', ShowMenu, false);
+menu_button.addEventListener('click', ShowMenu, false);
+win_banner_menu_button.addEventListener('touchstart', ShowMenu, false);
+win_banner_menu_button.addEventListener('click', ShowMenu, false);
+reset_button.addEventListener('click', CreateGame, false);
+win_banner_restart_button.addEventListener('click', CreateGame, false);
+fullscreen_button.addEventListener('click', ToggleFullscreen, false);
 
 let firstCardTemp;
 let secondCardTemp;
@@ -46,7 +47,8 @@ let unmatchedCards;
 let isFlipping = false;
 
 
-function flipCard() {
+function flipCard(event) {
+      event.preventDefault();
       if (lockBoard) return;
       if (this === firstCard) return;
       if (isFlipping && (this === firstCardTemp || this === secondCardTemp)) return;
@@ -274,7 +276,8 @@ function CreateCards() {
 
       cards = document.querySelectorAll('.card');
 
-      cards.forEach(card => card.addEventListener('click', flipCard));
+      cards.forEach(card => card.addEventListener('touchstart', flipCard, false));
+      cards.forEach(card => card.addEventListener('click', flipCard, false));
 }
 
 function ShowMenu(event) {
