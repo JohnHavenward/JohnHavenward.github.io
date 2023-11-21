@@ -1,6 +1,6 @@
 @font-face {
-      font-family: paytoneOneFont;
-      src: url(RedHatDisplay-Black.ttf);
+      font-family: ArchiveFont;
+      src: url(Archive-Regular.otf);
 }
 
 * {
@@ -478,10 +478,9 @@ body {
 
 
 
-.hasHover .card.selectable:hover .card-shadow,
+.hasHover .cards-wrapper.selectable .card.selectable:hover .card-shadow,
 .card.red .card-shadow,
 .cards-wrapper.starting .card-shadow,
-.card.card.selectable.flip .card-shadow,
 .card.selectable.flip .card-shadow {
       box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px;
 }
@@ -625,13 +624,13 @@ img {
       background-color: gainsboro;
       box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
       position: absolute;
-      transform: translateZ(100vmin);
+      transform: translateZ(150vmin);
       inset: 4vh;
       transition: 0.8s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
 .menu-wrapper.hidden {
-      transform: translateY(100vh) translateZ(500px);
+      transform: translateY(100vh) translateZ(150vmin);
       transition: 2s;
 }
 
@@ -643,6 +642,7 @@ img {
 
 .menu-title-emojis {
       font-size: 8vw;
+      margin-top: 2vw;
 }
 
 .menu-title-text h1 {
@@ -730,6 +730,7 @@ img {
 
       .menu-title-emojis {
             font-size: 8vh;
+            margin-top: 2vh;
       }
 
       .menu-title-text h1 {
@@ -834,22 +835,25 @@ img {
 
 /* WIN BANNER */
 
-.win-banner-wrapper {
+.pause-menu-wrapper,
+.win-menu-wrapper {
       position: absolute;
       display: grid;
       place-items: center;
       inset: 4vh;
-      transition: 1s;
+      transform: translateZ(100vmin);
+      transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-
-.win-banner-wrapper.hidden {
-      visibility: hidden;
-      opacity: 0;
+.pause-menu-wrapper.hidden,
+.win-menu-wrapper.hidden {
+      transform: translateY(-100vh) translateZ(100vmin);
+      transition: 0s;
 
 }
 
-.win-banner {
+.pause-menu,
+.win-menu {
 
       display: flex;
       flex-direction: column;
@@ -860,7 +864,7 @@ img {
       border-radius: 2vmax;
       background-color: whitesmoke;
       box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px;
-      transform: translateZ(40vmin);
+      transform: translateZ(100vmin);
 
 
       & .greeting-emojis {
@@ -879,14 +883,13 @@ img {
 }
 
 
-.win-banner-buttons {
+.menu-buttons {
       display: flex;
       justify-content: space-evenly;
       width: 100%;
       height: 20%;
 
-      & .menu-button,
-      .restart-button {
+      .button {
             display: grid;
             place-items: center;
             height: 100%;
@@ -897,21 +900,18 @@ img {
             transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             cursor: pointer;
       }
+}
 
-      & .hasHover .menu-button:hover,
-      .hasHover .restart-button:hover {
-            scale: 120%;
-      }
-      
-      & .hasHover .menu-button:active,
-      .hasHover .restart-button:active {
-            scale: 100%;
-      }
-      
-      & .menu-button:active,
-      .restart-button:active {
-            scale: 80%;
-      }
+.hasHover .button:hover {
+      scale: 120%;
+}
+
+.hasHover .button:active {
+      scale: 100%;
+}
+
+.button:active {
+      scale: 80%;
 }
 
 
@@ -922,7 +922,7 @@ img {
 h1,
 h2,
 p {
-      font-family: 'paytoneOneFont', sans-serif;
+      font-family: 'ArchiveFont', sans-serif;
       user-select: none;
       -webkit-user-select: none;
 }

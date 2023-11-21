@@ -8,27 +8,34 @@ audio_correct.muted = true;
 audio_wrong.muted = true;
 
 const mute_button = document.querySelector('.mute');
-const menu_button = document.querySelector('.menu');
-const win_banner_menu_button = document.querySelector('.menu-button');
-const reset_button = document.querySelector('.reset');
-const win_banner_restart_button = document.querySelector('.restart-button');
+const pause_button = document.querySelector('.header-button.pause');
 const fullscreen_button = document.querySelector('.fullscreen');
 
+const pause_menu_button = document.querySelector('.pause-menu-button');
+const pause_restart_button = document.querySelector('.pause-restart-button');
+const win_menu_button = document.querySelector('.win-menu-button');
+const win_restart_button = document.querySelector('.win-restart-button');
+
 mute_button.addEventListener('click', ToggleMuted, false);
-menu_button.addEventListener('touchstart', ShowMenu, false);
-menu_button.addEventListener('click', ShowMenu, false);
-win_banner_menu_button.addEventListener('touchstart', ShowMenu, false);
-win_banner_menu_button.addEventListener('click', ShowMenu, false);
-reset_button.addEventListener('click', CreateGame, false);
-win_banner_restart_button.addEventListener('click', CreateGame, false);
+pause_button.addEventListener('touchstart', ShowPauseMenu, false);
+pause_button.addEventListener('click', ShowPauseMenu, false);
 fullscreen_button.addEventListener('click', ToggleFullscreen, false);
 
-let firstCardTemp;
-let secondCardTemp;
+pause_menu_button.addEventListener('touchstart', ShowMenu, false);
+pause_menu_button.addEventListener('click', ShowMenu, false);
+pause_restart_button.addEventListener('touchstart', CreateGame, false);
+pause_restart_button.addEventListener('click', CreateGame, false);
+win_menu_button.addEventListener('touchstart', ShowMenu, false);
+win_menu_button.addEventListener('click', ShowMenu, false);
+win_restart_button.addEventListener('touchstart', CreateGame, false);
+win_restart_button.addEventListener('click', CreateGame, false);
+
 
 const menu_wrapper = document.querySelector('.menu-wrapper');
+const PauseMenuWrapper = document.querySelector('.pause-menu-wrapper');
 const cards_wrapper = document.querySelector('.cards-wrapper');
-const win_banner = document.querySelector('.win-banner-wrapper');
+const pause_menu = document.querySelector('.pause-menu-wrapper');
+const win_menu = document.querySelector('.win-menu-wrapper');
 var documentElement = document.documentElement;
 
 let total_cards;
@@ -36,84 +43,101 @@ let theme;
 let cards = [];
 
 let muted = true;
+let isStarting = false;
+let startingTimeout;
 
 
 // CARD INTERACTION FUNCTIONS
 
-let hasFlippedCard = false;
 let lockBoard = true;
-let firstCard, secondCard;
 let unmatchedCards;
-let isFlipping = false;
+let isPhase_A = true;
+
+let firstCard_A, secondCard_A;
+let firstCard_B, secondCard_B;
+let hasFlippedCard_A = false;
+let hasFlippedCard_B = false;
+let cardsFlipping_A = false;
+let cardsFlipping_B = false;
+
+let cardPairA = {
+      firstCard: null,
+      secondCard: null,
+      hasFlippedCard: false,
+      cardsFlipping: false
+};
+let cardPairB = {
+      firstCard: null,
+      secondCard: null,
+      hasFlippedCard: false,
+      cardsFlipping: false
+};
+
 
 
 function flipCard(event) {
       event.preventDefault();
       if (lockBoard) return;
-      if (this === firstCard) return;
-      if (isFlipping && (this === firstCardTemp || this === secondCardTemp)) return;
+      
+      if (isPhase_A) {
+            addSelectedCard(this, cardPairA);
+      }
+      else {
+            addSelectedCard(this, cardPairB);
+      }
+}
 
-      this.classList.add('flip');
+function addSelectedCard (selectedCard ,cardPair) {
+      if (selectedCard === cardPair.firstCard) return;
 
-      if (!hasFlippedCard) {
-            hasFlippedCard = true;
-            firstCard = this;
+
+      selectedCard.classList.add('flip');
+
+      if (!cardPair.hasFlippedCard) {
+            cardPair.hasFlippedCard = true;
+            cardPair.firstCard = selectedCard;
 
             return;
       }
-
-      secondCard = this;
-      checkForMatch();
+      
+      cardPair.secondCard = selectedCard;
+      checkForMatch(cardPair);
 }
 
-function checkForMatch() {
-      let isMatch = firstCard.querySelector('h2').innerText === secondCard.querySelector('h2').innerText;
+function checkForMatch(cardPair) {
+      let isMatch = cardPair.firstCard.querySelector('h2').innerText === cardPair.secondCard.querySelector('h2').innerText;
 
       lockBoard = true
       cards_wrapper.classList.remove('selectable');
 
-      isMatch ? disableCards() : unflipCards();
+      isMatch ? disableCards(cardPair) : unflipCards(cardPair);
 }
 
-function disableCards() {
+function disableCards(cardPair) {
 
-      firstCard.removeEventListener('click', flipCard);
-      secondCard.removeEventListener('click', flipCard);
+      cardPair.firstCard.removeEventListener('click', flipCard);
+      cardPair.secondCard.removeEventListener('click', flipCard);
 
       setTimeout(() => {
-            firstCard.classList.remove('selectable');
-            secondCard.classList.remove('selectable');
+            cardPair.firstCard.classList.remove('selectable');
+            cardPair.secondCard.classList.remove('selectable');
 
             audio_correct.load();
             audio_correct.play();
 
             checkForWin();
-            resetBoard();
+            resetBoard(cardPair);
       }, 800);
-
-
-
 }
 
-function unflipCards() {
-      isFlipping = true;
+function unflipCards(cardPair) {
       
-      firstCardTemp = firstCard;
-      secondCardTemp = secondCard;
+      cardPair.cardsFlipping = true;
       
-      redBackground();
-
-      setTimeout(() => {
-            firstCardTemp.classList.remove('flip');
-            secondCardTemp.classList.remove('flip');
-            
-            firstCardTemp.classList.remove('selectable');
-            secondCardTemp.classList.remove('selectable');
-      }, 1200);
-}
-
-function redBackground() {
-
+      let firstCard = cardPair.firstCard;
+      let secondCard = cardPair.secondCard;
+      
+      
       setTimeout(() => {
             firstCard.classList.add('red');
             secondCard.classList.add('red');
@@ -121,31 +145,41 @@ function redBackground() {
             audio_wrong.load();
             audio_wrong.play();
             
-            resetBoard();
+            resetBoard(cardPair);
       }, 800);
 
       setTimeout(() => {
-            firstCardTemp.classList.remove('red');
-            secondCardTemp.classList.remove('red');
+            firstCard.classList.remove('flip');
+            secondCard.classList.remove('flip');
             
-            firstCardTemp.classList.add('selectable');
-            secondCardTemp.classList.add('selectable');
+            firstCard.classList.remove('selectable');
+            secondCard.classList.remove('selectable');
+      }, 1200);
+      
+      setTimeout(() => {
+            firstCard.classList.remove('red');
+            secondCard.classList.remove('red');
             
-            isFlipping = false;
+            firstCard.classList.add('selectable');
+            secondCard.classList.add('selectable');
+            
+            cardPair.cardsFlipping = false;
       }, 1800);
 }
 
-function resetBoard() {
-      [hasFlippedCard, lockBoard] = [false, false];
-      [firstCard, secondCard] = [null, null];
+
+function resetBoard(cardPair) {
+      [cardPair.hasFlippedCard, lockBoard] = [false, false];
+      [cardPair.firstCard, cardPair.secondCard] = [null, null];
 
       cards_wrapper.classList.add('selectable');
+      isPhase_A = !isPhase_A;
 }
 
 function checkForWin() {
       unmatchedCards -= 2;
       if (unmatchedCards == 0) {
-            win_banner.classList.remove('hidden');
+            win_menu.classList.remove('hidden');
             TimerStop();
       }
 }
@@ -188,13 +222,13 @@ start_button.addEventListener('click', CreateGame);
 
 // CREATE GAME
 
-function CreateGame() {
+function CreateGame(event) {
+      event.preventDefault();
 
-      // hide win-banner
-      win_banner.classList.add('hidden');
-
-      // hide menu
+      // hide menus
       menu_wrapper.classList.add('hidden');
+      pause_menu.classList.add('hidden');
+      win_menu.classList.add('hidden');
 
       // unset old display
       cards_wrapper.classList.remove('cards-' + total_cards);
@@ -220,14 +254,19 @@ function CreateGame() {
 
             setTimeout(() => {
                   card.classList.remove('flip');
-                  resetBoard();
             }, 3000)       
       );
+      lockBoard = false;
       
       // set starting
-      cards_wrapper.classList.add('starting')
+      clearTimeout(startingTimeout);
+      if (!isStarting) {
+            isStarting = true;
+            cards_wrapper.classList.add('starting')
+      }
       
-      setTimeout(() => {
+      startingTimeout = setTimeout(() => {
+            isStarting = false;
             cards_wrapper.classList.remove('starting');
       }, 3800)  
       
@@ -251,7 +290,7 @@ function CreateCards() {
       const CreateCard = () =>
 
             cards_wrapper.insertAdjacentHTML('beforeend', `
-            <div class="card selectable flip starting">
+            <div class="card selectable flip">
                   <div class="card-wrapper">
                         <div class="card-shadow">
                         </div>            
@@ -286,6 +325,12 @@ function ShowMenu(event) {
       menu_wrapper.classList.remove('hidden');
 }
 
+function ShowPauseMenu(event) {
+      event.preventDefault();
+      TimerStop();
+      PauseMenuWrapper.classList.remove('hidden');
+}
+
 function AsignEmojis() {
 
       // populate array with all emojis
@@ -293,7 +338,7 @@ function AsignEmojis() {
 
       switch (theme) {
             case 'smileys':
-                  selected_emojis = ["😁", "😆", "😅", "😂", "🥲", "☺️", "😇", "🙂", "🙃", "😉", "😌", "😍", "😘", "😗", "😚", "😋", "😛", "😜", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "😏", "😔", "😟", "😕", "😖", "😩", "🥺", "😢", "😭", "😤", "🤬", "🤯", "😳", "🥵", "🥶", "😶‍🌫️", "😱", "😓", "🤔", "😶", "😑", "😬", "🙄", "😮", "🥱", "😴", "🤤", "😪", "😮‍💨", "😵", "😵‍💫", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "😈", "💩", "🤖", "👽", "😸"];
+                  selected_emojis = ["😁", "😆", "😅", "😂", "🥲", "😇", "🙂", "🙃", "😉", "😌", "😍", "😘", "😗", "😚", "😋", "😛", "😜", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "😏", "😔", "😟", "😕", "😖", "😩", "🥺", "😢", "😭", "😤", "🤬", "🤯", "😳", "🥵", "🥶", "😶‍🌫️", "😱", "😓", "🤔", "😶", "😑", "😬", "🙄", "😮", "🥱", "😴", "🤤", "😪", "😮‍💨", "😵", "😵‍💫", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "😈", "💩", "🤖", "👽", "😸"];
                   break;
             case 'food':
                   selected_emojis = ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🍅", "🍆", "🥑", "🥦", "🥬", "🥒", "🌶️", "🫑", "🌽", "🥕", "🫒", "🧄", "🧅", "🥔", "🍠", "🍞", "🥖", "🧀", "🥚", "🧈", "🥩", "🍗", "🍖", "🥫", "🦪", "🌰", "🥜", "🍯", "🥛", "🦐", "🦞", "🦀", "🐟"];
@@ -308,7 +353,7 @@ function AsignEmojis() {
                   selected_emojis = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵", "🐙", "🐥"];
                   break;
             case 'hands':
-                  selected_emojis = ["👍🏻", "👎🏻", "👊🏻", "✊🏻", "🤛🏻", "🤜🏻", "🤞🏻", "✌🏻", "🤟🏻", "🤘🏻", "👌🏻", "🤌🏻", "🤏🏻", "👈🏻", "👉🏻", "👆🏻", "👇🏻", "☝🏻", "✋🏻", "🤚🏻", "🖐🏻", "🖖🏻", "👋🏻", "🤙🏻"];
+                  selected_emojis = ["👍🏻", "👎🏻", "👊🏻", "✊🏻", "🤛🏻", "🤜🏻", "🤞🏻", "✌🏻", "🤟🏻", "🤘🏻", "👌🏻", "🤌🏻", "🤏🏻", "👈🏻", "👉🏻", "👆🏻", "👇🏻", "☝🏻", "🤚🏻", "🖐🏻", "🖖🏻", "👋🏻", "🤙🏻"];
                   break;
             case 'architecture':
                   selected_emojis = ["🏰", "🏯", "🏠", "🏭", "🏢", "🏬", "🏣", "🏤", "🏥", "🏦", "🏨", "🏪", "🏫", "🏩", "💒", "🏛️", "⛪️", "🕌", "🕍", "🛕", "🎡"];
@@ -329,7 +374,7 @@ function AsignEmojis() {
                   selected_emojis = ["👧🏻", "🧒🏼", "👦🏾", "👩🏾", "🧑🏻", "👨🏽", "👩🏾‍🦱", "🧑🏿‍🦱", "👨🏾‍🦱", "👩🏻‍🦰", "🧑🏼‍🦰", "👨🏻‍🦰", "👱🏽‍♀️", "👱🏼", "👱🏽‍♂️", "👩🏻‍🦳", "🧑🏽‍🦳", "👨🏼‍🦳", "👨🏿‍🦲", "🧔🏽‍♀️", "🧔🏾", "🧔🏻‍♂️", "👵🏻", "🧓🏼", "👴🏼"];
                   break;
             case 'nature':
-                  selected_emojis = ["🏔️", "🌲", "🌳", "🌱", "🌿", "🍀", "🍂", "🍁", "🍄", "🪨", "🌾", "🌷", "🌹", "🌺", "🌸", "🌼", "🏵️", "🌻", "🪱", "🦋", "🐌", "🐞", "🪰", "🪲", "🪳", "🕷️", "🦂"];
+                  selected_emojis = ["⛰", "🌲", "🌳", "🌱", "🌿", "🍀", "🍂", "🍁", "🍄", "🪨", "🌾", "🌷", "🌹", "🌺", "🌸", "🌼", "🏵️", "🌻", "🪱", "🦋", "🐌", "🐞", "🪰", "🪲", "🪳", "🕷️", "🦂"];
                   break;
             case 'activities':
                   selected_emojis = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏", "🎱", "🪀", "🏓", "🪃", "🥊", "⛸️", "🏹", "🪁", "🤿", "🥌", "🏆", "🎧", "🎹", "🎲", "♟️", "🎯", "🎳", "🎮", "🧩", "🃏", "🀄️", "🛼", "🎭", "🩰", "🎨", "🎬", "🎤", "🔫", "🏁"];

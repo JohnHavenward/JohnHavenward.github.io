@@ -5,6 +5,21 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Match-Emoji</title>
       
+      <link rel="icon" href="favicon.ico" sizes="48x48" ><!-- REVISED (Aug 11, 2023)! -->
+      <!--<link rel="icon" href="favicon.svg" sizes="any" type="image/svg+xml"><!-- REVISED (Aug 11, 2023)! -->
+      <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+      <!-- <link rel="manifest" href="/site.webmanifest" /> -->
+      
+      <!-- <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> -->
+      <!-- <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"> -->
+      <link rel="manifest" href="site.webmanifest">
+      <link rel="mask-icon" href="safari-pinned-tab.svg" color="#C663DA">
+      <meta name="apple-mobile-web-app-title" content="Match-Emoji">
+      <meta name="application-name" content="Match-Emoji">
+      <meta name="msapplication-TileColor" content="#fef5ef">
+      <meta name="theme-color" content="#ffffff">
+      
       <link rel="stylesheet" href="matching-game.css">
 </head>
 <body>
@@ -15,8 +30,8 @@
             <div class="header-button mute">
                   <p>AUDIO: OFF</p>
             </div>
-            <div class="header-button menu">
-                  <p>MENU</p>
+            <div class="header-button pause">
+                  <p>PAUSE</p>
             </div>
             <div class="header-button">
                   <div>
@@ -24,28 +39,45 @@
                         <p id="Seconds">:00s</p>
                   </div>
             </div>
-            <div class="header-button reset">
-                  <p>RESET</p>
-            </div>
             <div class="header-button fullscreen">
                   <p>ENTER FULLSCREEN</p>
             </div>
       </div>
       
       <div class="cards-wrapper">
-            
+            <!-- populated by script -->
       </div>
       
       
-      <div class="win-banner-wrapper hidden">
-            <div class="win-banner">
-                  <p class="greeting-emojis">🎉 🥳 🎊</p>
-                  <h2>WELL DONE!</h2>
-                  <div class="win-banner-buttons">
-                        <div class="menu-button">
+      
+      <div class="pause-menu-wrapper hidden">
+            <div class="pause-menu">
+                  <h2>PAUSE</h2>
+                  <div class="menu-buttons">
+                        <div class="pause-menu-button button">
                               <p>MENU</p>
                         </div>
-                        <div class="restart-button">
+                        <div class="pause-restart-button button">
+                              <p>RESTART</p>
+                        </div>
+                  </div>
+                  <div class="menu-buttons">
+                        <div class="pause-resume-button button">
+                              <p>RESUME</p>
+                        </div>
+                  </div>
+            </div>
+      </div>
+      
+      <div class="win-menu-wrapper hidden">
+            <div class="win-menu">
+                  <p class="greeting-emojis">🎉 🥳 🎊</p>
+                  <h2>WELL DONE!</h2>
+                  <div class="menu-buttons">
+                        <div class="win-menu-button button">
+                              <p>MENU</p>
+                        </div>
+                        <div class="win-restart-button button">
                               <p>RESTART</p>
                         </div>
                   </div>
@@ -91,94 +123,94 @@
                   </h2>
                   <div class="menu-options-theme">
                         <div class="option-theme" data-theme="smileys">
-                              <p class="main">😀</p>
-                              <p>😀</p><p>😀</p><p>😀</p>
-                              <p>😀</p><p>😀</p><p>😀</p>
-                        </div>
-                        <div class="option-theme" data-theme="food">
-                              <p class="main">🍆</p>
-                              <p>🍆</p><p>🍆</p><p>🍆</p>
-                              <p>🍆</p><p>🍆</p><p>🍆</p>
-                        </div>
-                        <div class="option-theme" data-theme="international-dishes">
-                              <p class="main">🍳</p>
-                              <p>🍳</p><p>🍳</p><p>🍳</p>
-                              <p>🍳</p><p>🍳</p><p>🍳</p>
-                        </div>
-                        <div class="option-theme" data-theme="desserts">
-                              <p class="main">🥐</p>
-                              <p>🥐</p><p>🥐</p><p>🥐</p>
-                              <p>🥐</p><p>🥐</p><p>🥐</p>
-                        </div>
-                        <div class="option-theme" data-theme="objects">
-                              <p class="main">⌚️</p>
-                              <p>⌚️</p><p>⌚️</p><p>⌚️</p>
-                              <p>⌚️</p><p>⌚️</p><p>⌚️</p>
+                              <p class="main">😜</p>
+                              <p>😜</p><p>😬</p><p>😎</p>
+                              <p>😭</p><p>😘</p><p>😈</p>
                         </div>
                         <div class="option-theme" data-theme="animal-faces">
                               <p class="main">🐶</p>
-                              <p>🐶</p><p>🐶</p><p>🐶</p>
-                              <p>🐶</p><p>🐶</p><p>🐶</p>
-                        </div>
-                        <div class="option-theme" data-theme="jobs">
-                              <p class="main">👮🏻‍♂️</p>
-                              <p>👮🏻‍♂️</p><p>👮🏻‍♂️</p><p>👮🏻‍♂️</p>
-                              <p>👮🏻‍♂️</p><p>👮🏻‍♂️</p><p>👮🏻‍♂️</p>
-                        </div>
-                        <div class="option-theme" data-theme="medical">
-                              <p class="main">💀</p>
-                              <p>💀</p><p>💀</p><p>💀</p>
-                              <p>💀</p><p>💀</p><p>💀</p>
-                        </div>
-                        <div class="option-theme" data-theme="nature">
-                              <p class="main">🏔️</p>
-                              <p>🏔️</p><p>🏔️</p><p>🏔️</p>
-                              <p>🏔️</p><p>🏔️</p><p>🏔️</p>
+                              <p>🐶</p><p>🐰</p><p>🦊</p>
+                              <p>🐻</p><p>🐮</p><p>🐙</p>
                         </div>
                         <div class="option-theme" data-theme="faces">
-                              <p class="main">👧🏻</p>
-                              <p>👧🏻</p><p>👧🏻</p><p>👧🏻</p>
-                              <p>👧🏻</p><p>👧🏻</p><p>👧🏻</p>
+                              <p class="main">🧔🏻‍♂️</p>
+                              <p>🧔🏻‍♂️</p><p>👱🏽‍♀️</p><p>👨🏽</p>
+                              <p>👩🏻‍🦰</p><p>🧑🏽‍🦳</p><p>🧔🏾</p>
                         </div>
-                        <div class="option-theme" data-theme="hands">
-                              <p class="main">👍🏻</p>
-                              <p>👍🏻</p><p>👍🏻</p><p>👍🏻</p>
-                              <p>👍🏻</p><p>👍🏻</p><p>👍🏻</p>
+                        <div class="option-theme" data-theme="food">
+                              <p class="main">🍏</p>
+                              <p>🍏</p><p>🍯</p><p>🥑</p>
+                              <p>🍌</p><p>🦀</p><p>🥩</p>
                         </div>
-                        <div class="option-theme" data-theme="architecture">
-                              <p class="main">🏠</p>
-                              <p>🏠</p><p>🏠</p><p>🏠</p>
-                              <p>🏠</p><p>🏠</p><p>🏠</p>
+                        <div class="option-theme" data-theme="international-dishes">
+                              <p class="main">🍔</p>
+                              <p>🍔</p><p>🍙</p><p>🥙</p>
+                              <p>🍕</p><p>🍜</p><p>🍱</p>
                         </div>
-                        <div class="option-theme" data-theme="animals">
-                              <p class="main">🦆</p>
-                              <p>🦆</p><p>🦆</p><p>🦆</p>
-                              <p>🦆</p><p>🦆</p><p>🦆</p>
+                        <div class="option-theme" data-theme="desserts">
+                              <p class="main">🥐</p>
+                              <p>🥐</p><p>🍪</p><p>🍦</p>
+                              <p>🎂</p><p>🍭</p><p>🥞</p>
                         </div>
-                        <div class="option-theme" data-theme="vehicles">
-                              <p class="main">🚗</p>
-                              <p>🚗</p><p>🚗</p><p>🚗</p>
-                              <p>🚗</p><p>🚗</p><p>🚗</p>
+                        <div class="option-theme" data-theme="objects">
+                              <p class="main">🗝️</p>
+                              <p>🗝️</p><p>🕶️</p><p>🧳</p>
+                              <p>📷</p><p>⏰</p><p>📦</p>
                         </div>
                         <div class="option-theme" data-theme="activities">
                               <p class="main">⚽️</p>
-                              <p>⚽️</p><p>⚽️</p><p>⚽️</p>
-                              <p>⚽️</p><p>⚽️</p><p>⚽️</p>
+                              <p>⚽️</p><p>🏀</p><p>🏁</p>
+                              <p>🎱</p><p>🎮</p><p>🎧</p>
+                        </div>
+                        <div class="option-theme" data-theme="medical">
+                              <p class="main">🔬</p>
+                              <p>🔬</p><p>🩺</p><p>🧠</p>
+                              <p>📚</p><p>🦠</p><p>🐁</p>
+                        </div>
+                        <div class="option-theme" data-theme="jobs">
+                              <p class="main">👩🏼‍🌾</p>
+                              <p>👩🏼‍🌾</p><p>👨🏻‍💻</p><p>👨🏼‍🍳</p>
+                              <p>👩🏽‍🔬</p><p>👩🏻‍✈️</p><p>👨🏾‍🎓</p>
+                        </div>
+                        <div class="option-theme" data-theme="architecture">
+                              <p class="main">🏠</p>
+                              <p>🏠</p><p>🏬</p><p>🏯</p>
+                              <p>🕍</p><p>🏩</p><p>🏛️</p>
+                        </div>
+                        <div class="option-theme" data-theme="vehicles">
+                              <p class="main">🚗</p>
+                              <p>🚗</p><p>🚃</p><p>🚑</p>
+                              <p>🚚</p><p>🚓</p><p>🚁</p>
+                        </div>
+                        <div class="option-theme" data-theme="nature">
+                              <p class="main">🌳</p>
+                              <p>🌳</p><p>🌸</p><p>🍄</p>
+                              <p>🪱</p><p>🦋</p><p>🐞</p>
+                        </div>
+                        <div class="option-theme" data-theme="animals">
+                              <p class="main">🐕</p>
+                              <p>🐕</p><p>🦅</p><p>🦈</p>
+                              <p>🦙</p><p>🦍</p><p>🦤</p>
                         </div>
                         <div class="option-theme" data-theme="families">
-                              <p class="main">👨‍👩‍👦</p>
-                              <p>👨‍👩‍👦</p><p>👨‍👩‍👦</p><p>👨‍👩‍👦</p>
-                              <p>👨‍👩‍👦</p><p>👨‍👩‍👦</p><p>👨‍👩‍👦</p>
+                              <p class="main">👨‍👩‍👧‍👦</p>
+                              <p>👨‍👩‍👧‍👦</p><p>👨‍👨‍👧</p><p>👩‍👧‍👦</p>
+                              <p>👨‍👦</p><p>👨‍👩‍👦</p><p>👩‍👩‍👧‍👧</p>
+                        </div>
+                        <div class="option-theme" data-theme="hands">
+                              <p class="main">👍🏻</p>
+                              <p>👍🏻</p><p>✊🏻</p><p>👌🏻</p>
+                              <p>🤘🏻</p><p>🖐🏻</p><p>✌🏻</p>
                         </div>
                         <div class="option-theme" data-theme="time">
-                              <p class="main">🕓</p>
-                              <p>🕓</p><p>🕓</p><p>🕓</p>
-                              <p>🕓</p><p>🕓</p><p>🕓</p>
+                              <p class="main">🕙</p>
+                              <p>🕙</p><p>🕥</p><p>🕒</p>
+                              <p>🕛</p><p>🕟</p><p>🕗</p>
                         </div>
                         <div class="option-theme" data-theme="flags">
-                              <p class="main">🇺🇳</p>
-                              <p>🇺🇳</p><p>🇺🇳</p><p>🇺🇳</p>
-                              <p>🇺🇳</p><p>🇺🇳</p><p>🇺🇳</p>
+                              <p class="main">🇵🇹</p>
+                              <p>🇵🇹</p><p>🇯🇵</p><p>🇬🇧</p>
+                              <p>🇦🇷</p><p>🇬🇷</p><p>🇾🇪</p>
                         </div>
                   </div>
             </div>
