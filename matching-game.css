@@ -13,25 +13,25 @@
 body {
       display: grid;
       place-items: center;
-      width: 100vw;
-      height: 100vh;
+      width: 100dvw;
+      height: 100dvh;
       overflow: hidden;
 }
 
 .background-black {
       position: fixed;
       inset: -500px;
-      bottom: 96vh;
+      bottom: 96dvh;
       background-color: black;
-      transform: translateZ(-40vmax);
+      transform: translateZ(-40dvmax);
 }
 
 .background-color {
       position: fixed;
       inset: -500px;
-      top: 4vh;
+      top: 4dvh;
       background-color: seashell;
-      transform: translateZ(-40vmax);
+      transform: translateZ(-40dvmax);
 }
 
 .cards-wrapper {
@@ -40,71 +40,71 @@ body {
 }
 
 .cards-8 {
-      width: 152vmin;
-      height: 76vmin;
+      width: 152dvmin;
+      height: 76dvmin;
 
       grid-template-columns: repeat(4, 1fr);
 
       & .card {
-            width: 30vmin;
-            height: 30vmin;
+            width: 30dvmin;
+            height: 30dvmin;
       }
 
       & h2 {
 
-            font-size: 18vmin;
+            font-size: 18dvmin;
       }
 }
 
 
 .cards-8 {
-      width: 85.71vmin;
-      height: 171.43vmin;
+      width: 85.71dvmin;
+      height: 171.43dvmin;
 
       grid-template-columns: repeat(2, 1fr);
 
       & .card {
-            width: 34.29vmin;
-            height: 34.29vmin;
+            width: 34.29dvmin;
+            height: 34.29dvmin;
       }
 
       & h2 {
-            font-size: 20vmin;
+            font-size: 20dvmin;
       }
 }
 
 @media (min-aspect-ratio: 0.522) {
       .cards-8 {
-            width: 44.78vmax;
-            height: 89.55vmax;
+            width: 44.78dvmax;
+            height: 89.55dvmax;
 
             grid-template-columns: repeat(2, 1fr);
 
             & .card {
-                  width: 17.91vmax;
-                  height: 17.91vmax;
+                  width: 17.91dvmax;
+                  height: 17.91dvmax;
             }
 
             & h2 {
-                  font-size: 10.45vmax;
+                  font-size: 10.45ddvmax;
             }
       }
 }
 
 @media (min-aspect-ratio: 1) {
       .cards-8 {
-            width: 92.31vmax;
-            height: 46.15vmax;
+            width: 92.31dvmax;
+            height: 46.15dvmax;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 18.46vmax;
-                  height: 18.46vmax;
+                  width: 18.46dvmax;
+                  height: 18.46dvmax;
             }
 
             & h2 {
-                  font-size: 10.77vmax;
+                  font-size: 10.77dvmax;
             }
       }
 }
@@ -112,18 +112,18 @@ body {
 @media (min-aspect-ratio: 1.757) {
 
       .cards-8 {
-            width: 162.16vmin;
-            height: 81.08vmin;
+            width: 162.16dvmin;
+            height: 81.08dvmin;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 32.43vmin;
-                  height: 32.43vmin;
+                  width: 32.43dvmin;
+                  height: 32.43dvmin;
             }
 
             & h2 {
-                  font-size: 18.92vmin;
+                  font-size: 18.92dvmin;
             }
       }
 }
@@ -132,159 +132,159 @@ body {
 
 
 .cards-12 {
-      width: 90vmin;
-      height: 120vmin;
+      width: 90dvmin;
+      height: 120dvmin;
 
       grid-template-columns: repeat(3, 1fr);
 
       & .card {
-            width: 24vmin;
-            height: 24vmin;
+            width: 24dvmin;
+            height: 24dvmin;
       }
 
       & h2 {
-            font-size: 14vmin;
+            font-size: 14dvmin;
       }
 }
 
 @media (min-aspect-ratio: 0.746) {
       .cards-12 {
-            width: 67.16vmax;
-            height: 89.55vmax;
+            width: 67.16dvmax;
+            height: 89.55dvmax;
 
             grid-template-columns: repeat(3, 1fr);
 
             & .card {
-                  width: 17.91vmax;
-                  height: 17.91vmax;
+                  width: 17.91dvmax;
+                  height: 17.91dvmax;
             }
 
             & h2 {
-                  font-size: 10.45vmax;
+                  font-size: 10.45dvmax;
             }
       }
 }
 
 @media (min-aspect-ratio: 1) {
       .cards-12 {
-            width: 92.31vmax;
-            height: 69.23vmax;
+            width: 92.31dvmax;
+            height: 69.23dvmax;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 18.46vmax;
-                  height: 18.46vmax;
+                  width: 18.46dvmax;
+                  height: 18.46dvmax;
             }
 
             & h2 {
-                  font-size: 10.77vmax;
+                  font-size: 10.77dvmax;
             }
       }
 }
 
 @media (min-aspect-ratio: 1.250) {
       .cards-12 {
-            width: 115.38vmin;
-            height: 86.54vmin;
+            width: 115.38dvmin;
+            height: 86.54dvmin;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 23.08vmin;
-                  height: 23.08vmin;
+                  width: 23.08dvmin;
+                  height: 23.08dvmin;
             }
 
             & h2 {
-                  font-size: 13.46vmin;
+                  font-size: 13.46dvmin;
             }
       }
 }
 
 
 .cards-16 {
-      width: 92.31vmin;
-      height: 92.31vmin;
+      width: 92.31dvmin;
+      height: 92.31dvmin;
 
       grid-template-columns: repeat(4, 1fr);
 
       & .card {
-            width: 18.46vmin;
-            height: 18.46vmin;
+            width: 18.46dvmin;
+            height: 18.46dvmin;
       }
 
       & h2 {
-            font-size: 10.77vmin;
+            font-size: 10.77dvmin;
       }
 }
 
 @media (min-aspect-ratio: 0.97) {
       .cards-16 {
-            width: 89.55vmin;
-            height: 89.55vmin;
+            width: 89.55dvmin;
+            height: 89.55dvmin;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 17.91vmin;
-                  height: 17.91vmin;
+                  width: 17.91dvmin;
+                  height: 17.91dvmin;
             }
 
             & h2 {
-                  font-size: 10.45vmin;
+                  font-size: 10.45dvmin;
             }
       }
 }
 
 
 .cards-20 {
-      width: 92.31vmin;
-      height: 115.38vmin;
+      width: 92.31dvmin;
+      height: 115.38dvmin;
 
       grid-template-columns: repeat(4, 1fr);
 
       & .card {
-            width: 18.46vmin;
-            height: 18.46vmin;
+            width: 18.46dvmin;
+            height: 18.46dvmin;
       }
 
       & h2 {
-            font-size: 10.77vmin;
+            font-size: 10.77dvmin;
       }
 }
 
 @media (min-aspect-ratio: 0.793) {
       .cards-20 {
-            width: 73.17vmax;
-            height: 91.46vmax;
+            width: 73.17dvmax;
+            height: 91.46dvmax;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 14.63vmax;
-                  height: 14.63vmax;
+                  width: 14.63dvmax;
+                  height: 14.63dvmax;
             }
 
             & h2 {
-                  font-size: 8.54vmax;
+                  font-size: 8.54dvmax;
             }
       }
 }
 
 @media (min-aspect-ratio: 1) {
       .cards-20 {
-            width: 93.75vmax;
-            height: 75vmax;
+            width: 93.75dvmax;
+            height: 75dvmax;
 
             grid-template-columns: repeat(5, 1fr);
 
             & .card {
-                  width: 15vmax;
-                  height: 15vmax;
+                  width: 15dvmax;
+                  height: 15dvmax;
             }
 
             & h2 {
-                  font-size: 8.75vmax;
+                  font-size: 8.75dvmax;
             }
       }
 }
@@ -292,71 +292,71 @@ body {
 @media (min-aspect-ratio: 1.194) {
 
       .cards-20 {
-            width: 111.94vmin;
-            height: 89.55vmin;
+            width: 111.94dvmin;
+            height: 89.55dvmin;
 
             grid-template-columns: repeat(5, 1fr);
 
             & .card {
-                  width: 17.91vmin;
-                  height: 17.91vmin;
+                  width: 17.91dvmin;
+                  height: 17.91dvmin;
             }
 
             & h2 {
-                  font-size: 10.45vmin;
+                  font-size: 10.45dvmin;
             }
       }
 }
 
 
 .cards-24 {
-      width: 92.31vmin;
-      height: 138.46vmin;
+      width: 92.31dvmin;
+      height: 138.46dvmin;
 
       grid-template-columns: repeat(4, 1fr);
 
       & .card {
-            width: 18.46vmin;
-            height: 18.46vmin;
+            width: 18.46dvmin;
+            height: 18.46dvmin;
       }
 
       & h2 {
-            font-size: 10.77vmin;
+            font-size: 10.77dvmin;
       }
 }
 
 @media (min-aspect-ratio: 0.670) {
       .cards-24 {
-            width: 61.86vmax;
-            height: 92.78vmax;
+            width: 61.86dvmax;
+            height: 92.78dvmax;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 12.37vmax;
-                  height: 12.37vmax;
+                  width: 12.37dvmax;
+                  height: 12.37dvmax;
             }
 
             & h2 {
-                  font-size: 7.22vmax;
+                  font-size: 7.22dvmax;
             }
       }
 }
 
 @media (min-aspect-ratio: 1) {
       .cards-24 {
-            width: 94.74vmax;
-            height: 63.16vmax;
+            width: 94.74dvmax;
+            height: 63.16dvmax;
 
             grid-template-columns: repeat(6, 1fr);
 
             & .card {
-                  width: 12.63vmax;
-                  height: 12.63vmax;
+                  width: 12.63dvmax;
+                  height: 12.63dvmax;
             }
 
             & h2 {
-                  font-size: 7.37vmax;
+                  font-size: 7.37dvmax;
             }
       }
 }
@@ -364,18 +364,18 @@ body {
 @media (min-aspect-ratio: 1.418) {
 
       .cards-24 {
-            width: 134.33vmin;
-            height: 89.55vmin;
+            width: 134.33dvmin;
+            height: 89.55dvmin;
 
             grid-template-columns: repeat(6, 1fr);
 
             & .card {
-                  width: 17.91vmin;
-                  height: 17.91vmin;
+                  width: 17.91dvmin;
+                  height: 17.91dvmin;
             }
 
             & h2 {
-                  font-size: 10.45vmin;
+                  font-size: 10.45dvmin;
             }
       }
 }
@@ -383,53 +383,53 @@ body {
 
 
 .cards-28 {
-      width: 92.31vmin;
-      height: 161.54vmin;
+      width: 92.31dvmin;
+      height: 161.54dvmin;
 
       grid-template-columns: repeat(4, 1fr);
 
       & .card {
-            width: 18.46vmin;
-            height: 18.46vmin;
+            width: 18.46dvmin;
+            height: 18.46dvmin;
       }
 
       & h2 {
-            font-size: 10.77vmin;
+            font-size: 10.77dvmin;
       }
 }
 
 @media (min-aspect-ratio: 0.580) {
       .cards-28 {
-            width: 53.57vmax;
-            height: 93.75vmax;
+            width: 53.57dvmax;
+            height: 93.75dvmax;
 
             grid-template-columns: repeat(4, 1fr);
 
             & .card {
-                  width: 10.71vmax;
-                  height: 10.71vmax;
+                  width: 10.71dvmax;
+                  height: 10.71dvmax;
             }
 
             & h2 {
-                  font-size: 6.25vmax;
+                  font-size: 6.25dvmax;
             }
       }
 }
 
 @media (min-aspect-ratio: 1) {
       .cards-28 {
-            width: 95.45vmax;
-            height: 54.55vmax;
+            width: 95.45dvmax;
+            height: 54.55dvmax;
 
             grid-template-columns: repeat(7, 1fr);
 
             & .card {
-                  width: 10.91vmax;
-                  height: 10.91vmax;
+                  width: 10.91dvmax;
+                  height: 10.91dvmax;
             }
 
             & h2 {
-                  font-size: 6.36vmax;
+                  font-size: 6.36dvmax;
             }
       }
 }
@@ -437,18 +437,18 @@ body {
 @media (min-aspect-ratio: 1.642) {
 
       .cards-28 {
-            width: 156.72vmin;
-            height: 89.55vmin;
+            width: 156.72dvmin;
+            height: 89.55dvmin;
 
             grid-template-columns: repeat(7, 1fr);
 
             & .card {
-                  width: 17.91vmin;
-                  height: 17.91vmin;
+                  width: 17.91dvmin;
+                  height: 17.91dvmin;
             }
 
             & h2 {
-                  font-size: 10.45vmin;
+                  font-size: 10.45dvmin;
             }
       }
 }
@@ -564,7 +564,7 @@ img {
 
 .header {
       width: 100%;
-      height: 4vh;
+      height: 4dvh;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -575,7 +575,7 @@ img {
       background-color: black;
 
       & p {
-            font-size: 2.25vh;
+            font-size: 2.25dvh;
       }
 }
 
@@ -624,13 +624,13 @@ img {
       background-color: gainsboro;
       box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
       position: absolute;
-      transform: translateZ(150vmin);
-      inset: 4vh;
+      transform: translateZ(150dvmin);
+      inset: 4dvh;
       transition: 0.8s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
 .menu-wrapper.hidden {
-      transform: translateY(100vh) translateZ(150vmin);
+      transform: translateY(100dvh) translateZ(150dvmin);
       transition: 2s;
 }
 
@@ -641,18 +641,18 @@ img {
 }
 
 .menu-title-emojis {
-      font-size: 8vw;
-      margin-top: 2vw;
+      font-size: 8dvw;
+      margin-top: 2dvw;
 }
 
 .menu-title-text h1 {
-      font-size: 10vw;
-      margin-top: -2vw;
+      font-size: 10dvw;
+      margin-top: -2dvw;
 }
 
 .menu-options-wrapper h2 {
-      font-size: 4vw;
-      margin-top: 2vw;
+      font-size: 4dvw;
+      margin-top: 2dvw;
 }
 
 .menu-options-wrapper {
@@ -676,19 +676,19 @@ img {
 .option-theme {
       display: grid;
       place-items: center;
-      width: 12vw;
-      height: 7.5vw;
-      margin: 1.5vw;
-      border-radius: 1.5vw;
+      width: 12dvw;
+      height: 7.5dvw;
+      margin: 1.5dvw;
+      border-radius: 1.5dvw;
       background-color: whitesmoke;
       cursor: pointer;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-      font-size: 3vw;
+      font-size: 3dvw;
 }
 
 .option-theme {
       grid-template-columns: 1fr 1fr 1fr;
-      font-size: 1.5vw;
+      font-size: 1.5dvw;
 
       & p.main {
             display: none;
@@ -697,18 +697,18 @@ img {
 
 .option-cards.selected,
 .option-theme.selected {
-      border: 0.6vmin solid sandybrown;
+      border: 0.6dvmin solid sandybrown;
 }
 
 .start {
       display: grid;
       place-items: center;
-      width: 30vw;
-      height: 10vw;
-      border-radius: 1.5vw;
-      margin: 2vw;
+      width: 30dvw;
+      height: 10dvw;
+      border-radius: 1.5dvw;
+      margin: 2dvw;
       background-color: sandybrown;
-      font-size: 3vw;
+      font-size: 3dvw;
       transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       cursor: pointer;
 }
@@ -729,42 +729,42 @@ img {
 @media (min-aspect-ratio: 1) {
 
       .menu-title-emojis {
-            font-size: 8vh;
-            margin-top: 2vh;
+            font-size: 8dvh;
+            margin-top: 2dvh;
       }
 
       .menu-title-text h1 {
-            font-size: 10vh;
-            margin-top: -2vh;
+            font-size: 10dvh;
+            margin-top: -2dvh;
       }
 
       .menu-options-wrapper h2 {
-            font-size: 4vh;
-            margin-top: 2vh;
+            font-size: 4dvh;
+            margin-top: 2dvh;
       }
 
       .option-cards,
       .option-theme {
-            width: 12vh;
-            height: 7.5vh;
-            margin: 1.5vh;
-            border-radius: 1.5vh;
+            width: 12dvh;
+            height: 7.5dvh;
+            margin: 1.5dvh;
+            border-radius: 1.5dvh;
 
-            font-size: 3vh;
+            font-size: 3dvh;
       }
 
       .option-theme {
-            font-size: 2vh;
+            font-size: 2dvh;
       }
 
       .start {
             display: grid;
             place-items: center;
-            width: 30vh;
-            height: 10vh;
-            border-radius: 1.5vh;
-            margin: 2vh;
-            font-size: 3vh;
+            width: 30dvh;
+            height: 10dvh;
+            border-radius: 1.5dvh;
+            margin: 2dvh;
+            font-size: 3dvh;
 
       }
 }
@@ -790,16 +790,16 @@ img {
 
             .option-cards,
             .option-theme {
-                  width: 16vw;
-                  height: 10vw;
+                  width: 16dvw;
+                  height: 10dvw;
             }
 
             .option-cards {
-                  font-size: 5vw;
+                  font-size: 5dvw;
             }
 
             .option-theme {
-                  font-size: 6.5vw;
+                  font-size: 6.5dvw;
                   grid-template-columns: 1fr;
 
                   & p {
@@ -812,11 +812,11 @@ img {
             }
 
             .start {
-                  width: 36vw;
-                  height: 12vw;
-                  border-radius: 1.8vh;
-                  margin: 2vh;
-                  font-size: 3.6vh;
+                  width: 36dvw;
+                  height: 12dvw;
+                  border-radius: 1.8dvh;
+                  margin: 2dvh;
+                  font-size: 3.6dvh;
 
             }
       }
@@ -840,14 +840,14 @@ img {
       position: absolute;
       display: grid;
       place-items: center;
-      inset: 4vh;
-      transform: translateZ(100vmin);
+      inset: 4dvh;
+      transform: translateZ(100dvmin);
       transition: 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .pause-menu-wrapper.hidden,
 .win-menu-wrapper.hidden {
-      transform: translateY(-100vh) translateZ(100vmin);
+      transform: translateY(-100dvh) translateZ(100dvmin);
       transition: 0s;
 
 }
@@ -859,26 +859,26 @@ img {
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      width: 35vmax;
-      height: 20vmax;
-      border-radius: 2vmax;
+      width: 35dvmax;
+      height: 20dvmax;
+      border-radius: 2dvmax;
       background-color: whitesmoke;
       box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px;
-      transform: translateZ(100vmin);
+      transform: translateZ(100dvmin);
 
 
       & .greeting-emojis {
-            font-size: 5vmax;
+            font-size: 5dvmax;
       }
 
       & h2 {
-            margin-top: -2vmax;
-            font-size: 4vmax;
+            margin-top: -2dvmax;
+            font-size: 4dvmax;
             cursor: default;
       }
       
       & p {
-            font-size: 2vmax;
+            font-size: 2dvmax;
       }
 }
 
@@ -894,7 +894,7 @@ img {
             place-items: center;
             height: 100%;
             width: 35%;
-            border-radius: 0.7vmax;
+            border-radius: 0.7dvmax;
             background-color: sandybrown;
             text-align: center;
             transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
