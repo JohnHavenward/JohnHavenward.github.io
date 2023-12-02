@@ -1,20 +1,57 @@
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
 
 
-var audio_correct = new Audio('ui_correct_button2-103167.mp3');
-var audio_wrong = new Audio('error-3-125761.mp3');
 
+var audio_start = new Audio('sounds/start.wav');
+var audio_go = new Audio('sounds/go.wav');
+var audio_restart = new Audio('sounds/restart.wav');
+var audio_click = new Audio('sounds/click.wav');
+var audio_select = new Audio('sounds/select.wav');
+var audio_correct = new Audio('sounds/correct.wav');
+var audio_wrong = new Audio('sounds/wrong.wav');
+var audio_win = new Audio('sounds/win.wav');
+var audio_exit = new Audio('sounds/exit.wav');
+var audio_pause = new Audio('sounds/pause.wav');
+var audio_resume = new Audio('sounds/resume.wav');
+
+
+audio_click.volume = 0.5;
+audio_select.volume = 0.5;
+
+
+audio_start.muted = true;
+audio_go.muted = true;
+audio_restart.muted = true;
+audio_click.muted = true;
+audio_select.muted = true;
 audio_correct.muted = true;
 audio_wrong.muted = true;
+audio_win.muted = true;
+audio_exit.muted = true;
+audio_pause.muted = true;
+audio_resume.muted = true;
+
+const start_button = document.querySelector('.start');
+const play_button = document.querySelector('.play');
 
 const mute_button = document.querySelector('.mute');
-const pause_button = document.querySelector('.header-button.pause');
+const pause_button = document.querySelector('.topbar-button.pause');
 const fullscreen_button = document.querySelector('.fullscreen');
 
 const pause_menu_button = document.querySelector('.pause-menu-button');
 const pause_restart_button = document.querySelector('.pause-restart-button');
+const pause_resume_button = document.querySelector('.pause-resume-button');
 const win_menu_button = document.querySelector('.win-menu-button');
 const win_restart_button = document.querySelector('.win-restart-button');
+
+
+play_button.addEventListener('touchstart', PlayGame);
+play_button.addEventListener('click', PlayGame);
+start_button.addEventListener('touchstart', StartGame);
+start_button.addEventListener('click', StartGame);
+
 
 mute_button.addEventListener('click', ToggleMuted, false);
 pause_button.addEventListener('touchstart', ShowPauseMenu, false);
@@ -23,14 +60,17 @@ fullscreen_button.addEventListener('click', ToggleFullscreen, false);
 
 pause_menu_button.addEventListener('touchstart', ShowMenu, false);
 pause_menu_button.addEventListener('click', ShowMenu, false);
-pause_restart_button.addEventListener('touchstart', CreateGame, false);
-pause_restart_button.addEventListener('click', CreateGame, false);
+pause_restart_button.addEventListener('touchstart', RestartGame, false);
+pause_restart_button.addEventListener('click', RestartGame, false);
+pause_resume_button.addEventListener('touchstart', ResumeGame, false);
+pause_resume_button.addEventListener('click', ResumeGame, false);
 win_menu_button.addEventListener('touchstart', ShowMenu, false);
 win_menu_button.addEventListener('click', ShowMenu, false);
-win_restart_button.addEventListener('touchstart', CreateGame, false);
-win_restart_button.addEventListener('click', CreateGame, false);
+win_restart_button.addEventListener('touchstart', RestartGame, false);
+win_restart_button.addEventListener('click', RestartGame, false);
 
 
+const title_wrapper = document.querySelector('.title-wrapper');
 const menu_wrapper = document.querySelector('.menu-wrapper');
 const PauseMenuWrapper = document.querySelector('.pause-menu-wrapper');
 const cards_wrapper = document.querySelector('.cards-wrapper');
@@ -49,16 +89,12 @@ let startingTimeout;
 
 // CARD INTERACTION FUNCTIONS
 
+let lockTopbar = true;
 let lockBoard = true;
 let unmatchedCards;
+let fails;
 let isPhase_A = true;
 
-let firstCard_A, secondCard_A;
-let firstCard_B, secondCard_B;
-let hasFlippedCard_A = false;
-let hasFlippedCard_B = false;
-let cardsFlipping_A = false;
-let cardsFlipping_B = false;
 
 let cardPairA = {
       firstCard: null,
@@ -78,20 +114,30 @@ let cardPairB = {
 function flipCard(event) {
       event.preventDefault();
       if (lockBoard) return;
-      
+
       if (isPhase_A) {
+            if (this === cardPairB.firstCard || this === cardPairB.secondCard) return;
             addSelectedCard(this, cardPairA);
       }
       else {
+            if (this === cardPairA.firstCard || this === cardPairA.secondCard) return;
             addSelectedCard(this, cardPairB);
       }
 }
 
-function addSelectedCard (selectedCard ,cardPair) {
+function addSelectedCard(selectedCard, cardPair) {
       if (selectedCard === cardPair.firstCard) return;
-
+      
+      audio_select.load();
+      audio_select.play();
 
       selectedCard.classList.add('flip');
+      
+      selectedCard.classList.add('highlighted');
+      setTimeout(() => {
+            selectedCard.classList.remove('highlighted');
+
+      }, 100);
 
       if (!cardPair.hasFlippedCard) {
             cardPair.hasFlippedCard = true;
@@ -99,7 +145,7 @@ function addSelectedCard (selectedCard ,cardPair) {
 
             return;
       }
-      
+
       cardPair.secondCard = selectedCard;
       checkForMatch(cardPair);
 }
@@ -107,7 +153,7 @@ function addSelectedCard (selectedCard ,cardPair) {
 function checkForMatch(cardPair) {
       let isMatch = cardPair.firstCard.querySelector('h2').innerText === cardPair.secondCard.querySelector('h2').innerText;
 
-      lockBoard = true
+      lockBoard = true;
       cards_wrapper.classList.remove('selectable');
 
       isMatch ? disableCards(cardPair) : unflipCards(cardPair);
@@ -115,7 +161,9 @@ function checkForMatch(cardPair) {
 
 function disableCards(cardPair) {
 
+      cardPair.firstCard.removeEventListener('touchstart', flipCard);
       cardPair.firstCard.removeEventListener('click', flipCard);
+      cardPair.secondCard.removeEventListener('touchstart', flipCard);
       cardPair.secondCard.removeEventListener('click', flipCard);
 
       setTimeout(() => {
@@ -131,38 +179,40 @@ function disableCards(cardPair) {
 }
 
 function unflipCards(cardPair) {
-      
+
       cardPair.cardsFlipping = true;
       
       let firstCard = cardPair.firstCard;
       let secondCard = cardPair.secondCard;
-      
-      
+
       setTimeout(() => {
             firstCard.classList.add('red');
             secondCard.classList.add('red');
+            
+            fails += 1;
+            SetFails(fails);
 
             audio_wrong.load();
             audio_wrong.play();
-            
+
             resetBoard(cardPair);
       }, 800);
 
       setTimeout(() => {
             firstCard.classList.remove('flip');
             secondCard.classList.remove('flip');
-            
+
             firstCard.classList.remove('selectable');
             secondCard.classList.remove('selectable');
       }, 1200);
-      
+
       setTimeout(() => {
             firstCard.classList.remove('red');
             secondCard.classList.remove('red');
-            
+
             firstCard.classList.add('selectable');
             secondCard.classList.add('selectable');
-            
+
             cardPair.cardsFlipping = false;
       }, 1800);
 }
@@ -179,7 +229,12 @@ function resetBoard(cardPair) {
 function checkForWin() {
       unmatchedCards -= 2;
       if (unmatchedCards == 0) {
+            audio_correct.pause();
+            audio_win.load();
+            audio_win.play();
             win_menu.classList.remove('hidden');
+            FinalFails.innerHTML = 'fails ' + fails;
+            FinalTime.innerHTML = 'total time ' + minutes + ':' + seconds + 's ';
             TimerStop();
       }
 }
@@ -206,24 +261,61 @@ all_option_theme.forEach(option => option.addEventListener('click', SelectOption
 function SelectOptionCards() {
       selected_option_cards.classList.remove('selected');
       this.classList.add('selected');
+
+      audio_click.load();
+      audio_click.play();
+
       selected_option_cards = this;
 }
 
 function SelectOptionTheme(option) {
       selected_option_theme.classList.remove('selected');
+
       this.classList.add('selected');
+
+      audio_click.load();
+      audio_click.play();
+
       selected_option_theme = this;
 }
 
-let start_button = document.querySelector('.start');
+// PLAY GAME
 
-start_button.addEventListener('click', CreateGame);
+function PlayGame(event) {
+      event.preventDefault();
+
+      audio_start.load();
+      audio_start.play();
+
+      title_wrapper.classList.add('hidden');
+}
+
+// RESTART GAME
+
+function StartGame(event) {
+      event.preventDefault();
+
+      audio_start.load();
+      audio_start.play();
+
+      CreateGame();
+}
+
+// RESTART GAME
+
+function RestartGame(event) {
+      event.preventDefault();
+
+      audio_restart.load();
+      audio_restart.play();
+
+      CreateGame();
+}
 
 
 // CREATE GAME
 
-function CreateGame(event) {
-      event.preventDefault();
+function CreateGame() {
 
       // hide menus
       menu_wrapper.classList.add('hidden');
@@ -235,6 +327,10 @@ function CreateGame(event) {
 
       // lock board
       lockBoard = true;
+      
+      // restart stats
+      fails = 0;
+      SetFails();
 
       // fetch options
       total_cards = document.querySelector('.option-cards.selected').dataset.cards;
@@ -254,34 +350,50 @@ function CreateGame(event) {
 
             setTimeout(() => {
                   card.classList.remove('flip');
-            }, 3000)       
+            }, 3000)
       );
-      lockBoard = false;
-      
-      // set starting
+
+
+      // set starting, reset board and unlock topbar
       clearTimeout(startingTimeout);
       if (!isStarting) {
             isStarting = true;
             cards_wrapper.classList.add('starting')
       }
-      
+
       startingTimeout = setTimeout(() => {
             isStarting = false;
             cards_wrapper.classList.remove('starting');
-      }, 3800)  
-      
-      
-      
+            
+            audio_go.load();
+            audio_go.play();
+
+            lockBoard = false;
+            [cardPairA.firstCard, cardPairA.secondCard, cardPairA.hasFlippedCard] = [null, null, false];
+            [cardPairB.firstCard, cardPairB.secondCard, cardPairB.hasFlippedCard] = [null, null, false];
+
+            lockTopbar = false;
+            Topbar.classList.remove('locked'); 
+            
+      }, 3800)
+
+
+
       // start timer
       TimerReset();
-      
+
       setTimeout(() => {
-            TimerReset();
-            timerController = setInterval(TimerStart,1000);
+            timerController = setInterval(TimerStart, 10);
       }, 4400)
 
       // set unmatched cards
       unmatchedCards = total_cards;
+
+
+}
+
+function SetFails() {
+      Fails.innerHTML = 'FAILS: ' + fails;
 }
 
 
@@ -294,14 +406,14 @@ function CreateCards() {
                   <div class="card-wrapper">
                         <div class="card-shadow">
                         </div>            
-                        <div class="card-front">
-                              <div class="card-square">
-                                    <img src="Front.png" alt="" draggable="false">
-                              </div>
-                        </div>
                         <div class="card-back">
                               <div class="card-square">
                                     <h2 class="card-emoji"></h2>
+                              </div>
+                        </div>
+                        <div class="card-front">
+                              <div class="card-square">
+                                    <img src="images/front.png" alt="" draggable="false">
                               </div>
                         </div>
                   </div>
@@ -321,14 +433,39 @@ function CreateCards() {
 
 function ShowMenu(event) {
       event.preventDefault();
-      TimerStop();
       menu_wrapper.classList.remove('hidden');
+
+      audio_exit.load();
+      audio_exit.play();
 }
 
 function ShowPauseMenu(event) {
       event.preventDefault();
+      
+      if (lockTopbar) return;
+      lockTopbar = true;
+      Topbar.classList.add('locked');
+      
       TimerStop();
+
+      audio_pause.load();
+      audio_pause.play();
+
       PauseMenuWrapper.classList.remove('hidden');
+}
+
+function ResumeGame(event) {
+      event.preventDefault();
+      
+      lockTopbar = false;
+      Topbar.classList.remove('locked');
+
+      timerController = setInterval(TimerStart, 10);
+
+      audio_resume.load();
+      audio_resume.play();
+
+      PauseMenuWrapper.classList.add('hidden');
 }
 
 function AsignEmojis() {
@@ -338,58 +475,58 @@ function AsignEmojis() {
 
       switch (theme) {
             case 'smileys':
-                  selected_emojis = ["😁", "😆", "😅", "😂", "🥲", "😇", "🙂", "🙃", "😉", "😌", "😍", "😘", "😗", "😚", "😋", "😛", "😜", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "😏", "😔", "😟", "😕", "😖", "😩", "🥺", "😢", "😭", "😤", "🤬", "🤯", "😳", "🥵", "🥶", "😶‍🌫️", "😱", "😓", "🤔", "😶", "😑", "😬", "🙄", "😮", "🥱", "😴", "🤤", "😪", "😮‍💨", "😵", "😵‍💫", "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "😈", "💩", "🤖", "👽", "😸"];
+                  selected_emojis = ['😁', '😆', '😅', '😂', '🥲', '😇', '🙂', '🙃', '😉', '😌', '😍', '😘', '😗', '😚', '😋', '😛', '😜', '🤨', '🧐', '🤓', '😎', '🥸', '🤩', '😏', '😔', '😟', '😕', '😖', '😩', '🥺', '😢', '😭', '😤', '🤬', '🤯', '😳', '🥵', '🥶', '😶‍🌫️', '😱', '😓', '🤔', '😶', '😑', '😬', '🙄', '😮', '🥱', '😴', '🤤', '😪', '😮‍💨', '😵', '😵‍💫', '🤐', '🥴', '🤢', '🤮', '🤧', '😷', '🤒', '🤕', '🤑', '😈', '💩', '🤖', '👽', '😸'];
                   break;
             case 'food':
-                  selected_emojis = ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇", "🍓", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥥", "🥝", "🍅", "🍆", "🥑", "🥦", "🥬", "🥒", "🌶️", "🫑", "🌽", "🥕", "🫒", "🧄", "🧅", "🥔", "🍠", "🍞", "🥖", "🧀", "🥚", "🧈", "🥩", "🍗", "🍖", "🥫", "🦪", "🌰", "🥜", "🍯", "🥛", "🦐", "🦞", "🦀", "🐟"];
+                  selected_emojis = ['🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭', '🍍', '🥥', '🥝', '🍅', '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒', '🧄', '🧅', '🥔', '🍠', '🍞', '🥖', '🧀', '🥚', '🧈', '🥩', '🍗', '🍖', '🥫', '🦪', '🌰', '🥜', '🍯', '🥛', '🦐', '🦞', '🦀', '🐟'];
                   break;
             case 'desserts':
-                  selected_emojis = ["🥐", "🥯", "🥨", "🥞", "🧇", "🥮", "🍡", "🍧", "🍨", "🍦", "🥧", "🧁", "🍰", "🎂", "🍮", "🍭", "🍬", "🍫", "🍿", "🍩", "🍪", "🥤", "🧋"];
+                  selected_emojis = ['🥐', '🥯', '🥨', '🥞', '🧇', '🥮', '🍡', '🍧', '🍨', '🍦', '🥧', '🧁', '🍰', '🎂', '🍮', '🍭', '🍬', '🍫', '🍿', '🍩', '🍪', '🥤', '🧋'];
                   break;
             case 'international-dishes':
-                  selected_emojis = ["🍳", "🥓", "🌭", "🍔", "🍟", "🍕", "🥪", "🥙", "🧆", "🌮", "🌯", "🫔", "🥗", "🥘", "🫕", "🍝", "🍜", "🍲", "🍛", "🍣", "🍱", "🥟", "🍤", "🍙", "🍚", "🍘", "🍥", "🥠", "🍢"];
+                  selected_emojis = ['🍳', '🥓', '🌭', '🍔', '🍟', '🍕', '🥪', '🥙', '🧆', '🌮', '🌯', '🫔', '🥗', '🥘', '🫕', '🍝', '🍜', '🍲', '🍛', '🍣', '🍱', '🥟', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠', '🍢'];
                   break;
             case 'animal-faces':
-                  selected_emojis = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐻‍❄️", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵", "🐙", "🐥"];
+                  selected_emojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐻‍❄️', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐙', '🐥'];
                   break;
             case 'hands':
-                  selected_emojis = ["👍🏻", "👎🏻", "👊🏻", "✊🏻", "🤛🏻", "🤜🏻", "🤞🏻", "✌🏻", "🤟🏻", "🤘🏻", "👌🏻", "🤌🏻", "🤏🏻", "👈🏻", "👉🏻", "👆🏻", "👇🏻", "☝🏻", "🤚🏻", "🖐🏻", "🖖🏻", "👋🏻", "🤙🏻"];
+                  selected_emojis = ['👍🏻', '👎🏻', '👊🏻', '✊🏻', '🤛🏻', '🤜🏻', '🤞🏻', '✌🏻', '🤟🏻', '🤘🏻', '👌🏻', '🤌🏻', '🤏🏻', '👈🏻', '👉🏻', '👆🏻', '👇🏻', '☝🏻', '🤚🏻', '🖐🏻', '🖖🏻', '👋🏻', '🤙🏻'];
                   break;
             case 'architecture':
-                  selected_emojis = ["🏰", "🏯", "🏠", "🏭", "🏢", "🏬", "🏣", "🏤", "🏥", "🏦", "🏨", "🏪", "🏫", "🏩", "💒", "🏛️", "⛪️", "🕌", "🕍", "🛕", "🎡"];
+                  selected_emojis = ['🏰', '🏯', '🏠', '🏭', '🏢', '🏬', '🏣', '🏤', '🏥', '🏦', '🏨', '🏪', '🏫', '🏩', '💒', '🏛️', '⛪️', '🕌', '🕍', '🛕', '🎡'];
                   break;
             case 'medical':
-                  selected_emojis = ["💀", "🫀", "🫁", "🧠", "🦷", "👅", "👂🏻", "👃🏻", "👁️", "⚗️", "🔬", "🩹", "🩺", "💊", "💉", "🩸", "🧬", "🦠", "🧫", "🧪", "🌡️", "🦾", "🦶🏻", "🦿", "🥼", "🔍", "📋", "🗄️", "🖥️", "📚", "⏱️", "🧴", "💼", "🥽", "🐁"];
+                  selected_emojis = ['💀', '🫀', '🫁', '🧠', '🦷', '👅', '👂🏻', '👃🏻', '👁️', '⚗️', '🔬', '🩹', '🩺', '💊', '💉', '🩸', '🧬', '🦠', '🧫', '🧪', '🌡️', '🦾', '🦶🏻', '🦿', '🥼', '🔍', '📋', '🗄️', '🖥️', '📚', '⏱️', '🧴', '💼', '🥽', '🐁'];
                   break;
             case 'jobs':
-                  selected_emojis = ["👮🏻‍♂️", "👷🏽‍♂️", "🕵🏻‍♂️", "🧑🏽‍⚕️", "👩🏼‍🌾", "👨🏼‍🍳", "👨🏾‍🎓", "👩🏿‍🎤", "🧑🏼‍🏫", "👩🏻‍🏭", "👨🏻‍💻", "🧑🏿‍💼", "👨🏻‍💼", "👩🏻‍🔧", "👩🏽‍🔬", "👨🏼‍🎨", "🧑🏼‍🚒", "👩🏻‍✈️", "🧑🏽‍🚀", "🧑🏻‍⚖️", "🤵🏼‍♀️"];
+                  selected_emojis = ['👮🏻‍♂️', '👷🏽‍♂️', '🕵🏻‍♂️', '🧑🏽‍⚕️', '👩🏼‍🌾', '👨🏼‍🍳', '👨🏾‍🎓', '👩🏿‍🎤', '🧑🏼‍🏫', '👩🏻‍🏭', '👨🏻‍💻', '🧑🏿‍💼', '👨🏻‍💼', '👩🏻‍🔧', '👩🏽‍🔬', '👨🏼‍🎨', '🧑🏼‍🚒', '👩🏻‍✈️', '🧑🏽‍🚀', '🧑🏻‍⚖️', '🤵🏼‍♀️'];
                   break;
             case 'animals':
-                  selected_emojis = ["🦆", "🦅", "🦇", "🦗", "🐢", "🐍", "🦎", "🦑", "🐬", "🐋", "🦈", "🐅", "🐆", "🦓", "🦍", "🦣", "🐘", "🦛", "🦏", "🐪", "🐫", "🦒", "🦘", "🦬", "🐃", "🐂", "🐄", "🐖", "🐏", "🐑", "🦙", "🐐", "🦌", "🐕", "🐩", "🐈", "🐈‍⬛", "🐓", "🦃", "🦤", "🦜", "🦢", "🦩", "🐇", "🦝", "🦨", "🦡", "🦫", "🐿️", "🦔"];
+                  selected_emojis = ['🦆', '🦅', '🦇', '🦗', '🐢', '🐍', '🦎', '🦑', '🐬', '🐋', '🦈', '🐅', '🐆', '🦓', '🦍', '🦣', '🐘', '🦛', '🦏', '🐪', '🐫', '🦒', '🦘', '🦬', '🐃', '🐂', '🐄', '🐖', '🐏', '🐑', '🦙', '🐐', '🦌', '🐕', '🐩', '🐈', '🐈‍⬛', '🐓', '🦃', '🦤', '🦜', '🦢', '🦩', '🐇', '🦝', '🦨', '🦡', '🦫', '🐿️', '🦔'];
                   break;
             case 'vehicles':
-                  selected_emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐", "🛻", "🚚", "🚛", "🚜", "🛵", "🏍️", "🛺", "🚟", "🚃", "🚂", "🚁"];
+                  selected_emojis = ['🚗', '🚕', '🚙', '🚌', '🚎', '🏎️', '🚓', '🚑', '🚒', '🚐', '🛻', '🚚', '🚛', '🚜', '🛵', '🏍️', '🛺', '🚟', '🚃', '🚂', '🚁'];
                   break;
             case 'faces':
-                  selected_emojis = ["👧🏻", "🧒🏼", "👦🏾", "👩🏾", "🧑🏻", "👨🏽", "👩🏾‍🦱", "🧑🏿‍🦱", "👨🏾‍🦱", "👩🏻‍🦰", "🧑🏼‍🦰", "👨🏻‍🦰", "👱🏽‍♀️", "👱🏼", "👱🏽‍♂️", "👩🏻‍🦳", "🧑🏽‍🦳", "👨🏼‍🦳", "👨🏿‍🦲", "🧔🏽‍♀️", "🧔🏾", "🧔🏻‍♂️", "👵🏻", "🧓🏼", "👴🏼"];
+                  selected_emojis = ['👧🏻', '🧒🏼', '👦🏾', '👩🏾', '🧑🏻', '👨🏽', '👩🏾‍🦱', '🧑🏿‍🦱', '👨🏾‍🦱', '👩🏻‍🦰', '🧑🏼‍🦰', '👨🏻‍🦰', '👱🏽‍♀️', '👱🏼', '👱🏽‍♂️', '👩🏻‍🦳', '🧑🏽‍🦳', '👨🏼‍🦳', '👨🏿‍🦲', '🧔🏽‍♀️', '🧔🏾', '🧔🏻‍♂️', '👵🏻', '🧓🏼', '👴🏼'];
                   break;
             case 'nature':
-                  selected_emojis = ["⛰", "🌲", "🌳", "🌱", "🌿", "🍀", "🍂", "🍁", "🍄", "🪨", "🌾", "🌷", "🌹", "🌺", "🌸", "🌼", "🏵️", "🌻", "🪱", "🦋", "🐌", "🐞", "🪰", "🪲", "🪳", "🕷️", "🦂"];
+                  selected_emojis = ['⛰', '🌲', '🌳', '🌱', '🌿', '🍀', '🍂', '🍁', '🍄', '🪨', '🌾', '🌷', '🌹', '🌺', '🌸', '🌼', '🏵️', '🌻', '🪱', '🦋', '🐌', '🐞', '🪰', '🪲', '🪳', '🕷️', '🦂'];
                   break;
             case 'activities':
-                  selected_emojis = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏", "🎱", "🪀", "🏓", "🪃", "🥊", "⛸️", "🏹", "🪁", "🤿", "🥌", "🏆", "🎧", "🎹", "🎲", "♟️", "🎯", "🎳", "🎮", "🧩", "🃏", "🀄️", "🛼", "🎭", "🩰", "🎨", "🎬", "🎤", "🔫", "🏁"];
+                  selected_emojis = ['⚽️', '🏀', '🏈', '⚾️', '🥎', '🎾', '🏐', '🏉', '🥏', '🎱', '🪀', '🏓', '🪃', '🥊', '⛸️', '🏹', '🪁', '🤿', '🥌', '🏆', '🎧', '🎹', '🎲', '♟️', '🎯', '🎳', '🎮', '🧩', '🃏', '🀄️', '🛼', '🎭', '🩰', '🎨', '🎬', '🎤', '🔫', '🏁'];
                   break;
             case 'objects':
-                  selected_emojis = ["⌚️", "📱", "💻", "🖨️", "🕹️", "🗜️", "💾", "💿", "📼", "📷", "📹", "🎥", "☎️", "📺", "📻", "🧭", "⏲️", "⏰", "🕰️", "⏳", "🔋", "💡", "🔦", "🕯️", "🧯", "⚖️", "🪛", "🔧", "🔨", "🪚", "🔩", "⚙️", "🧲", "🪓", "🔪", "🔭", "🧹", "🪠", "🧻", "🧼", "🪥", "🪒", "🧽", "🪣", "🔑", "🗝️", "🧸", "🎁", "✉️", "📦", "🏷️", "🗒️", "📆", "🗑️", "📁", "📰", "📖", "🧷", "📎", "📐", "🧮", "📌", "✂️", "🖊️", "✒️", "🖌️", "🖍️", "✏️", "🔒", "🧤", "💍", "🎒", "🧳", "🕶️", "🌂", "📢", "🍼"];
+                  selected_emojis = ['⌚️', '📱', '💻', '🖨️', '🕹️', '🗜️', '💾', '💿', '📼', '📷', '📹', '🎥', '☎️', '📺', '📻', '🧭', '⏲️', '⏰', '🕰️', '⏳', '🔋', '💡', '🔦', '🕯️', '🧯', '⚖️', '🪛', '🔧', '🔨', '🪚', '🔩', '⚙️', '🧲', '🪓', '🔪', '🔭', '🧹', '🪠', '🧻', '🧼', '🪥', '🪒', '🧽', '🪣', '🔑', '🗝️', '🧸', '🎁', '✉️', '📦', '🏷️', '🗒️', '📆', '🗑️', '📁', '📰', '📖', '🧷', '📎', '📐', '🧮', '📌', '✂️', '🖊️', '✒️', '🖌️', '🖍️', '✏️', '🔒', '🧤', '💍', '🎒', '🧳', '🕶️', '🌂', '📢', '🍼'];
                   break;
             case 'families':
-                  selected_emojis = ["👨‍👩‍👦", "👨‍👩‍👧", "👨‍👩‍👧‍👦", "👨‍👩‍👦‍👦", "👨‍👩‍👧‍👧", "👩‍👩‍👦", "👩‍👩‍👧", "👩‍👩‍👧‍👦", "👩‍👩‍👦‍👦", "👩‍👩‍👧‍👧", "👨‍👨‍👦", "👨‍👨‍👧", "👨‍👨‍👧‍👦", "👨‍👨‍👦‍👦", "👨‍👨‍👧‍👧", "👩‍👦", "👩‍👧", "👩‍👧‍👦", "👩‍👦‍👦", "👩‍👧‍👧", "👨‍👦", "👨‍👧", "👨‍👧‍👦", "👨‍👦‍👦", "👨‍👧‍👧"];
+                  selected_emojis = ['👨‍👩‍👦', '👨‍👩‍👧', '👨‍👩‍👧‍👦', '👨‍👩‍👦‍👦', '👨‍👩‍👧‍👧', '👩‍👩‍👦', '👩‍👩‍👧', '👩‍👩‍👧‍👦', '👩‍👩‍👦‍👦', '👩‍👩‍👧‍👧', '👨‍👨‍👦', '👨‍👨‍👧', '👨‍👨‍👧‍👦', '👨‍👨‍👦‍👦', '👨‍👨‍👧‍👧', '👩‍👦', '👩‍👧', '👩‍👧‍👦', '👩‍👦‍👦', '👩‍👧‍👧', '👨‍👦', '👨‍👧', '👨‍👧‍👦', '👨‍👦‍👦', '👨‍👧‍👧'];
                   break;
             case 'time':
                   selected_emojis = ['🕛', '🕧', '🕐', '🕜', '🕑', '🕝', '🕒', '🕞', '🕓', '🕟', '🕔', '🕠', '🕕', '🕡', '🕖', '🕢', '🕗', '🕣', '🕘', '🕤', '🕙', '🕥', '🕚', '🕦'];
                   break;
             case 'flags':
-                  selected_emojis = ["🇺🇳", "🇦🇫", "🇦🇱", "🇩🇪", "🇦🇩", "🇦🇴", "🇦🇮", "🇦🇶", "🇦🇬", "🇸🇦", "🇮🇴", "🇩🇿", "🇦🇷", "🇦🇲", "🇦🇼", "🇦🇺", "🇦🇹", "🇦🇿", "🇧🇸", "🇧🇩", "🇧🇧", "🇧🇭", "🇧🇪", "🇧🇿", "🇧🇯", "🇧🇲", "🇧🇾", "🇧🇴", "🇧🇦", "🇧🇼", "🇧🇷", "🇧🇳", "🇧🇬", "🇧🇫", "🇧🇮", "🇧🇹", "🇨🇻", "🇰🇭", "🇨🇲", "🇨🇦", "🇮🇨", "🇧🇶", "🇶🇦", "🇹🇩", "🇨🇿", "🇨🇱", "🇨🇳", "🇨🇾", "🇻🇦", "🇨🇴", "🇰🇲", "🇨🇬", "🇰🇵", "🇰🇷", "🇨🇷", "🇨🇮", "🇭🇷", "🇨🇺", "🇨🇼", "🇩🇰", "🇩🇲", "🇪🇨", "🇪🇬", "🇸🇻", "🇦🇪", "🇪🇷", "🇸🇰", "🇸🇮", "🇪🇸", "🇺🇸", "🇪🇪", "🇸🇿", "🇪🇹", "🇵🇭", "🇫🇮", "🇫🇯", "🇫🇷", "🇬🇦", "🇬🇲", "🇬🇪", "🇬🇭", "🇬🇮", "🇬🇩", "🇬🇷", "🇬🇱", "🇬🇵", "🇬🇺", "🇬🇹", "🇬🇫", "🇬🇬", "🇬🇳", "🇬🇶", "🇬🇼", "🇬🇾", "🇭🇹", "🇭🇳", "🇭🇰", "🇭🇺", "🇮🇳", "🇮🇩", "🇮🇶", "🇮🇷", "🇮🇪", "🇮🇲", "🇨🇽", "🇳🇫", "🇮🇸", "🇦🇽", "🇰🇾", "🇨🇨", "🇨🇰", "🇫🇴", "🇬🇸", "🇫🇰", "🇲🇵", "🇲🇭", "🇵🇳", "🇸🇧", "🇹🇨", "🇻🇬", "🇻🇮", "🇮🇱", "🇮🇹", "🇯🇲", "🇯🇵", "🎌", "🇯🇪", "🇯🇴", "🇰🇿", "🇰🇪", "🇰🇬", "🇰🇮", "🇽🇰", "🇰🇼", "🇱🇦", "🇱🇸", "🇱🇻", "🇱🇧", "🇱🇷", "🇱🇾", "🇱🇮", "🇱🇹", "🇱🇺", "🇲🇴", "🇲🇰", "🇲🇬", "🇲🇾", "🇲🇼", "🇲🇻", "🇲🇱", "🇲🇹", "🇲🇦", "🇲🇶", "🇲🇺", "🇲🇷", "🇾🇹", "🇲🇽", "🇫🇲", "🇲🇩", "🇲🇨", "🇲🇳", "🇲🇪", "🇲🇸", "🇲🇿", "🇲🇲", "🇳🇦", "🇳🇷", "🇳🇵", "🇳🇮", "🇳🇪", "🇳🇬", "🇳🇺", "🇳🇴", "🇳🇨", "🇳🇿", "🇴🇲", "🇳🇱", "🇵🇰", "🇵🇼", "🇵🇦", "🇵🇬", "🇵🇾", "🇵🇪", "🇵🇫", "🇵🇱", "🇵🇹", "🇵🇷", "🇬🇧", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "🏴󠁧󠁢󠁷󠁬󠁳󠁿", "🇨🇫", "🇨🇩", "🇩🇴", "🇷🇪", "🇷🇼", "🇷🇴", "🇷🇺", "🇪🇭", "🇼🇸", "🇦🇸", "🇧🇱", "🇰🇳", "🇸🇲", "🇵🇲", "🇻🇨", "🇸🇭", "🇱🇨", "🇸🇹", "🇸🇳", "🇷🇸", "🇸🇨", "🇸🇱", "🇸🇬", "🇸🇽", "🇸🇾", "🇸🇴", "🇱🇰", "🇿🇦", "🇸🇩", "🇸🇸", "🇸🇪", "🇨🇭", "🇸🇷", "🇹🇭", "🇹🇼", "🇹🇿", "🇹🇯", "🇹🇫", "🇵🇸", "🇹🇱", "🇹🇬", "🇹🇰", "🇹🇴", "🇹🇹", "🇹🇳", "🇹🇲", "🇹🇷", "🇹🇻", "🇺🇦", "🇺🇬", "🇪🇺", "🇺🇾", "🇺🇿", "🇻🇺", "🇻🇪", "🇻🇳", "🇼🇫", "🇾🇪", "🇩🇯", "🇿🇲", "🇿🇼"];
+                  selected_emojis = ['🇺🇳', '🇦🇫', '🇦🇱', '🇩🇪', '🇦🇩', '🇦🇴', '🇦🇮', '🇦🇶', '🇦🇬', '🇸🇦', '🇮🇴', '🇩🇿', '🇦🇷', '🇦🇲', '🇦🇼', '🇦🇺', '🇦🇹', '🇦🇿', '🇧🇸', '🇧🇩', '🇧🇧', '🇧🇭', '🇧🇪', '🇧🇿', '🇧🇯', '🇧🇲', '🇧🇾', '🇧🇴', '🇧🇦', '🇧🇼', '🇧🇷', '🇧🇳', '🇧🇬', '🇧🇫', '🇧🇮', '🇧🇹', '🇨🇻', '🇰🇭', '🇨🇲', '🇨🇦', '🇮🇨', '🇧🇶', '🇶🇦', '🇹🇩', '🇨🇿', '🇨🇱', '🇨🇳', '🇨🇾', '🇻🇦', '🇨🇴', '🇰🇲', '🇨🇬', '🇰🇵', '🇰🇷', '🇨🇷', '🇨🇮', '🇭🇷', '🇨🇺', '🇨🇼', '🇩🇰', '🇩🇲', '🇪🇨', '🇪🇬', '🇸🇻', '🇦🇪', '🇪🇷', '🇸🇰', '🇸🇮', '🇪🇸', '🇺🇸', '🇪🇪', '🇸🇿', '🇪🇹', '🇵🇭', '🇫🇮', '🇫🇯', '🇫🇷', '🇬🇦', '🇬🇲', '🇬🇪', '🇬🇭', '🇬🇮', '🇬🇩', '🇬🇷', '🇬🇱', '🇬🇵', '🇬🇺', '🇬🇹', '🇬🇫', '🇬🇬', '🇬🇳', '🇬🇶', '🇬🇼', '🇬🇾', '🇭🇹', '🇭🇳', '🇭🇰', '🇭🇺', '🇮🇳', '🇮🇩', '🇮🇶', '🇮🇷', '🇮🇪', '🇮🇲', '🇨🇽', '🇳🇫', '🇮🇸', '🇦🇽', '🇰🇾', '🇨🇨', '🇨🇰', '🇫🇴', '🇬🇸', '🇫🇰', '🇲🇵', '🇲🇭', '🇵🇳', '🇸🇧', '🇹🇨', '🇻🇬', '🇻🇮', '🇮🇱', '🇮🇹', '🇯🇲', '🇯🇵', '🎌', '🇯🇪', '🇯🇴', '🇰🇿', '🇰🇪', '🇰🇬', '🇰🇮', '🇽🇰', '🇰🇼', '🇱🇦', '🇱🇸', '🇱🇻', '🇱🇧', '🇱🇷', '🇱🇾', '🇱🇮', '🇱🇹', '🇱🇺', '🇲🇴', '🇲🇰', '🇲🇬', '🇲🇾', '🇲🇼', '🇲🇻', '🇲🇱', '🇲🇹', '🇲🇦', '🇲🇶', '🇲🇺', '🇲🇷', '🇾🇹', '🇲🇽', '🇫🇲', '🇲🇩', '🇲🇨', '🇲🇳', '🇲🇪', '🇲🇸', '🇲🇿', '🇲🇲', '🇳🇦', '🇳🇷', '🇳🇵', '🇳🇮', '🇳🇪', '🇳🇬', '🇳🇺', '🇳🇴', '🇳🇨', '🇳🇿', '🇴🇲', '🇳🇱', '🇵🇰', '🇵🇼', '🇵🇦', '🇵🇬', '🇵🇾', '🇵🇪', '🇵🇫', '🇵🇱', '🇵🇹', '🇵🇷', '🇬🇧', '🏴󠁧󠁢󠁥󠁮󠁧󠁿', '🏴󠁧󠁢󠁳󠁣󠁴󠁿', '🏴󠁧󠁢󠁷󠁬󠁳󠁿', '🇨🇫', '🇨🇩', '🇩🇴', '🇷🇪', '🇷🇼', '🇷🇴', '🇷🇺', '🇪🇭', '🇼🇸', '🇦🇸', '🇧🇱', '🇰🇳', '🇸🇲', '🇵🇲', '🇻🇨', '🇸🇭', '🇱🇨', '🇸🇹', '🇸🇳', '🇷🇸', '🇸🇨', '🇸🇱', '🇸🇬', '🇸🇽', '🇸🇾', '🇸🇴', '🇱🇰', '🇿🇦', '🇸🇩', '🇸🇸', '🇸🇪', '🇨🇭', '🇸🇷', '🇹🇭', '🇹🇼', '🇹🇿', '🇹🇯', '🇹🇫', '🇵🇸', '🇹🇱', '🇹🇬', '🇹🇰', '🇹🇴', '🇹🇹', '🇹🇳', '🇹🇲', '🇹🇷', '🇹🇻', '🇺🇦', '🇺🇬', '🇪🇺', '🇺🇾', '🇺🇿', '🇻🇺', '🇻🇪', '🇻🇳', '🇼🇫', '🇾🇪', '🇩🇯', '🇿🇲', '🇿🇼'];
                   break;
             /* case '':
                   selected_emojis = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
@@ -420,28 +557,45 @@ function AsignEmojis() {
 function ToggleMuted() {
       if (muted) {
             mute_button.firstElementChild.innerHTML = 'AUDIO: ON';
+            audio_start.muted = false;
+            audio_go.muted = false;
+            audio_restart.muted = false;
+            audio_click.muted = false;
+            audio_select.muted = false;
             audio_correct.muted = false;
             audio_wrong.muted = false;
+            audio_win.muted = false;
+            audio_exit.muted = false;
+            audio_pause.muted = false;
+            audio_resume.muted = false;
             muted = false;
       }
       else {
             mute_button.firstElementChild.innerHTML = 'AUDIO: OFF';
+            audio_start.muted = true;
+            audio_go.muted = true;
+            audio_restart.muted = true;
+            audio_click.muted = true;
+            audio_select.muted = true;
             audio_correct.muted = true;
             audio_wrong.muted = true;
+            audio_win.muted = true;
+            audio_exit.muted = true;
+            audio_pause.muted = true;
+            audio_resume.muted = true;
             muted = true;
       }
 
 }
 
 function ToggleFullscreen() {
-      console.log(document.fullscreenElement);
 
       if (document.fullscreenElement == null) {
             // open fullscreen
             setTimeout(() => {
                   fullscreen_button.firstElementChild.innerHTML = 'EXIT FULLSCREEN';
             }, 500);
-            
+
             if (documentElement.requestFullscreen) {
                   documentElement.requestFullscreen();
             } else if (documentElement.webkitRequestFullscreen) { /* Safari */
@@ -455,7 +609,7 @@ function ToggleFullscreen() {
             setTimeout(() => {
                   fullscreen_button.firstElementChild.innerHTML = 'ENTER FULLSCREEN';
             }, 500);
-            
+
             if (document.exitFullscreen) {
                   document.exitFullscreen();
             } else if (document.webkitExitFullscreen) { /* Safari */
@@ -500,15 +654,16 @@ show_string.innerHTML = emojis_formatted; */
 
 
 let timerController;
-let seconds = 0;
-let minutes = 0;
+let seconds;
+let minutes;
 
 function TimerReset() {
       clearInterval(timerController);
-	seconds = 0;
-	minutos = 0;
-	Seconds.innerHTML = ":00s";
-	Minutes.innerHTML = "00";
+      hundredths = 0;
+      seconds = 0;
+      minutes = '00';
+      Seconds.innerHTML = ':00s';
+      Minutes.innerHTML = '00';
 }
 
 function TimerStop() {
@@ -516,23 +671,28 @@ function TimerStop() {
 }
 
 function TimerStart() {
-	if (seconds < 59) {
-		seconds ++;
-		if (seconds < 10) { seconds = "0"+seconds }
-		Seconds.innerHTML = ":"+seconds+"s";
-	}
-	if (seconds == 59) {
-		seconds = -1;
-	}
-	if (seconds == 0) {
-		minutes++;
-		if (minutes < 10) { minutes = "0"+minutes }
-		Minutes.innerHTML = minutes;
-	}
-	if (minutes == 59) {
-		minutes = -1;
-	}
-
+      if (hundredths < 100) {
+            hundredths++;
+      }
+      if (hundredths == 99) {
+            hundredths = -1;
+      }
+      if (hundredths == 0) {
+            seconds++;
+            if (seconds < 10) { seconds = '0' + seconds }
+            Seconds.innerHTML = ':' + seconds + 's';
+            if (seconds == 59) {
+                  seconds = -1;
+            }
+            if (seconds == 0) {
+                  minutes++;
+                  if (minutes < 10) { minutes = '0' + minutes }
+                  Minutes.innerHTML = minutes;
+                  if (minutes == 59) {
+                        minutes = -1;
+                  }
+            }
+      }
 }
 
 
@@ -541,25 +701,31 @@ function TimerStart() {
 function watchForHover() {
 
       let lastTouchTime = 0
-    
+
       function enableHover() {
-        if (new Date() - lastTouchTime < 500) return
-        document.body.classList.add('hasHover')
+            if (new Date() - lastTouchTime < 500) return
+            document.body.classList.add('hasHover')
       }
-    
+
       function disableHover() {
-        document.body.classList.remove('hasHover')
+            document.body.classList.remove('hasHover')
       }
-    
+
       function updateLastTouchTime() {
-        lastTouchTime = new Date()
+            lastTouchTime = new Date()
       }
-    
+
       document.addEventListener('touchstart', updateLastTouchTime, true)
       document.addEventListener('touchstart', disableHover, true)
       document.addEventListener('mousemove', enableHover, true)
-    
+
       enableHover()
+}
+
+watchForHover()
+
+
+function isMobile() {
+      const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone/i;
+      return regex.test(navigator.userAgent);
     }
-    
-    watchForHover()

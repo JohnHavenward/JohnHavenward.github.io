@@ -1,6 +1,6 @@
 @font-face {
       font-family: ArchiveFont;
-      src: url(Archive-Regular.otf);
+      src: url(fonts/Archive-Regular.otf);
 }
 
 * {
@@ -16,6 +16,10 @@ body {
       width: 100dvw;
       height: 100dvh;
       overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: default;
+      
 }
 
 .background-black {
@@ -456,33 +460,30 @@ body {
 
 
 .card {
-      /* width: 200px;
-      height: 200px; */
       perspective: 1000px;
       transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       position: relative;
       transform-style: preserve-3d;
-      user-select: none;
-      -webkit-user-select: none;
 }
 
 .card-shadow {
       width: 100%;
       height: 100%;
       border-radius: 15%;
-      box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+      /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
+      box-shadow: 0dvmin 1.5dvmin 3dvmin rgba(0, 0, 0, 0.19), 0dvmin 0.9dvmin 0.9dvmin rgba(0, 0, 0, 0.23);
       position: absolute;
       transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-
-
 
 
 .hasHover .cards-wrapper.selectable .card.selectable:hover .card-shadow,
 .card.red .card-shadow,
 .cards-wrapper.starting .card-shadow,
 .card.selectable.flip .card-shadow {
-      box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px;
+      /* box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px; */
+      /* box-shadow: 0dvmin 2dvmin 1.5dvmin rgba(0, 0, 0, 0.01), 0dvmin 1.2dvmin 2.25dvmin rgba(0, 0, 0, 0.1); */
+      box-shadow: 0dvmin 1.5dvmin 1.5dvmin -0.3dvmin rgba(0, 0, 0, 0.01), 0dvmin 0.9dvmin 2dvmin -0.3dvmin rgba(0, 0, 0, 0.1);
 }
 
 
@@ -529,16 +530,15 @@ body {
       border-radius: 15%;
       position: absolute;
       backface-visibility: hidden;
-      background-color: slategrey;
+      background-color: slategray;
 }
 
-.hasHover .cards-wrapper.selectable .card.selectable:active .card-front {
-      background-color: #8a96a2;
+
+.card.highlighted .card-front {
+      background-color: #90a0b0;
+      transition: 0;
 }
 
-.cards-wrapper.selectable .card.selectable:active .card-front {
-      background-color: #0080ff;
-}
 
 .card-back {
       transform: rotateY(180deg);
@@ -560,9 +560,9 @@ img {
 }
 
 
-/* HEADER */
+/*  TOPBAR  */
 
-.header {
+#Topbar {
       width: 100%;
       height: 4dvh;
       display: flex;
@@ -580,7 +580,7 @@ img {
 }
 
 @media (max-height: 500px) {
-      .header {
+      #Topbar {
 
             height: 20px;
 
@@ -590,7 +590,7 @@ img {
       }
 }
 
-.header-button {
+.topbar-button {
       display: grid;
       place-items: center;
       width: 20%;
@@ -606,14 +606,64 @@ img {
 
 }
 
-.hasHover .header-button:hover {
+.locked .topbar-button {
+      color: dimgray;
+}
+
+.hasHover .topbar-button:hover {
       scale: 120%;
 }
 
 
+/*  TITLE  */
+
+.title-wrapper {
+      display: grid;
+      grid-template-rows: 3fr 2fr 4fr 1fr;
+      place-items: center;
+      background-color: gray;
+      box-shadow: 0 2dvh 4dvh 2dvh rgba(0, 0, 0, 0.4);
+      position: absolute;
+      transform: translateZ(200dvmin);
+      inset: 0;
+      bottom: -1dvh;
+      transition: 4s cubic-bezier(0.23, 1, 0.320, 1);
+      
+      .title-emojis {
+            font-size: 10cqw;
+      }
+      
+      .title-text {
+            font-size: 5cqw;
+      }
+      
+      .title-description {
+            font-size: 2cqw;
+            text-align: center;
+      }
+}
+
+.title-emojis,
+.title-text,
+.title-description {
+      container-type: inline-size;
+      display: grid;
+      place-items: center;
+
+      /* background-color: #0080ff5d;
+      border: 2px solid black; */
+      
+      width: 80%;
+      height: 80%;
+}
+
+.title-wrapper.hidden {
+      transform: translateY(110dvh) translateZ(200dvmin);
+}
 
 
-/* MAIN MENU */
+
+/*  MAIN MENU  */
 
 .menu-wrapper {
       display: flex;
@@ -622,7 +672,7 @@ img {
       align-items: center;
       border-radius: 30px;
       background-color: gainsboro;
-      box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+      box-shadow: 0dvmin 1.5dvmin 3dvmin rgba(0, 0, 0, 0.19), 0dvmin 0.9dvmin 0.9dvmin rgba(0, 0, 0, 0.23);
       position: absolute;
       transform: translateZ(150dvmin);
       inset: 4dvh;
@@ -640,14 +690,9 @@ img {
       align-items: center;
 }
 
-.menu-title-emojis {
-      font-size: 8dvw;
-      margin-top: 2dvw;
-}
-
 .menu-title-text h1 {
       font-size: 10dvw;
-      margin-top: -2dvw;
+      margin-top: 4dvw;
 }
 
 .menu-options-wrapper h2 {
@@ -700,7 +745,7 @@ img {
       border: 0.6dvmin solid sandybrown;
 }
 
-.start {
+.start, .play {
       display: grid;
       place-items: center;
       width: 30dvw;
@@ -713,11 +758,11 @@ img {
       cursor: pointer;
 }
 
-.hasHover .start:hover {
+.hasHover .start:hover, .hasHover .play:hover {
       scale: 120%;
 }
 
-.hasHover .start:active {
+.hasHover .start:active, .hasHover .play:active {
       scale: 100%;
 }
 
@@ -728,14 +773,9 @@ img {
 
 @media (min-aspect-ratio: 1) {
 
-      .menu-title-emojis {
-            font-size: 8dvh;
-            margin-top: 2dvh;
-      }
-
       .menu-title-text h1 {
             font-size: 10dvh;
-            margin-top: -2dvh;
+            margin-top: 4dvh;
       }
 
       .menu-options-wrapper h2 {
@@ -745,9 +785,9 @@ img {
 
       .option-cards,
       .option-theme {
-            width: 12dvh;
-            height: 7.5dvh;
-            margin: 1.5dvh;
+            width: 13.2dvh;
+            height: 8.8dvh;
+            margin: 1dvh;
             border-radius: 1.5dvh;
 
             font-size: 3dvh;
@@ -833,7 +873,7 @@ img {
 
 
 
-/* WIN BANNER */
+/*  WIN BANNER  -  PAUSE MENU  */
 
 .pause-menu-wrapper,
 .win-menu-wrapper {
@@ -863,7 +903,8 @@ img {
       height: 20dvmax;
       border-radius: 2dvmax;
       background-color: whitesmoke;
-      box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px;
+      /* box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px; */
+      box-shadow: 0dvmin 1.5dvmin 3dvmin rgba(0, 0, 0, 0.19), 0dvmin 0.9dvmin 0.9dvmin rgba(0, 0, 0, 0.23);
       transform: translateZ(100dvmin);
 
 
@@ -923,6 +964,5 @@ h1,
 h2,
 p {
       font-family: 'ArchiveFont', sans-serif;
-      user-select: none;
-      -webkit-user-select: none;
+      font-variant: small-caps;
 }
