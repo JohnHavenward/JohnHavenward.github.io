@@ -4,17 +4,17 @@ const audioCtx = new AudioContext();
 
 
 
-var audio_start = new Audio('sounds/start.wav');
-var audio_go = new Audio('sounds/go.wav');
-var audio_restart = new Audio('sounds/restart.wav');
-var audio_click = new Audio('sounds/click.wav');
-var audio_select = new Audio('sounds/select.wav');
-var audio_correct = new Audio('sounds/correct.wav');
-var audio_wrong = new Audio('sounds/wrong.wav');
-var audio_win = new Audio('sounds/win.wav');
-var audio_exit = new Audio('sounds/exit.wav');
-var audio_pause = new Audio('sounds/pause.wav');
-var audio_resume = new Audio('sounds/resume.wav');
+var audio_start = new Audio('audio/start.wav');
+var audio_go = new Audio('audio/go.wav');
+var audio_restart = new Audio('audio/restart.wav');
+var audio_click = new Audio('audio/click.wav');
+var audio_select = new Audio('audio/select.wav');
+var audio_correct = new Audio('audio/correct.wav');
+var audio_wrong = new Audio('audio/wrong.wav');
+var audio_win = new Audio('audio/win.wav');
+var audio_exit = new Audio('audio/exit.wav');
+var audio_pause = new Audio('audio/pause.wav');
+var audio_resume = new Audio('audio/resume.wav');
 
 
 audio_click.volume = 0.5;
