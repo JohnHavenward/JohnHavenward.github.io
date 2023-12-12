@@ -1,10 +1,8 @@
+let audioContext;
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
+let audio_start, audio_go, audio_restart, audio_click, audio_select, audio_correct, audio_wrong, audio_win, audio_exit, audio_pause, audio_resume;
 
-
-
-var audio_start = new Audio('audio/start.wav');
+/* var audio_start = new Audio('audio/start.wav');
 var audio_go = new Audio('audio/go.wav');
 var audio_restart = new Audio('audio/restart.wav');
 var audio_click = new Audio('audio/click.wav');
@@ -31,7 +29,7 @@ audio_wrong.muted = true;
 audio_win.muted = true;
 audio_exit.muted = true;
 audio_pause.muted = true;
-audio_resume.muted = true;
+audio_resume.muted = true; */
 
 const start_button = document.querySelector('.start');
 const play_button = document.querySelector('.play');
@@ -260,27 +258,31 @@ let selected_option_theme = document.querySelector('.option-theme');
 selected_option_cards.classList.add('selected');
 selected_option_theme.classList.add('selected');
 
+all_option_cards.forEach(option => option.addEventListener('touchstart', SelectOptionCards));
 all_option_cards.forEach(option => option.addEventListener('click', SelectOptionCards));
+all_option_theme.forEach(option => option.addEventListener('touchstart', SelectOptionTheme));
 all_option_theme.forEach(option => option.addEventListener('click', SelectOptionTheme));
 
 
-function SelectOptionCards() {
+function SelectOptionCards(event) {
+      event.preventDefault();
+      
       selected_option_cards.classList.remove('selected');
       this.classList.add('selected');
 
-      audio_click.load();
-      audio_click.play();
+      PlaySample(audio_click);
 
       selected_option_cards = this;
 }
 
-function SelectOptionTheme(option) {
+function SelectOptionTheme(event) {
+      event.preventDefault();
+      
       selected_option_theme.classList.remove('selected');
 
       this.classList.add('selected');
 
-      audio_click.load();
-      audio_click.play();
+      PlaySample(audio_click);
 
       selected_option_theme = this;
 }
@@ -289,6 +291,10 @@ function SelectOptionTheme(option) {
 
 function PlayGame(event) {
       event.preventDefault();
+      
+      audioContext = new AudioContext();
+      
+      SetupSamples();
 
       title_wrapper.classList.add('hidden');
 }
@@ -733,4 +739,37 @@ watchForHover()
 function isMobile() {
       const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Windows Phone/i;
       return regex.test(navigator.userAgent);
-    }
+}
+
+
+// AUDIO
+
+async function SetupSamples() {
+      
+      audio_start = await GetFile('audio/start.wav');
+      audio_go = await GetFile('audio/go.wav');
+      audio_restart = await GetFile('audio/restart.wav');
+      audio_click = await GetFile('audio/click.wav');
+      audio_select = await GetFile('audio/select.wav');
+      audio_correct = await GetFile('audio/correct.wav');
+      audio_wrong = await GetFile('audio/wrong.wav');
+      audio_win = await GetFile('audio/win.wav');
+      audio_exit = await GetFile('audio/exit.wav');
+      audio_pause = await GetFile('audio/pause.wav');
+      audio_resume = await GetFile('audio/resume.wav');
+}
+
+async function GetFile(filePath) {
+      const response = await fetch(filePath);
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+      return audioBuffer;
+}
+
+function PlaySample(audioBuffer) {
+      const sampleSource = audioContext.createBufferSource();
+      sampleSource.buffer = audioBuffer;
+      sampleSource.connect(audioContext.destination);
+      sampleSource.start(0);
+      return(sampleSource);
+}
