@@ -66,6 +66,7 @@ let lockBoard = true;
 let unmatchedCards;
 let fails;
 let isPhase_A = true;
+let justFlipped = false;
 
 
 let cardPairA = {
@@ -100,7 +101,14 @@ function flipCard(event) {
 function addSelectedCard(selectedCard, cardPair) {
       if (selectedCard === cardPair.firstCard) return;
       
-      PlaySample(audio_select);
+      if (!justFlipped){
+            PlaySample(audio_select);
+            justFlipped = true;
+            setTimeout(() => {
+                  justFlipped = false;
+      
+            }, 100);
+      }
 
       selectedCard.classList.add('flip');
       
@@ -693,7 +701,7 @@ function isMobile() {
 }
 
 
-// AUDIO
+// AUDIO 
 
 async function SetupSamples() {
       
