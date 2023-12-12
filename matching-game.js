@@ -36,9 +36,9 @@ audio_resume.muted = true;
 const start_button = document.querySelector('.start');
 const play_button = document.querySelector('.play');
 
-const mute_button = document.querySelector('.mute');
-const pause_button = document.querySelector('.topbar-button.pause');
-const fullscreen_button = document.querySelector('.fullscreen');
+const pause_mute_button = document.querySelector('.pause-mute-button');
+const pause_button = document.querySelector('.topbar-element.pause');
+const fullscreen_button = document.querySelector('.pause-fullscreen-button');
 
 const pause_menu_button = document.querySelector('.pause-menu-button');
 const pause_restart_button = document.querySelector('.pause-restart-button');
@@ -53,7 +53,8 @@ start_button.addEventListener('touchstart', StartGame);
 start_button.addEventListener('click', StartGame);
 
 
-mute_button.addEventListener('click', ToggleMuted, false);
+pause_mute_button.addEventListener('touchstart', ToggleMuted, false);
+pause_mute_button.addEventListener('click', ToggleMuted, false);
 pause_button.addEventListener('touchstart', ShowPauseMenu, false);
 pause_button.addEventListener('click', ShowPauseMenu, false);
 fullscreen_button.addEventListener('click', ToggleFullscreen, false);
@@ -87,7 +88,7 @@ let isStarting = false;
 let startingTimeout;
 
 
-// CARD INTERACTION FUNCTIONS
+// CARD INTERACTION
 
 let lockTopbar = true;
 let lockBoard = true;
@@ -229,9 +230,14 @@ function resetBoard(cardPair) {
 function checkForWin() {
       unmatchedCards -= 2;
       if (unmatchedCards == 0) {
+            
             audio_correct.pause();
             audio_win.load();
             audio_win.play();
+            
+            lockTopbar = true;
+            Topbar.classList.add('locked');
+            
             win_menu.classList.remove('hidden');
             FinalFails.innerHTML = 'fails ' + fails;
             FinalTime.innerHTML = 'total time ' + minutes + ':' + seconds + 's ';
@@ -284,17 +290,14 @@ function SelectOptionTheme(option) {
 function PlayGame(event) {
       event.preventDefault();
 
-      audio_start.load();
-      audio_start.play();
-
       title_wrapper.classList.add('hidden');
 }
 
-// RESTART GAME
+// START GAME
 
 function StartGame(event) {
       event.preventDefault();
-
+      
       audio_start.load();
       audio_start.play();
 
@@ -554,9 +557,11 @@ function AsignEmojis() {
 
 }
 
-function ToggleMuted() {
+function ToggleMuted(event) {
+      event.preventDefault();
+      
       if (muted) {
-            mute_button.firstElementChild.innerHTML = 'AUDIO: ON';
+            document.body.classList.remove('muted')
             audio_start.muted = false;
             audio_go.muted = false;
             audio_restart.muted = false;
@@ -571,7 +576,7 @@ function ToggleMuted() {
             muted = false;
       }
       else {
-            mute_button.firstElementChild.innerHTML = 'AUDIO: OFF';
+            document.body.classList.add('muted')
             audio_start.muted = true;
             audio_go.muted = true;
             audio_restart.muted = true;
@@ -593,7 +598,7 @@ function ToggleFullscreen() {
       if (document.fullscreenElement == null) {
             // open fullscreen
             setTimeout(() => {
-                  fullscreen_button.firstElementChild.innerHTML = 'EXIT FULLSCREEN';
+                  document.body.classList.add('fullscreen')
             }, 500);
 
             if (documentElement.requestFullscreen) {
@@ -607,7 +612,7 @@ function ToggleFullscreen() {
       else {
             // exit fullscreen
             setTimeout(() => {
-                  fullscreen_button.firstElementChild.innerHTML = 'ENTER FULLSCREEN';
+                  document.body.classList.remove('fullscreen')
             }, 500);
 
             if (document.exitFullscreen) {

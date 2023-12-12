@@ -19,8 +19,35 @@ body {
       user-select: none;
       -webkit-user-select: none;
       cursor: default;
+      background-color: black;
       
 }
+
+body.fullscreen .fullscreen-text,
+body.fullscreen .fullscreen-icon,
+body .no-fullscreen-text,
+body .no-fullscreen-icon {
+      display: none;
+}
+
+body.fullscreen .no-fullscreen-text,
+body.fullscreen .no-fullscreen-icon {
+      display: block;
+}
+
+body.muted .audio-on-text,
+body.muted .audio-on-icon,
+body .audio-off-text,
+body .audio-off-icon {
+      display: none;
+}
+
+body.muted .audio-off-text,
+body.muted .audio-off-icon {
+      display: block;
+}
+
+
 
 .background-black {
       position: fixed;
@@ -553,25 +580,23 @@ body {
       width: 100%;
 }
 
-img {
+.card img {
       width: 60%;
       filter: opacity(30%);
       pointer-events: none;
 }
 
-
 /*  TOPBAR  */
 
 #Topbar {
-      width: 100%;
+      display: grid;
+      place-items: center;
+      grid-template-columns: 1fr 1fr 1fr;
+      width: 120%;
       height: 4dvh;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       position: absolute;
       top: 0;
-      padding-left: 5%;
-      padding-right: 5%;
+      left: -10%;
       background-color: black;
 
       & p {
@@ -590,30 +615,34 @@ img {
       }
 }
 
-.topbar-button {
+.topbar-element {
       display: grid;
       place-items: center;
-      width: 20%;
-      height: 70%;
+      padding: 3px;
       color: whitesmoke;
-      background-color: black;
       transition: 0.2s;
-      cursor: pointer;
 
       & div {
             display: flex;
+            align-items: center;
+            justify-items: center;
       }
 
 }
 
-.locked .topbar-button {
-      color: dimgray;
+.locked .topbar-element {
+      opacity: 40%;
 }
 
-.hasHover .topbar-button:hover {
-      scale: 120%;
+.hasHover .topbar-element.pause:hover {
+      scale: 110%;
+      cursor: pointer;
 }
 
+.hasHover .locked .topbar-element.pause:hover {
+      scale: 100%;
+      cursor: default;
+}
 
 /*  TITLE  */
 
@@ -670,12 +699,11 @@ img {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      border-radius: 30px;
       background-color: gainsboro;
       box-shadow: 0dvmin 1.5dvmin 3dvmin rgba(0, 0, 0, 0.19), 0dvmin 0.9dvmin 0.9dvmin rgba(0, 0, 0, 0.23);
       position: absolute;
       transform: translateZ(150dvmin);
-      inset: 4dvh;
+      inset: 4dvh 0 0 0;
       transition: 0.8s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
@@ -695,9 +723,19 @@ img {
       margin-top: 4dvw;
 }
 
+.menu-options-cards-wrapper,
+.menu-options-theme-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid rgb(179, 179, 179);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px;
+}
+
 .menu-options-wrapper h2 {
       font-size: 4dvw;
-      margin-top: 2dvw;
 }
 
 .menu-options-wrapper {
@@ -745,7 +783,8 @@ img {
       border: 0.6dvmin solid sandybrown;
 }
 
-.start, .play {
+.menu-wrapper .start,
+.play {
       display: grid;
       place-items: center;
       width: 30dvw;
@@ -758,15 +797,15 @@ img {
       cursor: pointer;
 }
 
-.hasHover .start:hover, .hasHover .play:hover {
+.hasHover .menu-wrapper .start:hover, .hasHover .play:hover {
       scale: 120%;
 }
 
-.hasHover .start:active, .hasHover .play:active {
+.hasHover .menu-wrapper .start:active, .hasHover .play:active {
       scale: 100%;
 }
 
-.start:active {
+.menu-wrapper .start:active {
       scale: 80%;
 }
 
@@ -780,7 +819,6 @@ img {
 
       .menu-options-wrapper h2 {
             font-size: 4dvh;
-            margin-top: 2dvh;
       }
 
       .option-cards,
@@ -794,10 +832,10 @@ img {
       }
 
       .option-theme {
-            font-size: 2dvh;
+            font-size: 2.8dvh;
       }
 
-      .start {
+      .menu-wrapper .start {
             display: grid;
             place-items: center;
             width: 30dvh;
@@ -813,11 +851,6 @@ img {
 @media (max-aspect-ratio: 0.6) {
 
       @media (max-width: 1000px) {
-
-            
-            .menu-options-wrapper h2 {
-                  font-weight: 300;
-            }
             
             .menu-options-cards,
             .menu-options-theme {
@@ -851,7 +884,7 @@ img {
                   }
             }
 
-            .start {
+            .menu-wrapper .start {
                   width: 36dvw;
                   height: 12dvw;
                   border-radius: 1.8dvh;
@@ -899,8 +932,8 @@ img {
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
-      width: 35dvmax;
-      height: 20dvmax;
+      width: 40vw;
+      height: 65dvh;
       border-radius: 2dvmax;
       background-color: whitesmoke;
       /* box-shadow: rgba(0, 0, 0, 0.01) 0px 20px 10px, rgba(0, 0, 0, 0.1) 0px 12px 15px; */
@@ -927,24 +960,30 @@ img {
 .menu-buttons {
       display: flex;
       justify-content: space-evenly;
-      width: 100%;
-      height: 20%;
+      width: 80%;
+      height: 8dvh;
+}
 
-      .button {
-            display: grid;
-            place-items: center;
-            height: 100%;
-            width: 35%;
-            border-radius: 0.7dvmax;
-            background-color: sandybrown;
-            text-align: center;
-            transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            cursor: pointer;
+.menu-buttons .button {
+      display: grid;
+      place-items: center left;
+      height: 100%;
+      width: 100%;
+      border-radius: 0.7dvmax;
+      background-color: sandybrown;
+      text-align: center;
+      transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      cursor: pointer;
+      
+      & div {
+            display: flex;
+            align-items: center;
+            justify-items: center;
       }
 }
 
 .hasHover .button:hover {
-      scale: 120%;
+      scale: 110%;
 }
 
 .hasHover .button:active {
@@ -955,6 +994,18 @@ img {
       scale: 80%;
 }
 
+.menu-buttons .button .icon-wrapper {
+      display: grid;
+      place-items: center;
+      height: 5vh;
+      width: 5vh;
+      margin: auto 15px auto 5vw;
+      
+      & img {
+            height: 100%;
+            width: 100%;
+      }
+}
 
 
 
