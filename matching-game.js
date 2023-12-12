@@ -1,35 +1,8 @@
 let audioContext;
+let gainNode;
 
 let audio_start, audio_go, audio_restart, audio_click, audio_select, audio_correct, audio_wrong, audio_win, audio_exit, audio_pause, audio_resume;
 
-/* var audio_start = new Audio('audio/start.wav');
-var audio_go = new Audio('audio/go.wav');
-var audio_restart = new Audio('audio/restart.wav');
-var audio_click = new Audio('audio/click.wav');
-var audio_select = new Audio('audio/select.wav');
-var audio_correct = new Audio('audio/correct.wav');
-var audio_wrong = new Audio('audio/wrong.wav');
-var audio_win = new Audio('audio/win.wav');
-var audio_exit = new Audio('audio/exit.wav');
-var audio_pause = new Audio('audio/pause.wav');
-var audio_resume = new Audio('audio/resume.wav');
-
-
-audio_click.volume = 0.5;
-audio_select.volume = 0.5;
-
-
-audio_start.muted = true;
-audio_go.muted = true;
-audio_restart.muted = true;
-audio_click.muted = true;
-audio_select.muted = true;
-audio_correct.muted = true;
-audio_wrong.muted = true;
-audio_win.muted = true;
-audio_exit.muted = true;
-audio_pause.muted = true;
-audio_resume.muted = true; */
 
 const start_button = document.querySelector('.start');
 const play_button = document.querySelector('.play');
@@ -127,8 +100,7 @@ function flipCard(event) {
 function addSelectedCard(selectedCard, cardPair) {
       if (selectedCard === cardPair.firstCard) return;
       
-      audio_select.load();
-      audio_select.play();
+      PlaySample(audio_select);
 
       selectedCard.classList.add('flip');
       
@@ -169,8 +141,7 @@ function disableCards(cardPair) {
             cardPair.firstCard.classList.remove('selectable');
             cardPair.secondCard.classList.remove('selectable');
 
-            audio_correct.load();
-            audio_correct.play();
+            PlaySample(audio_correct);
 
             checkForWin();
             resetBoard(cardPair);
@@ -191,8 +162,7 @@ function unflipCards(cardPair) {
             fails += 1;
             SetFails(fails);
 
-            audio_wrong.load();
-            audio_wrong.play();
+            PlaySample(audio_wrong);
 
             resetBoard(cardPair);
       }, 800);
@@ -229,9 +199,7 @@ function checkForWin() {
       unmatchedCards -= 2;
       if (unmatchedCards == 0) {
             
-            audio_correct.pause();
-            audio_win.load();
-            audio_win.play();
+            PlaySample(audio_win);
             
             lockTopbar = true;
             Topbar.classList.add('locked');
@@ -293,6 +261,9 @@ function PlayGame(event) {
       event.preventDefault();
       
       audioContext = new AudioContext();
+      gainNode = audioContext.createGain();
+      gainNode.connect(audioContext.destination);
+      gainNode.gain.value = 0;
       
       SetupSamples();
 
@@ -304,8 +275,7 @@ function PlayGame(event) {
 function StartGame(event) {
       event.preventDefault();
       
-      audio_start.load();
-      audio_start.play();
+      PlaySample(audio_start);
 
       CreateGame();
 }
@@ -315,8 +285,7 @@ function StartGame(event) {
 function RestartGame(event) {
       event.preventDefault();
 
-      audio_restart.load();
-      audio_restart.play();
+      PlaySample(audio_restart);
 
       CreateGame();
 }
@@ -374,8 +343,7 @@ function CreateGame() {
             isStarting = false;
             cards_wrapper.classList.remove('starting');
             
-            audio_go.load();
-            audio_go.play();
+            PlaySample(audio_go);
 
             lockBoard = false;
             [cardPairA.firstCard, cardPairA.secondCard, cardPairA.hasFlippedCard] = [null, null, false];
@@ -440,13 +408,9 @@ function CreateCards() {
       cards.forEach(card => card.addEventListener('click', flipCard, false));
 }
 
-function ShowMenu(event) {
-      event.preventDefault();
-      menu_wrapper.classList.remove('hidden');
 
-      audio_exit.load();
-      audio_exit.play();
-}
+
+// PAUSE MENU
 
 function ShowPauseMenu(event) {
       event.preventDefault();
@@ -457,8 +421,7 @@ function ShowPauseMenu(event) {
       
       TimerStop();
 
-      audio_pause.load();
-      audio_pause.play();
+      PlaySample(audio_pause);
 
       PauseMenuWrapper.classList.remove('hidden');
 }
@@ -471,11 +434,19 @@ function ResumeGame(event) {
 
       timerController = setInterval(TimerStart, 10);
 
-      audio_resume.load();
-      audio_resume.play();
+      PlaySample(audio_resume);
 
       PauseMenuWrapper.classList.add('hidden');
 }
+
+function ShowMenu(event) {
+      event.preventDefault();
+      menu_wrapper.classList.remove('hidden');
+
+      PlaySample(audio_exit);
+}
+
+
 
 function AsignEmojis() {
 
@@ -568,32 +539,12 @@ function ToggleMuted(event) {
       
       if (muted) {
             document.body.classList.remove('muted')
-            audio_start.muted = false;
-            audio_go.muted = false;
-            audio_restart.muted = false;
-            audio_click.muted = false;
-            audio_select.muted = false;
-            audio_correct.muted = false;
-            audio_wrong.muted = false;
-            audio_win.muted = false;
-            audio_exit.muted = false;
-            audio_pause.muted = false;
-            audio_resume.muted = false;
+            gainNode.gain.value = 1;
             muted = false;
       }
       else {
             document.body.classList.add('muted')
-            audio_start.muted = true;
-            audio_go.muted = true;
-            audio_restart.muted = true;
-            audio_click.muted = true;
-            audio_select.muted = true;
-            audio_correct.muted = true;
-            audio_wrong.muted = true;
-            audio_win.muted = true;
-            audio_exit.muted = true;
-            audio_pause.muted = true;
-            audio_resume.muted = true;
+            gainNode.gain.value = 0;
             muted = true;
       }
 
@@ -769,7 +720,7 @@ async function GetFile(filePath) {
 function PlaySample(audioBuffer) {
       const sampleSource = audioContext.createBufferSource();
       sampleSource.buffer = audioBuffer;
-      sampleSource.connect(audioContext.destination);
+      sampleSource.connect(gainNode);
       sampleSource.start(0);
       return(sampleSource);
 }
