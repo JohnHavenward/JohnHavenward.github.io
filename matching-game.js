@@ -73,20 +73,21 @@ let cardPairA = {
       firstCard: null,
       secondCard: null,
       hasFlippedCard: false,
-      cardsFlipping: false
 };
 let cardPairB = {
       firstCard: null,
       secondCard: null,
       hasFlippedCard: false,
-      cardsFlipping: false
 };
 
 
 
 function flipCard(event) {
       event.preventDefault();
+      
       if (lockBoard) return;
+      
+      if (this.classList.contains('red')) return;
 
       if (isPhase_A) {
             if (this === cardPairB.firstCard || this === cardPairB.secondCard) return;
@@ -158,7 +159,6 @@ function disableCards(cardPair) {
 
 function unflipCards(cardPair) {
 
-      cardPair.cardsFlipping = true;
       
       let firstCard = cardPair.firstCard;
       let secondCard = cardPair.secondCard;
@@ -190,7 +190,6 @@ function unflipCards(cardPair) {
             firstCard.classList.add('selectable');
             secondCard.classList.add('selectable');
 
-            cardPair.cardsFlipping = false;
       }, 1800);
 }
 
