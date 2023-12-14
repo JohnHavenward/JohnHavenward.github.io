@@ -1,7 +1,7 @@
 {
       "name": "Match-Emoji Game",
       "short_name": "Match-Emoji",
-      "display": "standalone",
+      "display": "fullscreen",
       "orientation": "portrait"
       
     }

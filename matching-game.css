@@ -71,24 +71,6 @@ body.muted .audio-off-icon {
 }
 
 .cards-8 {
-      width: 152dvmin;
-      height: 76dvmin;
-
-      grid-template-columns: repeat(4, 1fr);
-
-      & .card {
-            width: 30dvmin;
-            height: 30dvmin;
-      }
-
-      & h2 {
-
-            font-size: 18dvmin;
-      }
-}
-
-
-.cards-8 {
       width: 85.71dvmin;
       height: 171.43dvmin;
 
@@ -117,7 +99,7 @@ body.muted .audio-off-icon {
             }
 
             & h2 {
-                  font-size: 10.45ddvmax;
+                  font-size: 10.45dvmax;
             }
       }
 }
