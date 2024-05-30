@@ -2,7 +2,7 @@
 
 # CHECKPOINT 08
 
-TODO[¿Qué tipo de bucles hay en JS?](#bucles)</br>
+[¿Qué tipo de bucles hay en JS?](#bucles)</br>
 [¿Cuáles son las diferencias entre const, let y var?](#tipos-de-variables)</br>
 [¿Qué es una función de flecha?](#función-flecha)</br>
 [¿Qué es la deconstrucción de variables?](#deconstrucción-de-variables)</br>
@@ -19,174 +19,283 @@ TODO[¿Qué hacen async y await por nosotros?](#async-y-await)</br>
 
 ## BUCLES
 
+Los bucles son estructuras que nos permiten modificar el flujo de ejecución del código repitiendo un bloque de código múltiples veces. A cada repetición se la denomina iteración.
+
+Existen cinco tipos de bucles en JavaScript:
+
+- Bucles `for`
+- Bucles `for in`
+- Bucles `for of`
+- Bucles `while`
+- Bucles `do while`
+
+En todos los tipos de bucles podemos alterar el flujo de ejecución con las declaraciones `break` y `continue`. 
+
+</br></br>
+
 
 ### BUCLE FOR
 
+El bucle `for` itera un número de veces determinado por un índice que se define al inicio del mismo junto con una condición que deberá cumplir en cada iteración. Este índice se actualiza al final de cada iteración y si no se sigue cumpliendo la condición especificada, el bucle finaliza.
+      
+##### SINTAXIS:
+
+La definición del bucle `for` contiene tres expresiones:
+
+- **Expresión 1:** define el índice y se ejecuta solo una vez al comenzar el bucle
+- **Expresión 2:** especifica la condición que debe cumplir el índice para ejecutar el bloque de código
+- **Expresión 3:** define la actualización del índice y se ejecuta al final de cada iteración
 
 ```js
-for (expression 1; expression 2; expression 3) {
-  // code block to be executed
-}
+for (expresión 1; expresión 2; expresión 3) {
+      //bloque de código a ejecutar
+};
 ```
 
+</br>
+
+
+##### EJEMPLO:
+
 ```js
-for (let i = 0; i < cars.length; i++) { 
-  text += cars[i] + "<br>";
+let cuentaAtrás = [];
+
+
+for (let i = 5; i > 0; i--) { 
+      cuentaAtrás.push(i);
 }
+
+
+console.log(cuentaAtrás); //[5, 4, 3, 2, 1]
 ```
+
+</br></br>
 
 
 ### BUCLE FOR IN
 
+El bucle `for in` es especialmente útil para iterar las propiedades de un objeto. El bloque código se ejecuta para cada una de las propiedades en el orden en el que estas han sido definidas dentro del objeto. 
+   
+##### SINTAXIS:
 
 ```js
-for (key in object) {
-  // code block to be executed
-}
+for (propiedad in objeto) {
+      //bloque de código a ejecutar
+};
 ```
+
+</br>
+
+
+##### EJEMPLO:
 
 ```js
-const person = {fname:"John", lname:"Doe", age:25};
+let joya = {tipo:"anillo", peso:"7g", material: "oro"};
+let copia = {};
 
-let text = "";
-for (let x in person) {
-  text += person[x];
+
+for (let propiedad in joya) {
+      copia[propiedad + "_copia"] = joya[propiedad];
 }
+
+
+console.log(copia); //{tipo_copia: "anillo", peso_copia: "7g", material_copia: "oro"}
 ```
 
-
-```js
-for (variable in array) {
-  code
-}
-```
-
-```js
-const numbers = [45, 4, 9, 16, 25];
-
-let txt = "";
-for (let x in numbers) {
-  txt += numbers[x];
-}
-```
-
+</br></br>
 
 
 ### BUCLE FOR OF
 
-```js
-for (variable of iterable) {
-  // code block to be executed
-}
-```
+Los bucles `for of` ejecutan el bloque de código una vez por cada elemento de un objeto iterable. Normalmente este suele ser un *array* y la cantidad de iteraciones a realizar viene predefinida por la cantidad de elementos existentes dentro del objeto iterable.
+    
+##### SINTAXIS:
 
 ```js
-const cars = ["BMW", "Volvo", "Mini"];
+for (elemento of iterable) {
+      //bloque de código a ejecutar
+};
+```
+
+</br>
+
+
+##### EJEMPLO:
+
+```js
+let listaPalabras = ["Atardecer", "Castillo", "Incienso", "Montaña"];
+let iniciales = [];
+
 
 let text = "";
-for (let x of cars) {
-  text += x;
+for (let palabra of listaPalabras) {
+      iniciales.push(palabra[0]);
 }
+
+
+console.log(iniciales); //["A", "C", "I", "M"]
 ```
 
+</br></br>
 
 
 ### BUCLE WHILE
 
-```js
-while (condition) {
-  // code block to be executed
-}
-````
-
+Con los bucles `while` podemos ejecutar un bloque de código un número indeterminado de veces siempre y cuando se cumpla una condición previamente definida. Esta condición es evaluada al comienzo de cada iteración y debemos asegurarnos de que en algún momento deje de cumplirse.
+   
+##### SINTAXIS:
 
 ```js
-while (i < 10) {
-  text += "The number is " + i;
-  i++;
-}
+while (condición) {
+      //bloque de código a ejecutar
+};
 ```
+
+</br>
+
+
+##### EJEMPLO:
+
+```js
+let semana = [];
+
+
+while (semana.length < 7) {
+      semana.push("D" + (semana.length + 1));
+}
+
+
+console.log(semana); //["D1", "D2", "D3", "D4", "D5", "D6", "D7"]
+```
+
+</br>
+
+
+Si durante la ejecución del bucle la condición no se deja de cumplir en alguna de las iteraciones, se producirá un bucle infinito y no podrá continuar ejecutándose el resto del programa.
+
+Es por ello que en esta clase de bucles suele ser frecuente la definición de una variable de indexado. Esta se define antes del bucle y nos permite partir de un valor de referencia para poder controlar las iteraciones realizadas.
+
+```js
+let i = 0;
+
+
+while (i < 50) {
+      i += 1;
+}
+
+
+console.log(i); //50
+```
+
+</br></br>
 
 
 ### BUCLE DO WHILE
 
-```js
-do {
-  // code block to be executed
-}
-while (condition);
-```
+El comportamiento del bucle `do while` es muy parecido al del bucle `while`. La principal diferencia es que en un bucle `do while` siempre se ejecuta primero el código antes de evaluar la condición. Esto garantiza que el código es ejecutado al menos una vez.
+ 
+##### SINTAXIS:
 
 ```js
 do {
-  text += "The number is " + i;
-  i++;
+      //bloque de código a ejecutar
 }
-while (i < 10);
+while (condición);
 ```
 
+</br>
+
+
+##### EJEMPLO:
+
+```js
+let i = 0;
+
+
+do {
+      i += 100;
+}
+while (i < 25);
+
+
+console.log(i); //100
+```
+
+</br></br>
 
 
 ### BREAK Y CONTINUE
 
+Se puede alterar el flujo normal de un bucle sin importar el punto de ejecución en el que se encuentre. Existen dos formas diferentes:
+
+- hacer que el bucle finalice directamente
+- hacer que la iteración actual finalice directamente y comience la siguiente 
+
+</br>
+
+
+La declaración `break` rompe el flujo del bucle y este finaliza directamente.
+
 ```js
-for (let i = 0; i < 10; i++) {
-  if (i === 3) { break; }
-  text += "The number is " + i + "<br>";
+let i = 0;
+
+
+while (i < 10) {
+      if (i == 5) {
+            break;
+      }
+      i += 1;
 }
+
+
+console.log(i); //5
 ```
 
+</br>
+
+
+La declaración `continue` termina de ejecutar la iteración actual y comienza directamente la siguiente.
 
 ```js
-for (let i = 0; i < 10; i++) {
-  if (i === 3) { continue; }
-  text += "The number is " + i + "<br>";
+let frutas = ["manzana", "plátano", "fresa", "piña"];
+let listaCompra = [];
+
+
+for (fruta of frutas) {
+      if (fruta == "plátano") {
+            continue;
+      }
+      listaCompra.push(fruta);
 }
+
+
+console.log(listaCompra); //["manzana", "fresa", "piña"]
 ```
 
+</br></br>
 
-### FUNCIÓN MAP
 
-Cuando salió ES6 (EmcaScript 2015), introdujo un nuevo conjunto de métodos para iterar sobre un arreglo. Uno de los más útiles es el método map().
+### BUCLES ANIDADOS
 
-Array.prototype.map() es un método incorporado en los arreglos, para iterar a través de los elementos dentro de una colección de arreglos en JavaScript. Piensa en él, como un bucle para avanzar de un elemento a otro en una lista, manteniendo el orden y la posición de cada elemento.
-
-Este método toma una función callback, que se llama por cada nuevo elemento sobre el que se itera.
-
-La función callback recibe tres parámetros:
-
-- El valor actual.
-- Su índice.
-- El arreglo de destino
+Podemos definir un bucle dentro de otro bucle. En este tipo de estructuras el bucle interno se ejecuta una vez por cada iteración del bucle externo.
 
 ```js
-let prefijos = ["super", "spider", "ant", "iron"]
-let sufijo = "man";
+let filas = ["A", "B", "C"];
+let columnas = [1, 2, 3];
+let tablero = [];
 
-let nombresCompletos = prefijos.map(prefijo => prefijo + sufijo);
 
-console.log(nombresCompletos);
+for (fila of filas) {
+      let filaTablero = [];
+      for (columna of columnas) {
+            filaTablero.push(fila + columna);
+      }
+      tablero.push(filaTablero);
+}
 
-// ["superman", "spiderman", "antman", "ironman"]
+
+console.log(tablero); //[["A1", "A2", "A3"], ["B1", "B2", "B3"], ["C1", "C2", "C3"]]
 ```
-
-
-Antes dije que en cada iteración, el método map() toma el valor sobre el que se itera y también su posición de indice. Hay otro argumento que añadir a esos dos, los argumentos del arreglo.
-
-```js
-const arregloViejo = [33, 20, 10, 5];
-const nuevoArreglo = arregloViejo.map((valorActual, indice, arr) => {
-    let siguienteItem = indice + 1 < arr.length ? arr[indice + 1] : 0
-    return valorActual - siguienteItem;
-});
-
-
-console.log(nuevoArreglo);
-
-// [13, 10, 5, 5]
-```
-
-
 
 </br></br></br></br>
 
@@ -286,10 +395,12 @@ Sin embargo, hay una situación concreta en la que el uso de variables de tipo `
 ```js
 var saludo = "Hola";
 
+
 if (true) {
       var saludo = "Buenas tardes";
       console.log(saludo); //Buenas tardes
 }
+
 
 console.log(saludo) //Buenas tardes
 ```
@@ -365,9 +476,11 @@ El ámbito de uso de las variables `let` es siempre el bloque de código en el q
 ```js
 tareas = 5
 
+
 if (tareas > 0) {
       let mensaje = "Hay tareas pendientes";
 }
+
 
 console.log(mensaje); //error
 ```
@@ -380,10 +493,12 @@ Cuando definimos dos variables `let` de idéntico nombre en dos bloques de códi
 ```js
 let saludo = "Hola";
 
+
 if (true) {
       let saludo = "Buenas tardes";
       console.log(saludo); //Buenas tardes
 }
+
 
 console.log(saludo) //Hola
 ```
@@ -454,6 +569,7 @@ function calcularPerímetro(radio) {
       return 2 * pi * radio;
 }
 
+
 console.log(pi); //error
 ```
 
@@ -465,10 +581,12 @@ Cuando definimos dos variables `const` de idéntico nombre en dos bloques de có
 ```js
 const saludo = "Hola";
 
+
 if (true) {
       const saludo = "Buenas tardes";
       console.log(saludo); //Buenas tardes
 }
+
 
 console.log(saludo) //Hola
 ```
@@ -528,6 +646,7 @@ sumar = (a, b, c) => {
       return total;
 }
 
+
 console.log(sumar(2, 2, 6)); //10
 ```
 
@@ -539,7 +658,6 @@ Además, en el caso de que la función solo tenga una sentencia y esta devuelva 
 ```js
 sumar = (a, b, c) => a + b + c;
 
-
 console.log(sumar(2, 2, 6)); //10
 ```
 
@@ -550,7 +668,6 @@ Por último, en el caso de que la función tenga un solo parámetro podemos pres
 
 ```js
 saludo = nombre => `Hola, mi nombre es ${nombre}`;
-
 
 console.log(saludo("Romina")); //Hola, mi nombre es Romina
 ```
@@ -565,6 +682,7 @@ La principal característica que diferencia a las funciones flecha es el comport
 
 ```js
 const mostrarFlecha = () => console.log(this.valor);
+
 
 function mostrarNormal() {
       console.log(this.valor);      
@@ -655,6 +773,7 @@ let valores = [18, "Verde", {x: 2, y: -5}];
 
 let [edad, color, coordenadas] = valores;
 
+
 console.log(edad); //18
 console.log(color); //Verde
 console.log(coordenadas); //{x: 2, y: -5}
@@ -667,6 +786,7 @@ Un uso práctico de la deconstrucción de variables es para poder declarar múlt
 
 ```js
 let [a, b, c, d] = [1, 2, 3, 4];
+
 
 console.log(a); //1
 console.log(b); //2
@@ -686,6 +806,7 @@ En el caso de que la variable no tenga un elemento correspondiente en el otro co
 ```js
 let [a, b, c] = [3, 9];
 
+
 console.log(a); //3
 console.log(b); //9
 console.log(c); //undefined
@@ -701,6 +822,7 @@ let a, b;
 
 [a = 34, b = 71] = [15];
 
+
 console.log(a); //15
 console.log(b); //71
 ```
@@ -715,6 +837,7 @@ const datosObjeto = ["37cm", "dato no importante", "500gr"]
 
 const [longitud, , peso] = datosObjeto;
 
+
 console.log(longitud); //37cm
 console.log(peso); //500gr
 ```
@@ -728,7 +851,9 @@ Un uso muy común de la deconstrucción de variables es para intercambiar el val
 let a = 30;
 let b = 80;
 
+
 [a, b] = [b, a];
+
 
 console.log(a); //80
 console.log(b); //30
@@ -749,7 +874,9 @@ function calcularOperaciones(a, b) {
       return [suma, resta, multiplicación, división];
 }
 
+
 let [suma, resta, multiplicación, división] = calcularOperaciones(5, 2);
+
 
 console.log(suma); //7
 console.log(resta); //3
@@ -769,6 +896,7 @@ let objeto = { a: 10, b: 20, c: 30}
 
 let {c, a, b} = objeto;
 
+
 console.log(a); //10
 console.log(b); //20
 console.log(c); //30
@@ -783,6 +911,7 @@ También es posible asignar un nombre a la variable que no sea el de la propieda
 const información = { dato1: "Andrés" , dato2: 35 };
 const { dato1: nombre, dato2: edad } = información;
 
+
 console.log(nombre); //Andrés
 console.log(edad); //35
 ```
@@ -794,6 +923,7 @@ Es posible asignar un valor por defecto a las variables para el caso en que no s
 
 ```js
 const { evento, día, hora = "no definida" } = { evento: "reunión", día: "martes" };
+
 
 console.log(evento); //reunión
 console.log(día); //martes
@@ -864,6 +994,7 @@ const objetoIterable = [1, 2, 3];
 
 const [a, b, c] = [...objetoIterable];
 
+
 console.log(a); //1
 console.log(b); //2
 console.log(c); //3
@@ -888,6 +1019,7 @@ const terceraParte = [5, 6];
 
 const variableCompleta = [...primeraParte, ...segundaParte, ...terceraParte];
 
+
 console.log(variableCompleta); //[1, 2, 3, 4, 5, 6]
 ```
 
@@ -900,6 +1032,7 @@ También resulta de gran utilidad cuando se necesita integrar un *array* dentro 
 const parteCentral = [3, 4, 5];
 
 const variableCompleta = [1, 2, ...parteCentral ,6];
+
 
 console.log(variableCompleta); //[1, 2, 3, 4, 5, 6]
 ```
@@ -915,6 +1048,7 @@ Podemos usar el operador `...` para separar individualmente los diferentes carac
 let cadena = "Sapo azul";
 
 let caracteres = [...cadena];
+
 
 console.log(caracteres); //["S", "a", "p", "o", " ", "a", "z", "u", "l"]
 ```
@@ -935,6 +1069,7 @@ const datos = {
       edición: 'primera'
 }
 
+
 const otrosDatos = {
       editorial: 'MOLINO',
       páginas: '400',
@@ -943,6 +1078,7 @@ const otrosDatos = {
 
 
 const datosCompletos = {...datos, ...otrosDatos}
+
 
 console.log(datosCompletos);
 //{título: "Los Juegos del Hambre", autor: "Suzanne Collins", edición: "segunda", editorial: "MOLINO", páginas: "400"}
@@ -958,13 +1094,14 @@ JavaScript no nos permite pasar un *array* como argumento directamente a una fun
 ```js
 let dimensiones = [2, 7, 3];
 
+
 function calcularVolumen(anchura, profundidad, altura) {
       return anchura * profundidad * altura;
           
 }
 
-console.log(calcularVolumen(...dimensiones)); //42
 
+console.log(calcularVolumen(...dimensiones)); //42
 ```
 
 </br>
@@ -977,6 +1114,7 @@ Usado junto a la deconstrucción de variables el operador `...` nos permite asig
 
 ```js
 const [a, b, ...resto] = [1, 2, 3, 4, 5];
+
 
 console.log(resto); //[3, 4, 5]
 ```
@@ -996,6 +1134,7 @@ function sumar(a, b, ...c) {
       
       return resultado;
 }
+
 
 console.log(sumar(3,5)); //8
 console.log(sumar(9,2,6)); //17
