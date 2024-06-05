@@ -1,4 +1,4 @@
-
+<p id="checkpoint-08"></p>
 
 # CHECKPOINT 08
 
@@ -7,9 +7,9 @@
 [¿Qué es una función de flecha?](#función-flecha)</br>
 [¿Qué es la deconstrucción de variables?](#deconstrucción-de-variables)</br>
 [¿Qué hace el operador de extensión en JS?](#operador-de-extensión)</br>
-TODO[¿Qué es la programación orientada a objetos?](#programación-orientada-a-objetos)</br>
-TODO[¿Qué es una promesa en JS?](#promesas)</br>
-TODO[¿Qué hacen async y await por nosotros?](#async-y-await)</br>
+[¿Qué es la programación orientada a objetos?](#programación-orientada-a-objetos)</br>
+[¿Qué es una promesa en JS?](#promesas)</br>
+[¿Qué hacen async y await por nosotros?](#async-y-await)</br>
 
 </br></br></br></br>
 
@@ -38,7 +38,7 @@ En todos los tipos de bucles podemos alterar el flujo de ejecución con las decl
 
 El bucle `for` itera un número de veces determinado por un índice que se define al inicio del mismo junto con una condición que deberá cumplir en cada iteración. Este índice se actualiza al final de cada iteración y si no se sigue cumpliendo la condición especificada, el bucle finaliza.
       
-##### SINTAXIS:
+#### SINTAXIS
 
 La definición del bucle `for` contiene tres expresiones:
 
@@ -55,7 +55,7 @@ for (expresión 1; expresión 2; expresión 3) {
 </br>
 
 
-##### EJEMPLO:
+#### EJEMPLO
 
 ```js
 let cuentaAtrás = [];
@@ -74,9 +74,9 @@ console.log(cuentaAtrás); //[5, 4, 3, 2, 1]
 
 ### BUCLE FOR IN
 
-El bucle `for in` es especialmente útil para iterar las propiedades de un objeto. El bloque código se ejecuta para cada una de las propiedades en el orden en el que estas han sido definidas dentro del objeto. 
+El bucle `for in` es especialmente útil para iterar las propiedades de un objeto. El bloque de código se ejecuta para cada una de las propiedades en el orden en el que estas han sido definidas dentro del objeto. 
    
-##### SINTAXIS:
+#### SINTAXIS
 
 ```js
 for (propiedad in objeto) {
@@ -87,7 +87,7 @@ for (propiedad in objeto) {
 </br>
 
 
-##### EJEMPLO:
+#### EJEMPLO
 
 ```js
 let joya = {tipo:"anillo", peso:"7g", material: "oro"};
@@ -109,7 +109,7 @@ console.log(copia); //{tipo_copia: "anillo", peso_copia: "7g", material_copia: "
 
 Los bucles `for of` ejecutan el bloque de código una vez por cada elemento de un objeto iterable. Normalmente este suele ser un *array* y la cantidad de iteraciones a realizar viene predefinida por la cantidad de elementos existentes dentro del objeto iterable.
     
-##### SINTAXIS:
+#### SINTAXIS
 
 ```js
 for (elemento of iterable) {
@@ -120,7 +120,7 @@ for (elemento of iterable) {
 </br>
 
 
-##### EJEMPLO:
+#### EJEMPLO
 
 ```js
 let listaPalabras = ["Atardecer", "Castillo", "Incienso", "Montaña"];
@@ -143,7 +143,7 @@ console.log(iniciales); //["A", "C", "I", "M"]
 
 Con los bucles `while` podemos ejecutar un bloque de código un número indeterminado de veces siempre y cuando se cumpla una condición previamente definida. Esta condición es evaluada al comienzo de cada iteración y debemos asegurarnos de que en algún momento deje de cumplirse.
    
-##### SINTAXIS:
+#### SINTAXIS
 
 ```js
 while (condición) {
@@ -154,7 +154,7 @@ while (condición) {
 </br>
 
 
-##### EJEMPLO:
+#### EJEMPLO
 
 ```js
 let semana = [];
@@ -194,7 +194,7 @@ console.log(i); //50
 
 El comportamiento del bucle `do while` es muy parecido al del bucle `while`. La principal diferencia es que en un bucle `do while` siempre se ejecuta primero el código antes de evaluar la condición. Esto garantiza que el código es ejecutado al menos una vez.
  
-##### SINTAXIS:
+#### SINTAXIS
 
 ```js
 do {
@@ -206,7 +206,7 @@ while (condición);
 </br>
 
 
-##### EJEMPLO:
+#### EJEMPLO
 
 ```js
 let i = 0;
@@ -300,6 +300,8 @@ console.log(tablero); //[["A1", "A2", "A3"], ["B1", "B2", "B3"], ["C1", "C2", "C
 </br></br></br></br>
 
 
+
+###### [Inicio](#checkpoint-08)
 
 <p id="tipos-de-variables"></p>
 
@@ -626,6 +628,8 @@ A continuación se muestra una tabla en la que se comparan las diferentes propie
 
 
 
+###### [Inicio](#checkpoint-08)
+
 <p id="función-flecha"></p>
 
 ## FUNCIÓN FLECHA
@@ -761,6 +765,8 @@ hacerAlgo()
 </br></br></br></br>
 
 
+
+###### [Inicio](#checkpoint-08)
 
 <p id="deconstrucción-de-variables"></p>
 
@@ -983,6 +989,8 @@ mostrarDatos(mueble); //El mueble es una mesa, se encuentra en el comedor y mide
 
 
 
+###### [Inicio](#checkpoint-08)
+
 <p id="operador-de-extensión"></p>
 
 ## OPERADOR DE EXTENSIÓN
@@ -1145,25 +1153,838 @@ console.log(sumar(7,4,1,8)); //20
 
 
 
+###### [Inicio](#checkpoint-08)
+
 <p id="programación-orientada-a-objetos"></p>
 
 ## PROGRAMACIÓN ORIENTADA A OBJETOS
 
+JavaScript es un lenguaje de programación orientado a objetos que emplea los conceptos de prototipo y objeto. Aunque JavaScript se basa en prototipos y no en clases como hacen otros lenguajes de programación, proporciona la opción de trabajar con clases a los desarrolladores que estén familiarizados con ellas.
 
+La programación orientada a objetos está basada en cuatro principios o pilares básicos que son los siguientes:
+
+- **Herencia** - reutilizar el código compartiéndolo entre varios objetos.
+- **Encapsulamiento** - proteger la información de manipulaciones no autorizadas.
+- **Abstracción** - representar y manejar conceptos complejos de manera simplificada.
+- **Polimorfismo** - ejecutar la misma orden con varios objetos y que respondan de formas diferentes.
+
+</br>
+
+
+Las clases son la pieza clave para poder cumplir esos principios y en esencia lo que hacen es agrupar una serie de variables y funciones en un único elemento. Una vez definido, ese elemento puede ser construido múltiples veces y cada copia es única e independiente del resto. Las clases pueden entenderse así como las "plantillas" o "modelos" que son usados para producir objetos nuevos.
+
+Puede resultar útil para entender el concepto de una clase fijarse en el mito de la cueva descrito por Platón. En él la idea de un objeto es el único verdadero o perfecto y puede verse como la clase. El resto son solo sombras proyectadas y se corresponden con los objetos creados a partir de esa clase.
+
+La clase es la parte teórica que no podemos encontrar directamente presente en la realidad pero que identificamos fácilmente en los objetos reales que la representan.
+
+</br>
+
+![Mito de la cueva](/images/mito_cueva.png)
+
+</br></br>
+
+
+En JavaScript los objetos pueden pertenecer a una clase y es la que los hace tener ciertas funciones y variables asociadas a él.
+
+Para definir una clase debemos usar la palabra reservada `class` junto a su nombre. Por convenio la primera letra del nombre de una clase siempre de escribe en mayúsculas. Vemos un ejemplo a continuación:
+
+```js
+class Vehículo {
+      color = "rojo";
+      ruedas = 4;
+};
+
+let miVehículo = new Vehículo();
+    
+               
+console.log(`El vehículo es de color ${miVehículo.color} y tiene ${miVehículo.ruedas} ruedas.`) //El vehículo es de color rojo y tiene 4 ruedas.
+```
+
+</br>
+
+
+### INSTANCIAS
+
+La creación de una instancia, también llamada instanciación de una clase, es el proceso de crear un objeto a partir de la plantilla definida por la clase. Una clase puede tener tantas instancias creadas como se quiera. Para acceder a los métodos y atributos de la instancia se usa el operador `.`.
+
+```js
+class Alerta {
+      constructor(identificador, hora) {
+            this.identificador = identificador;
+            this.hora = hora;
+      };   
+      informar() {
+            console.log(`La alerta "${this.identificador}" está programada para las ${this.hora}h`);
+      };
+};
+
+
+let alerta_1 = new Alerta("Reunión", "10:30");
+let alerta_2 = new Alerta("Comida", "14:00");
+
+
+console.log(alerta_1.identificador); //Reunión
+console.log(alerta_2.informar()); //La alerta "Comida" está programada para las 14:00h
+```
+
+</br>
+
+
+### CONSTRUCTOR
+
+Cuando una instancia de una clase es creada se ejecuta automáticamente el método `constructor()`. Este método es el constructor de la clase y se encarga de recibir los argumentos y asignarlos a la instancia. De esta forma podemos asignar de forma sencilla y breve información a cada una de las instancias creadas.
+
+El constructor debe estar definido dentro de la clase y hacer uso del parámetro `this` para hacer referencia a la instancia creada.
+
+Cuando creamos una instancia no es necesario hacer ninguna referencia al método `constructor()`, simplemente debemos pasar todos los argumentos definidos en él.
+
+```js
+class Pasajero{
+      constructor(nombre, apellido, edad) {
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.edad = edad;  
+      };    
+};
+
+
+let pasajero1 = new Pasajero("Ismael", "García", 57);
+let pasajero2 = new Pasajero("Helena", "Salgado", 44);
+let pasajero3 = new Pasajero("Lucía", "Blanco", 31);
+
+
+console.log(pasajero1); //Pasajero {nombre: "Ismael", apellido: "García", edad: 57}
+console.log(pasajero2); //Pasajero {nombre: "Helena", apellido: "Salgado", edad: 44}
+console.log(pasajero3); //Pasajero {nombre: "Lucía", apellido: "Blanco", edad: 31}
+```
+
+</br>
+
+
+### ATRIBUTOS
+
+Un atributo es una variable que forma parte de una clase. La única diferencia con una variable normal de JavaScript es que un atributo siempre debe estar asociado a una clase.
+
+Una clase puede contener tantos atributos como se quiera.
+
+Hay dos tipos de atributos dentro de una clase:
+
+- Atributos de instancia
+- Atributos de clase
+
+</br>
+
+
+#### ATRIBUTOS DE INSTANCIA
+
+Los atributos de instancia son propios de cada instancia y se definen dentro del método `constructor()`. Cada instancia tiene un valor propio para cada atributo.  Si una instancia cambia el valor de su atributo no afecta al resto de las instancias. Además la clase en sí no tiene definidos estos atributos y por tanto no tiene acceso a ellos.
+
+```js
+class Cuenta {
+      constructor(titular, fondos) {
+            this.titular = titular;
+            this.fondos = fondos;
+      };
+};
+
+
+cuenta1 = new Cuenta("Carmen", 1900);
+cuenta2 = new Cuenta("Antonio", 2700);
+
+
+console.log(cuenta1.titular + " : " + cuenta1.fondos + "$"); //Carmen : 1900$ 
+console.log(cuenta2.titular + " : " + cuenta2.fondos + "$"); //Antonio : 2700$
+```
+
+</br>
+
+
+#### ATRIBUTOS DE CLASE
+
+Los atributos de clase pertenecen a la propia clase y no a las instancias creadas. Se definen directamente dentro de la clase precedidos por la palabra clave `static`. Si una instancia quiere hacer referencia a ese atributo siempre debe hacerlo refiriéndose a la clase.
+
+```js
+class Concursante {
+      static premioAcumulado = 300;  
+       
+      constructor(nombre) {
+            this.nombre = nombre;
+      };
+      
+      obtenerPremioAcumulado() {
+            console.log(Concursante.premioAcumulado);
+      }
+};
+
+
+let concursante1 = new Concursante("Sonia");
+let concursante2 = new Concursante("Ruth");
+let concursante3 = new Concursante("Nicolás");
+
+
+console.log(Concursante.premioAcumulado); //300
+
+Concursante.premioAcumulado += 50;
+concursante1.obtenerPremioAcumulado(); //350
+
+Concursante.premioAcumulado += 100;
+concursante2.obtenerPremioAcumulado(); //450
+
+Concursante.premioAcumulado += 250;
+concursante3.obtenerPremioAcumulado(); //700
+```
+
+</br>
+
+
+
+### MÉTODOS
+
+Un método es una función que forma parte de una clase. La única diferencia con una función normal de JavaScript es que un método siempre debe estar asociado a una clase. Se pueden definir tantos métodos como se quiera dentro de una clase.
+
+Existen principalmente dos tipos diferentes de métodos y son los siguientes:
+
+- Métodos de instancia
+- Métodos de clase
+
+</br>
+
+
+#### MÉTODOS DE INSTANCIA
+
+Los métodos de instancia son los métodos definidos normalmente dentro de la clase y pueden ser llamados por las instancias creadas. Este tipo de métodos no pueden ser llamados directamente por la clase.
+
+```js
+class Trapo {
+      limpiar(objeto) {
+            console.log(`Limpiando ${objeto}`);
+      }
+};
+
+
+let miTrapo = new Trapo();
+
+
+miTrapo.limpiar("mesa"); //Limpiando mesa
+miTrapo.limpiar("silla"); //Limpiando silla
+```
+
+</br>
+
+
+#### MÉTODOS DE CLASE
+
+Los métodos de clase se tienen la particularidad de que van ligadas a una clase concreta y no a las instancias creadas a partir de ella. Estos métodos se definen con la palabra clave `static`.
+
+```js
+class Matemáticas {
+      static sumar(a, b) {
+            return a + b;
+      };
+      static multiplicar(a, b) {
+            return a * b;
+      };    
+};
+
+
+console.log(Matemáticas.sumar(5, 3)); //8
+console.log(Matemáticas.multiplicar(5, 3)); //15
+```
+
+</br>
+
+
+### HERENCIA
+
+La herencia es un proceso mediante el cual se puede crear una clase hija o *child* que hereda de una clase padre o *parent*.
+Esto permite que la clase hija acceda a los métodos y atributos definidos por la clase padre. Igualmente una clase hija puede definir sus propios métodos y atributos o incluso sobrescribir los de la clase padre.
+
+Se puede crear una clase hija simplemente usando la palabra clave `extends` junto con la clase padre de la que queremos heredar. Dentro del código de la clase hija podemos hacer uso de de la función `super()` para poder ampliar el constructor de la clase padre y también para acceder a sus métodos.
+
+```js
+class Animal {
+      constructor() {
+            this.tamaño = "grande";
+            this.patas = 4;
+            this.vuelo = false;
+      }
+      describir() {
+            console.log(`Este animal es ${this.tamaño}, tiene ${this.patas} patas y ${this.vuelo ? "puede volar" : "no puede volar"}.`)
+      };
+};
+    
+
+class Gato extends Animal {
+      constructor() {
+            super();
+            this.tamaño = "mediano";
+      };
+};  
+  
+class Pajaro extends Animal {
+      constructor() {
+            super();
+            this.tamaño = "pequeño";
+            this.patas = 2;
+            this.vuelo = true;
+      };
+};    
+
+
+let miGato = new Gato();
+let miPajaro = new Pajaro();
+
+
+miGato.describir(); //Este animal es mediano, tiene 4 patas y no puede volar.
+miPajaro.describir(); //Este animal es pequeño, tiene 2 patas y puede volar.
+```
+
+</br>
+
+
+El proceso de la herencia de clases resulta muy ventajoso porque nos permite ahorrarnos la repetición de código y nos ayuda a tener bien organizadas todas nuestras clases. Facilita el mantenimiento del programa y la implementación de nuevas funcionalidades.
+
+Sin embargo, esto requiere un esfuerzo previo para saber cómo vamos a planificar la herencia entre las diferentes clases. Se debe hacer en función de qué clases se parecen más y por tanto comparten un mayor número de métodos y atributos.
+
+</br>
+
+
+Podemos ver una comparación práctica de la herencia de clases viendo la clasificación de los distintos organismos que se hace en biología. Cada especie comparte muchas similitudes con otras especies a diferentes niveles. Por ejemplo, dos especies son más parecidas si comparten la familia que si solo comparten el reino.
+
+</br>
+
+![Arquitectura de un aplicación web](/images/biological_classification.png)
+
+</br>
+
+
+Podemos ver en el siguiente ejemplo el uso de la herencia para definir múltiples clases que comparten parcialmente las misma funcionalidad:
+
+```js
+class Invento {
+      constructor(propietario, identificador) {
+            this.fecha = "Desconocida";
+            this.inventor = "Desconocido";
+            this.propietario = propietario;
+            this.identificador = identificador;
+      };
+      describir() {
+            console.log("Descripción no disponible.");
+      };
+      mostrarDatos() {
+            console.log("Nombre: " + this.constructor.name + "  Fecha: " + this.fecha + "  Inventor: " + this.inventor);
+      };
+};
+
+
+class Telefono extends Invento {
+      constructor() {
+            super();
+            this.fecha = 1876;
+            this.inventor = "Alexander Graham Bell";
+      };
+      describir() {
+            console.log("El teléfono es un dispositivo de telecomunicación creado para transmitir señales acústicas a distancia por medio de señales eléctricas.");
+      };
+};
+
+
+class Imprenta extends Invento {
+      constructor() {
+            super();
+            this.fecha = 1440;
+            this.inventor = "Johannes Gutenberg";
+      };
+      describir() {
+            console.log("La imprenta es un método mecánico destinado a reproducir textos e imágenes sobre papel, vitela, tela u otro material.");
+      };
+      datoCurioso() {
+            console.log("La biblia de Gutenberg fue el primer libro impreso de la historia y se imprimió con un total de 42 líneas por cada página.");
+      };
+};
+
+
+class Telescopio extends Invento {
+      constructor() {
+            super();
+            this.fecha = 1608;
+            this.inventor = "Hans Lippershey";
+      };
+      describir() {
+            console.log("El telescopio es un instrumento óptico que permite observar objetos lejanos con mucho más detalle que a simple vista.");
+      };
+};
+
+
+let teléfono963 = new Telefono("Museo Metropolitano", "ET-963");
+let imprenta120 = new Imprenta("Biblioteca Antigua", "GG-120");
+let telescopio568 = new Telescopio("Planetario Central", "FH-568");
+
+
+teléfono963.mostrarDatos(); //Nombre: Teléfono  Fecha: 1876  Inventor: Alexander Graham Bell
+teléfono963.describir(); //El teléfono es un dispositivo de telecomunicación creado para transmitir señales acústicas a distancia por medio de señales eléctricas.
+
+imprenta120.mostrarDatos(); //Nombre: Imprenta  Fecha: 1440  Inventor: Johannes Gutenberg
+imprenta120.describir(); //La imprenta es un método mecánico destinado a reproducir textos e imágenes sobre papel, vitela, tela u otro material.
+imprenta120.datoCurioso(); //La biblia de Gutenberg fue el primer libro impreso de la historia y se imprimió con un total de 42 líneas por cada página.
+
+telescopio568.mostrarDatos(); //Nombre: Telescopio  Fecha: 1608  Inventor: Hans Lippershey
+telescopio568.describir(); //El telescopio es un instrumento óptico que permite observar objetos lejanos con mucho más detalle que a simple vista.
+```
+
+</br>
+
+
+Los métodos de la clases heredadas pueden clasificarse en tres tipos diferentes:
+
+- Heredados directamente de la clase padre: `mostrarDatos()`
+- Heredados de la clase padre pero modificados: `describir()`
+- Creados en la clase hija por lo tanto no existentes en la clase padre: `datoCurioso()`
+
+</br>
+
+
+### POLIMORFISMO
+
+El término polimorfismo tiene origen en las palabras griegas *polys* (muchos) y *morpho* (formas). Este concepto aplicado a la programación hace referencia a que los objetos de diferentes clases pueden ser accedidos utilizando el mismo interfaz pero que pueden tomar diferentes formas en su respuesta.
+
+Según el principio de polimorfismo podemos llamar a la misma función en diferentes objetos que no pertenecen a la misma clase. La respuesta a esa llamada debe estar garantizada y ser diferente y específica para cada objeto. Los comportamientos obtenidos deben así ser distintos y "tomar diferentes formas".
+
+Esta característica permite que sin alterar el código existente de un programa se puedan incorporar nuevos comportamientos y funciones aportando así flexibilidad en el diseño del software. Para hacerlo simplemente se agregan nuevas clases cuyo único requisito es que deben tener implementados todos los métodos necesarios usados por el programa.
+
+```js
+class Forma {
+      calcularPerimetro() {
+            //vacío
+      };
+      calcularArea() {
+            //vacío
+      };
+};   
+
+
+class Cuadrado extends Forma {
+      calcularPerimetro() {
+            console.log("Se suman los cuatro lados");
+      };
+      calcularArea() {
+            console.log("Se multiplica la base por la altura");
+      };
+};     
+
+
+class Triangulo extends Forma {
+      calcularPerimetro() {
+            console.log("Se suman los tres lados");
+      };
+      calcularArea() {
+            console.log("Se multiplica la base por la altura y se divide entre dos");
+      };
+};
+
+
+let miCuadrado = new Cuadrado();
+let miTriangulo = new Triangulo();
+
+
+miCuadrado.calcularPerimetro(); //Se suman los cuatro lados
+miCuadrado.calcularArea(); //Se multiplica la base por la altura
+
+miTriangulo.calcularPerimetro(); //Se suman los tres lados
+miTriangulo.calcularArea(); //Se multiplica la base por la altura y se divide entre dos
+```
 
 </br></br></br></br>
 
 
+
+###### [Inicio](#checkpoint-08)
 
 <p id="promesas"></p>
 
 ## PROMESAS
 
+Las promesas de JavaScript son una herramienta para poder trabajar con código que se debe ejecutar de forma asíncrona. Un caso de uso muy habitual es para pedir archivos a un servidor remoto. El código debe solicitar el archivo y esperar a que el servidor le de una respuesta. Esta respuesta puede ser o no el archivo solicitado. En caso de error el programa debe ejecutar código alternativo.
+
+Las promesas son especialmente idóneas para ese tipo de casos porque son capaces de ejecutarse de forma asíncrona y pueden reaccionar tanto a una respuesta exitosa como a una fallida. 
+
+Una promesa puede estar en uno de los siguientes estados:
+
+- **Pending (Pendiente):** la promesa se encuentra en el estado inicial, ni cumplida ni rechazada
+- **Fulfilled (Cumplida):** la promesa se ha completado con éxito
+- **Rejected (Rechazada):** la promesa ha fallado
+
+</br>
+
+
+Todas las promesas se basan en el objeto `Promise` que está predefinido en JavaScript. Para crear una promesa nueva debemos usar la palabra clave `new` seguida de `Promise` y una función que debe aceptar dos argumentos. Estos dos argumentos son dos funciones y suelen tener por convenio los nombres `resolve` y `reject`. La función `resolve` indica que la promesa se cumple y la función `reject` que la promesa no se cumple. 
+
+La función recibe así estos dos argumentos y evalúa en su código si se cumple o no la promesa. Cuando se cumple llama a la función `resolve` pasando como argumento el valor o mensaje deseado. Igualmente, para el caso en que la promesa no se cumple, el código llama a la función `reject` pasando esta vez un error como argumento.
+
+```js
+let cumplirPromesa = true;
+
+let miPromesa = new Promise(function(resolve, reject) {
+      if (cumplirPromesa) {
+            resolve("Promesa cumplida");
+      }
+      else {
+            reject("Promesa rechazada");
+      }
+});
+```
+
+</br>
+
+
+Todos los objetos `Promise` contienen un método de nombre `then`. Este acepta dos funciones como argumentos, la primera se ejecuta si la promesa se cumple y la segunda si no lo hace. Ambas funciones deben tener un único parámetro que es el valor o error que devolverá la propia promesa al ejecutarse y por convenio es llamado `response` para la primera, y `error` para la segunda.
+
+Al llamar al método `then` comienza la ejecución de la promesa y se prolonga hasta obtener una respuesta.
+
+```js
+function ejecutarPromesa(cumplirPromesa) {
+      return new Promise(function(resolve, reject) {
+            if (cumplirPromesa) {
+                  resolve("Promesa cumplida");
+            }
+            else {
+                  reject("Promesa rechazada");
+            }
+      });
+};
+
+
+ejecutarPromesa(true).then(
+      function(response) { console.log("Ejecución normal: " + response) }, //Ejecución normal: Promesa cumplida
+      function(error) { console.log("Ha ocurrido un error: " + error) }
+);
+
+
+
+ejecutarPromesa(false).then(
+      function(response) { console.log("Ejecución normal: " + response) },
+      function(error) { console.log("Ha ocurrido un error: " + error) } //Ha ocurrido un error: Promesa rechazada
+);
+```
+
+</br>
+
+
+Los objetos `Promise` contienen también un método de nombre `catch`. Este método equivale a `then` con la diferencia de que solo recibe la función a ejecutar cuando la promesa no se cumple y por ello siempre se coloca después del método `then`. 
+
+```js
+function ejecutarPromesa(cumplirPromesa) {
+      return new Promise(function(resolve, reject) {
+            if (cumplirPromesa) {
+                  resolve("Promesa cumplida");
+            }
+            else {
+                  reject("Promesa rechazada");
+            }
+      });
+};
+
+
+ejecutarPromesa(false)
+      .then(response => console.log("Ejecución normal: " + response))
+      .catch(error => console.log("Ha ocurrido un error: " + error)); //Ha ocurrido un error: Promesa rechazada
+```
+
+</br>
+
+
+### ENCADENADO DE PROMESAS
+
+Es posible encadenar varias promesas para que se ejecuten de forma secuencial. Cada promesa devuelve una nueva promesa que se ejecuta tras resolverse la anterior.
+
+```js
+let primeraPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 1 cumplida'), 2000)
+);
+
+let segundaPromesa = new Promise( (resolve) =>
+      setTimeout(() => resolve('Promesa 2 cumplida'), 4000)
+);
+
+let terceraPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 3 cumplida'), 6000)
+);
+
+
+primeraPromesa
+      .then(response => {console.log(response); return segundaPromesa})
+      .then(response => {console.log(response); return terceraPromesa})
+      .then(response => {console.log(response)})
+      .catch(error => {console.log("hola " + error)});
+
+
+//CONSOLA:
+//Promesa 1 cumplida (tras 2 segundos)
+//Promesa 2 cumplida (tras 4 segundos)
+//Promesa 3 cumplida (tras 6 segundos)
+```
+
+</br>
+
+
+### OTROS MÉTODOS
+
+Existen otros métodos en el objeto `Promise` que pueden resultar muy útiles en determinadas situaciones.
+
+- `Promise.all()`
+- `Promise.allSettled()`
+- `Promise.any()`
+- `Promise.race()`
+- `Promise.resolve()`
+- `Promise.reject()`
+
+</br>
+
+
+#### Promise.all()
+
+El método `Promise.all()` devuelve una promesa que se cumple cuando todas las promesas en el argumento iterable han sido concluidas con éxito, o bien rechaza la petición con el motivo pasado por la primera promesa que es rechazada.
+
+```js
+let primeraPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 1 cumplida'), 2000)
+);
+
+let segundaPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 2 cumplida'), 4000)
+);
+
+let terceraPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 3 cumplida'), 6000)
+);
+
+
+Promise.all([primeraPromesa, segundaPromesa, terceraPromesa])
+      .then(response => console.log(response)); //["Promesa 1 cumplida", "Promesa 2 cumplida", "Promesa 3 cumplida"]
+```
+
+</br>
+
+
+#### Promise.allSettled()
+
+El método `Promise.allSettled()` toma un iterable de promesas como entrada y devuelve una única promesa. Esta promesa se cumple cuando todas las promesas del objeto iterable se cumplen y devuelve un *array* con los resultados de cada promesa. Aunque una promesa sea rechazada siempre se terminan de ejecutar el resto antes de dar una respuesta.
+
+```js
+let primeraPromesa = new Promise( (resolve, reject) => 
+      setTimeout(() => reject('Promesa 1 rechazada'), 2000)
+);
+
+let segundaPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 2 cumplida'), 4000)
+);
+
+let terceraPromesa = new Promise( (resolve, reject) => 
+      setTimeout(() => reject('Promesa 3 rechazada'), 6000)
+);
+
+
+Promise.allSettled([primeraPromesa, segundaPromesa, terceraPromesa])
+      .then(response => console.log(response)) //[{status: "rejected", reason: "Promesa 1 rechazada"}, {status: "fulfilled", value: "Promesa 2 cumplida"}, {status: "rejected", reason: "Promesa 3 rechazada"}] (tras 6 segundos)
+```
+
+</br>
+
+
+#### Promise.any()
+
+El método `Promise.any()` toma un iterable de promesas como entrada y devuelve una única promesa. Esta promesa se cumple cuando se cumple al menos una de las promesas del iterable y lo hace con el valor correspondiente. Sin embargo, la promesa es rechazada cuando todas las promesas del iterable son rechazadas y se pasa un objeto `AggregateError` que contiene los diferentes motivos de rechazo.
+
+```js
+let primeraPromesa = new Promise( (resolve, reject) => 
+      setTimeout(() => reject('Promesa 1 cumplida'), 2000)
+);
+
+let segundaPromesa = new Promise( (resolve, reject) => 
+      setTimeout(() => reject('Promesa 2 cumplida'), 4000)
+);
+
+let terceraPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 3 cumplida'), 6000)
+);
+
+
+Promise.any([primeraPromesa, segundaPromesa, terceraPromesa])
+      .then(response => console.log(response)); //Promesa 3 cumplida (tras 6 segundos)
+```
+
+</br>
+
+
+#### Promise.race()
+
+El método `Promise.race()` retorna una promesa que se cumplirá o no tan pronto como una de las promesas del argumento iterable se cumpla o se rechace, con el valor o razón de rechazo de esta.
+
+```js
+let primeraPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 1 cumplida'), 4000)
+);
+
+let segundaPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 2 cumplida'), 2000)
+);
+
+let terceraPromesa = new Promise( (resolve) => 
+      setTimeout(() => resolve('Promesa 3 cumplida'), 6000)
+);
+
+
+Promise.race([primeraPromesa, segundaPromesa, terceraPromesa])
+      .then(response => console.log(response)); //Promesa 2 cumplida (tras 2 segundos)
+```
+
+</br>
+
+
+#### Promise.resolve()
+
+El método `Promise.resolve()` retorna un objeto `Promise` que es resuelto con el valor indicado.
+
+```js
+Promise.resolve("Promesa cumplida")
+      .then(response => console.log(response)); //Promesa cumplida
+```
+
+</br>
+
+
+#### Promise.reject()
+
+El método `Promise.reject()` retorna un objeto `Promise` que es rechazado por la razón especificada.
+
+```js
+Promise.reject("Ha habido un error")
+      .catch(error => console.log(error)); //Ha habido un error
+```
 
 </br></br></br></br>
 
 
 
+###### [Inicio](#checkpoint-08)
+
 <p id="async-y-await"></p>
 
 ## ASYNC Y AWAIT
+
+Las palabras clave `async` y `await` sirven para trabajar de forma sencilla con promesas en JavaScript. Además, el código escrito resulta más fácil de leer y comprender.
+
+</br>
+
+
+### ASYNC
+
+Al escribir `async` antes de la definición de una función, esta se convierte en asíncrona. Esto implica que la función puede ejecutarse de forma asíncrona y además devuelve una promesa cuando no se hace de forma explícita. 
+
+```js
+async function funcionAsincrona() {
+      return "Hola Mundo";
+};
+```
+
+</br>
+
+
+El código equivalente a una función `async` sería el siguiente:
+
+```js
+function funcionAsincrona() {
+      return Promise.resolve("Hola Mundo");
+};
+```
+
+</br>
+
+
+### AWAIT
+
+Una función `async` nos permite usar la palabra clave `await` dentro de su código. Se debe usar junto con una función que devuelva una promesa y sirve para suspender la ejecución de la función asíncrona mientras se espera a que se resuelva la promesa. Una vez resuelta esta, el código continua la ejecución normal.
+
+```js
+function ejecutarPromesa(tiempo) {
+      return new Promise(resolve => {
+            setTimeout(() => resolve('Promesa cumplida'), tiempo)
+      });
+};
+
+
+async function funcionAsincrona() {
+      let mensaje = await ejecutarPromesa(2000);
+      console.log(mensaje);
+}
+
+funcionAsincrona(); //Promesa cumplida (tras 2 segundos)
+```
+
+</br>
+
+
+### USO CON PROMESAS ENCADENADAS
+
+La ventaja de usar `async` y `await` se puede ver claramente en el encadenamiento de promesas. Nos evita la necesidad de configurar explícitamente las cadenas de promesas y controlar el flujo de ejecución de promesas resulta más fácil de hacer. Además el código obtenido es más sencillo y fácil de leer.
+
+```js
+function iniciarPromesa(promesa) {
+      return new Promise((resolve) => {
+            setTimeout(() => resolve(promesa + " cumplida"), 2000)
+      });
+};
+
+
+async function ejecutarPromesas() {
+      console.log(await iniciarPromesa("Promesa 1"));
+      console.log(await iniciarPromesa("Promesa 2"));
+      console.log(await iniciarPromesa("Promesa 3"));
+};
+
+
+ejecutarPromesas();
+
+
+//CONSOLA:
+//Promesa 1 cumplida (tras 2 segundos)
+//Promesa 2 cumplida (tras 4 segundos)
+//Promesa 3 cumplida (tras 6 segundos)
+```
+
+</br>
+
+
+Junto a `async` y `await` podemos usar un bloque `try...catch` para controlar un posible error cuando se rechaza alguna de las promesas.
+
+```js
+function iniciarPromesa(promesa, cumplirPromesa) {
+      return new Promise((resolve, reject) => {
+            setTimeout(() => (cumplirPromesa ? resolve(promesa + " cumplida") : reject(promesa + " rechazada")), 2000)
+      });
+};
+
+
+async function ejecutarPromesas() {
+      try {
+            console.log(await iniciarPromesa("Promesa 1", true));
+            console.log(await iniciarPromesa("Promesa 2", true));
+            console.log(await iniciarPromesa("Promesa 3", false));
+            console.log(await iniciarPromesa("Promesa 4", true));
+      }
+      catch (error) {
+            console.log("ERROR: " + error);
+      }
+};
+
+
+ejecutarPromesas();
+
+
+//CONSOLA:
+//Promesa 1 cumplida (tras 2 segundos)
+//Promesa 2 cumplida (tras 4 segundos)
+//ERROR: Promesa 3 rechazada (tras 6 segundos)
+```
+
+</br></br></br>
