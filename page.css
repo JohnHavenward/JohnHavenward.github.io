@@ -161,14 +161,14 @@ h2 {
       place-items: center;
       position: relative;
       height: 15vh;
-      background-color: #353535;
+      background-color: #282828;
       z-index: 5;
       
       & .name {
             font-family: 'CompactaBT';
             font-size: 25vw;
             text-align: center;
-            color: #000000;
+            color: #ffc9ca;
       }
 }      
 
@@ -232,7 +232,7 @@ h5 {
       flex-direction: column;
       scroll-behavior: smooth;
       height: 100vh;
-      overflow: auto;
+      overflow-x: hidden;
       
       -ms-overflow-style: none;
       scrollbar-width: none;
