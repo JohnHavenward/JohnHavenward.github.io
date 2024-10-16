@@ -72,7 +72,7 @@ h2 {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      height: 101svh;
+      height: 101dvh;
       width: 75vw;
       background-color: #282828;
       transition: 500ms;
@@ -99,7 +99,7 @@ h2 {
 #touch-area {
       position: fixed;
       width: 100vw;
-      height: 100svh;
+      height: 100dvh;
       background-color: rgba(0, 0, 0, 0);
       transition: 400ms;
       pointer-events: none;
@@ -118,7 +118,7 @@ h2 {
       left: 100vw;
       top: 0;
       width: 100vw;
-      height: 100svh;
+      height: 100dvh;
       background-color: #ffc9ca;
       z-index: 20;
       transition: 600ms;
@@ -131,7 +131,7 @@ h2 {
 
 .items-wrapper {
       position: absolute;
-      top: 15svh;
+      top: 15dvh;
       left: 0;
       right: 0;
       bottom: 0;
@@ -160,7 +160,7 @@ h2 {
       display: grid;
       place-items: center;
       position: relative;
-      height: 15svh;
+      height: 15dvh;
       background-color: #282828;
       z-index: 5;
       
@@ -179,7 +179,7 @@ h2 {
       justify-content: space-between;
       position: relative;
       width: 92vw;
-      top: 75svh;
+      top: 75dvh;
       left: 4vw;
       bottom: 4vw;
       right: 4vw;
@@ -231,7 +231,7 @@ h5 {
       display: flex;
       flex-direction: column;
       scroll-behavior: smooth;
-      height: 100svh;
+      height: 100dvh;
       overflow-x: hidden;
       
       -ms-overflow-style: none;
@@ -253,7 +253,7 @@ h5 {
 }
 
 .item-wrapper {
-      margin: 3svh 0;
+      margin: 3dvh 0;
 }
 
 .media-portada {
@@ -261,7 +261,7 @@ h5 {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100svh;
+      height: 100dvh;
       background-color: #282828;  
 }
 
@@ -373,7 +373,7 @@ h4 {
 
 .links-wrapper {
       padding-left: 25vw;
-      padding-bottom: 10svh;
+      padding-bottom: 10dvh;
 
 }
 
@@ -410,7 +410,7 @@ h4 {
 
 
 #menu-button-wrapper {
-      width: 22.5%;
+      width: 20vw;
       align-self: flex-end;
 }
 
@@ -439,6 +439,8 @@ h4 {
 .ham8 .top {
       stroke-dasharray: 40 160;
 }
+
+
 
 .ham8 .middle {
       stroke-dasharray: 40 142;
