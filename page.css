@@ -29,8 +29,8 @@ h1, h2, h3, h4, h5 {
 }
 
 a {
+      height: 13vw;
       width: 75vw;
-      height: 15vw;
       display: grid;
       place-items: center;
       grid-template-columns: 4fr 1fr;
@@ -57,7 +57,7 @@ h2 {
 #marker {
       position: absolute;
       top: var(--markerTop);
-      height: 15vw;
+      height: 13vw;
       width: 75vw;
       background-color: #ffc9ca;
       z-index: -1;
@@ -76,7 +76,7 @@ h2 {
       width: 75vw;
       background-color: #282828;
       transition: 500ms;
-      right: 85vw;
+      right: 87vw;
       z-index: 5;
       
       & img {
