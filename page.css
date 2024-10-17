@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5 {
 }
 
 a {
-      height: 13vw;
+      height: 15vw;
       width: 75vw;
       display: grid;
       place-items: center;
@@ -57,7 +57,7 @@ h2 {
 #marker {
       position: absolute;
       top: var(--markerTop);
-      height: 13vw;
+      height: 15vw;
       width: 75vw;
       background-color: #ffc9ca;
       z-index: -1;
@@ -72,11 +72,11 @@ h2 {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      height: 101dvh;
+      height: 101vh;
       width: 75vw;
       background-color: #282828;
       transition: 500ms;
-      right: 87vw;
+      right: 85vw;
       z-index: 5;
       
       & img {
@@ -99,7 +99,7 @@ h2 {
 #touch-area {
       position: fixed;
       width: 100vw;
-      height: 100dvh;
+      height: 100vh;
       background-color: rgba(0, 0, 0, 0);
       transition: 400ms;
       pointer-events: none;
@@ -118,7 +118,7 @@ h2 {
       left: 100vw;
       top: 0;
       width: 100vw;
-      height: 100dvh;
+      height: 100vh;
       background-color: #ffc9ca;
       z-index: 20;
       transition: 600ms;
@@ -131,7 +131,7 @@ h2 {
 
 .items-wrapper {
       position: absolute;
-      top: 15dvh;
+      top: 15vh;
       left: 0;
       right: 0;
       bottom: 0;
@@ -160,7 +160,7 @@ h2 {
       display: grid;
       place-items: center;
       position: relative;
-      height: 15dvh;
+      height: 15vh;
       background-color: #282828;
       z-index: 5;
       
@@ -179,7 +179,7 @@ h2 {
       justify-content: space-between;
       position: relative;
       width: 92vw;
-      top: 75dvh;
+      top: 75vh;
       left: 4vw;
       bottom: 4vw;
       right: 4vw;
@@ -231,7 +231,7 @@ h5 {
       display: flex;
       flex-direction: column;
       scroll-behavior: smooth;
-      height: 100dvh;
+      height: 100vh;
       overflow-x: hidden;
       
       -ms-overflow-style: none;
@@ -253,7 +253,7 @@ h5 {
 }
 
 .item-wrapper {
-      margin: 3dvh 0;
+      margin: 3vh 0;
 }
 
 .media-portada {
@@ -261,7 +261,7 @@ h5 {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100dvh;
+      height: 100vh;
       background-color: #282828;  
 }
 
@@ -373,7 +373,7 @@ h4 {
 
 .links-wrapper {
       padding-left: 25vw;
-      padding-bottom: 10dvh;
+      padding-bottom: 10vh;
 
 }
 
@@ -410,7 +410,7 @@ h4 {
 
 
 #menu-button-wrapper {
-      width: 20vw;
+      width: 23%;
       align-self: flex-end;
 }
 
