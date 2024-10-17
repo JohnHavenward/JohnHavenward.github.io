@@ -17,12 +17,13 @@ h1, h2, h3, h4, h5 {
       font-weight: normal;
 }
 
-
+html {
+      height: 100dvh;
+}
 
 body {
       background-color: #282828;
       overflow-x: hidden;
-      height: 300dvh;
 }
 
 
@@ -231,7 +232,6 @@ h5 {
       right: 0;
       transition: 600ms;
       
-      height: 100dvh;
 }
 
 .moved {
