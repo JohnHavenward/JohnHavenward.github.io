@@ -99,16 +99,11 @@ h2 {
 #touch-area {
       position: absolute;
       inset: 0;
-      background-color: rgba(255, 121, 121, 0.59);
       transition: 400ms;
       pointer-events: none;
       
       &.active {
             background-color: rgba(0, 0, 0, 0.3);
-      }
-      
-      &.touch-active {
-            pointer-events: all;
       }
 }
 

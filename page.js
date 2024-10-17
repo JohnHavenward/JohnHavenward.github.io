@@ -12,12 +12,13 @@ const touchArea = document.querySelector('#touch-area')
 const lateralMenu = document.querySelector('[data-lateral-menu]')
 const sectionLinks = [...document.querySelectorAll('[data-link]')]
 const sections = [...document.querySelectorAll('section')]
+const sectionsWrapper = document.querySelector('#sections-wrapper')
 const scrollRoot = document.querySelector('[data-scroller]')
 const headerLinks = [...document.querySelectorAll('[data-link]')]
 
 menuButton.addEventListener("click", expandLateralMenu, false)
-touchArea.addEventListener("touchstart", expandLateralMenu, false)
-touchArea.addEventListener("touchend", deactivateTouchEvents, false)
+sectionsWrapper.addEventListener("touchstart", expandLateralMenu, false)
+//touchArea.addEventListener("touchend", deactivateTouchEvents, false)
 sectionLinks.forEach(link => {
       link.addEventListener("click", expandLateralMenu, false)
 });
@@ -137,12 +138,6 @@ function expandLateralMenu() {
       }
 }
 
-
-function deactivateTouchEvents() {
-      if (touchArea.classList.contains('touch-active')) {
-            lateralMenu.classList.remove('touch-active')
-      }
-}
 
 
 function expandRightMenu() {
