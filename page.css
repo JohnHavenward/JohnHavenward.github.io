@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5 {
 }
 
 a {
-      height: 13vw;
+      height: 15vw;
       width: 75vw;
       display: grid;
       place-items: center;
@@ -57,7 +57,7 @@ h2 {
 #marker {
       position: absolute;
       top: var(--markerTop);
-      height: 13vw;
+      height: 15vw;
       width: 75vw;
       background-color: #ffc9ca;
       z-index: -1;
@@ -76,7 +76,7 @@ h2 {
       width: 75vw;
       background-color: #282828;
       transition: 500ms;
-      right: 87vw;
+      right: 85vw;
       z-index: 5;
       
       & img {
@@ -97,10 +97,9 @@ h2 {
 }
 
 #touch-area {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0);
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255, 121, 121, 0.59);
       transition: 400ms;
       pointer-events: none;
       
