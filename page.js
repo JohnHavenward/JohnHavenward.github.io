@@ -18,7 +18,6 @@ const headerLinks = [...document.querySelectorAll('[data-link]')]
 
 menuButton.addEventListener("click", expandLateralMenu, false)
 sectionsWrapper.addEventListener("touchstart", expandLateralMenu, false)
-//touchArea.addEventListener("touchend", deactivateTouchEvents, false)
 sectionLinks.forEach(link => {
       link.addEventListener("click", expandLateralMenu, false)
 });
@@ -127,13 +126,18 @@ function expandLateralMenu() {
             }
             touchArea.classList.remove('active')
             lateralMenuExpanded = false;
+            if (this.dataset.link)
+            document.getElementById(this.dataset.link).scrollIntoView();
       }
       else {
-            if (this.getAttribute('href') === `#${currentSection}` || this.id === 'menu-button-wrapper') {
+            if (this.dataset.link === currentSection || this.id === 'menu-button-wrapper') {
                   touchArea.classList.add('active');
-                  touchArea.classList.add('touch-active');
                   lateralMenu.classList.add('expanded');
                   lateralMenuExpanded = true;
+            }
+            else {
+                  if (this.dataset.link)
+                  document.getElementById(this.dataset.link).scrollIntoView();
             }
       }
 }
@@ -164,7 +168,7 @@ const updateMarker = (target) => {
 
       /* Find the corresponding nav link, or use the first one */
       let link = headerLinks.find((el) => {
-            return el.getAttribute('href') === `#${id}`
+            return el.dataset.link === id
       })
 
       link = link || headerLinks[0]
