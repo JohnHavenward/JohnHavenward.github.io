@@ -13,58 +13,21 @@
       box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5 {
+      font-weight: normal;
+}
+
+
+
 body {
       background-color: #282828;
       overflow-x: hidden;
       height: 100dvh;
 }
 
-h1, h2, h3, h4, h5 {
-      font-weight: normal;
-}
-
-#logo {
-      width: 20%;
-      align-self: flex-end;
-      margin-top: 0;
-}
-
-a {
-      height: 15vw;
-      width: 75vw;
-      display: grid;
-      place-items: center;
-      grid-template-columns: 4fr 1fr;
-      text-decoration: none;
-      color: black;
-}
-
-.lateral-menu-sections {
-
-}
-
-li {
-      list-style-type: none;
-}
-
-h2 {
-      font-family: "CompactaBT";
-      font-size: 12vw;
-      justify-self: start;
-      padding-left: 10vw;
-}
 
 
-#marker {
-      position: absolute;
-      top: var(--markerTop);
-      height: 15vw;
-      width: 75vw;
-      background-color: #ffc9ca;
-      z-index: -1;
-      transition: 300ms;
-}
-
+/* LATERAL MENU */
 
 
 .lateral-menu-wrapper {
@@ -97,6 +60,52 @@ h2 {
       right: 25vw;
 }
 
+
+#logo {
+      width: 20%;
+      align-self: flex-end;
+      margin-top: 0;
+}
+
+a {
+      height: 15vw;
+      width: 75vw;
+      display: grid;
+      place-items: center;
+      grid-template-columns: 4fr 1fr;
+      text-decoration: none;
+      color: black;
+}
+
+.lateral-menu-sections {
+
+}
+
+li {
+      list-style-type: none;
+}
+
+.lateral-menu-wrapper h2 {
+      font-family: "CompactaBT";
+      font-size: 12vw;
+      justify-self: start;
+      padding-left: 10vw;
+}
+
+
+#marker {
+      position: absolute;
+      top: var(--markerTop);
+      height: 15vw;
+      width: 75vw;
+      background-color: #ffc9ca;
+      z-index: -1;
+      transition: 300ms;
+}
+
+
+
+
 #touch-area {
       position: absolute;
       inset: 0;
@@ -107,6 +116,9 @@ h2 {
             background-color: rgba(0, 0, 0, 0.3);
       }
 }
+
+
+
 
 
 
@@ -207,12 +219,18 @@ h5 {
 }
 
 
+
+
+
+
 .main-wrapper {
       position: fixed;
       width: 100vw;
       top: 0;
       right: 0;
       transition: 600ms;
+      
+      height: 100dvh;
 }
 
 .moved {
