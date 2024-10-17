@@ -17,7 +17,7 @@ const headerLinks = [...document.querySelectorAll('[data-link]')]
 
 menuButton.addEventListener("click", expandLateralMenu, false)
 touchArea.addEventListener("touchstart", expandLateralMenu, false)
-touchArea.addEventListener("touchstart", expandLateralMenu, false)
+touchArea.addEventListener("touchend", deactivateTouchEvents, false)
 sectionLinks.forEach(link => {
       link.addEventListener("click", expandLateralMenu, false)
 });
@@ -130,11 +130,20 @@ function expandLateralMenu() {
       else {
             if (this.getAttribute('href') === `#${currentSection}` || this.id === 'menu-button-wrapper') {
                   touchArea.classList.add('active');
+                  touchArea.classList.add('touch-active');
                   lateralMenu.classList.add('expanded');
                   lateralMenuExpanded = true;
             }
       }
 }
+
+
+function deactivateTouchEvents() {
+      if (touchArea.classList.contains('touch-active')) {
+            lateralMenu.classList.remove('touch-active')
+      }
+}
+
 
 function expandRightMenu() {
       rightMenu.classList.add('expanded');

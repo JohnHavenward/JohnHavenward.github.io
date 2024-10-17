@@ -104,8 +104,11 @@ h2 {
       pointer-events: none;
       
       &.active {
-            pointer-events: all;
             background-color: rgba(0, 0, 0, 0.3);
+      }
+      
+      &.touch-active {
+            pointer-events: all;
       }
 }
 
