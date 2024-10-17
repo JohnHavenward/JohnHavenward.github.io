@@ -121,6 +121,7 @@ li {
 
 
 
+/* RIGHT MENU */
 
 
 #right-menu {
@@ -220,7 +221,7 @@ h5 {
 
 
 
-
+/* MAIN MENU */
 
 
 .main-wrapper {
@@ -296,12 +297,14 @@ h5 {
 }
 
 
+
 h3 {
       font-family: "CompactaBT";
       font-size: 20vw;
       text-align: left;
       padding: 0 10% 0 25%;
 }
+
 
 .text-wrapper {
 
