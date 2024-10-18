@@ -225,10 +225,7 @@ h5 {
 
 
 .main-wrapper {
-      position: absolute;
       width: 100vw;
-      top: 0;
-      right: 0;
       transition: 600ms;
       
 }
