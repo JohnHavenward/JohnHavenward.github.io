@@ -224,13 +224,8 @@ h5 {
 
 
 .main-wrapper {
-      position: fixed;
-      width: 100vw;
-      top: 0;
-      right: 0;
-      transition: 600ms;
-      
-      height: 100dvh;
+      position: absolute;
+      inset: 0;
 }
 
 .moved {
@@ -247,8 +242,6 @@ h5 {
       display: flex;
       flex-direction: column;
       scroll-behavior: smooth;
-      height: 100vh;
-      overflow-x: hidden;
       
       -ms-overflow-style: none;
       scrollbar-width: none;
