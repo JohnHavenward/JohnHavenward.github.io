@@ -27,7 +27,6 @@ let currentSection;
 
     
 const options = {
-      root: scrollRoot,
       rootMargin: '-400px 0px',
       threshold: 0
 }
@@ -84,7 +83,9 @@ const getTargetSection = (target) => {
 const onIntersect = (entries) => {
       entries.forEach((entry) => {
             setScrollDirection()
-
+            
+            console.log('inter')
+            
             /* Do nothing if no need to update */
             if (!shouldUpdate(entry)) return
 
