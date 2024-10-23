@@ -27,6 +27,7 @@ let currentSection;
 
     
 const options = {
+      root: null,
       rootMargin: '-400px 0px',
       threshold: 0
 }
@@ -41,17 +42,19 @@ document.addEventListener('readystatechange', e => {
 
 
 
+
+
 let direction = 'up'
 let prevYPosition = 0
 
 const setScrollDirection = () => {
-      if (scrollRoot.scrollTop > prevYPosition) {
+      if (Window.scrollY > prevYPosition) {
             direction = 'down'
       } else {
             direction = 'up'
       }
 
-      prevYPosition = scrollRoot.scrollTop
+      prevYPosition = Window.scrollY
 }
 
 
