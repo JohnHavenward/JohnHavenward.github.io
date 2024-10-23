@@ -90,6 +90,7 @@ const onIntersect = (entries) => {
 
             const target = getTargetSection(entry.target)
             
+            
             if (target.id == 'portada') {
                   hideLateralMenu(true)
             }
