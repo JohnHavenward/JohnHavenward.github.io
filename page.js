@@ -52,6 +52,7 @@ const setScrollDirection = () => {
             direction = 'down'
       } else {
             direction = 'up'
+            alert()
       }
 
       prevYPosition = window.scrollY
