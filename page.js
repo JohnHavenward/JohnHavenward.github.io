@@ -48,13 +48,13 @@ let direction = 'up'
 let prevYPosition = 0
 
 const setScrollDirection = () => {
-      if (Window.scrollY > prevYPosition) {
+      if (window.scrollY > prevYPosition) {
             direction = 'down'
       } else {
             direction = 'up'
       }
 
-      prevYPosition = Window.scrollY
+      prevYPosition = window.scrollY
 }
 
 
