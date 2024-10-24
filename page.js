@@ -132,7 +132,7 @@ function expandLateralMenu() {
             touchArea.classList.remove('active')
             lateralMenuExpanded = false;
             if (this.dataset.link)
-            document.getElementById(this.dataset.link).scrollIntoView();
+            document.getElementById(this.dataset.link).scrollIntoView({ behavior: "smooth" });
       }
       else {
             if (this.dataset.link === currentSection || this.id === 'menu-button-wrapper') {
@@ -142,7 +142,7 @@ function expandLateralMenu() {
             }
             else {
                   if (this.dataset.link)
-                  document.getElementById(this.dataset.link).scrollIntoView();
+                  document.getElementById(this.dataset.link).scrollIntoView({ behavior: "smooth" });
             }
       }
 }
