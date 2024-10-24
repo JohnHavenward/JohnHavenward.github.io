@@ -29,7 +29,7 @@ let currentSection;
 const options = {
       root: null,
       rootMargin: '-400px 0px',
-      threshold: 0
+      threshold: 0.05
 }
 
 
@@ -52,7 +52,6 @@ const setScrollDirection = () => {
             direction = 'down'
       } else {
             direction = 'up'
-            alert()
       }
 
       prevYPosition = window.scrollY
