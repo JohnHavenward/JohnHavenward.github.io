@@ -29,7 +29,7 @@ let currentSection;
 const options = {
       root: null,
       rootMargin: '-400px 0px',
-      threshold: 0.05
+      threshold: 0
 }
 
 
@@ -48,13 +48,13 @@ let direction = 'up'
 let prevYPosition = 0
 
 const setScrollDirection = () => {
-      if (window.scrollY > prevYPosition) {
+      if (VisualViewport.offsetTop > prevYPosition) {
             direction = 'down'
       } else {
             direction = 'up'
       }
 
-      prevYPosition = window.scrollY
+      prevYPosition = VisualViewport.offsetTop
 }
 
 
